@@ -228,7 +228,7 @@ h2 small {
 
 .table-row:hover{
   background-color: #778899;
-  cursor: pointer;
+
 }
 a{
   text-decoration: none;
@@ -329,4 +329,48 @@ a{
 }
 
 
+/***************************************************************************************Menu accordéon**************************************************************************/
+.dropbtn {
+  background-color: #1e2027;
 
+  border-radius: 5px 5px 5px 5px;
+  color: white;
+  padding: 6px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+
+
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #323541;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #caccd6;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 4px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
