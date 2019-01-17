@@ -1,4 +1,7 @@
-<?php 
+<?php
+/*Raphaël Barrasset, Castelain Julien, Ducroux Guillaume, Saint-Amand Matthieu	L3i 2019
+raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
+
 require('connectDatabase.php');
 require('main.func.php');
 
@@ -6,8 +9,6 @@ function register(){
 	if(isset($_POST['validRegister']) ){
 		$dbconn = connectionDB();
 		$errorR="";
-
-		//$password_hash = crypt($password, 'rl');
 
 		//Password check
 		//Size check
@@ -105,9 +106,35 @@ function register(){
 			}
 		}
 
+		$query = 'SELECT student_idU FROM users';
+		$result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
+		$tab = array();
+		$i=0;
+		$j=0;
+		$k=0;
+		while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+    		foreach ($line as $col_value) {
+    			$tab[$i]=$col_value;
+    			$i++;
+    		}
+ 
+		}
+		//if the student no existing in the database a popup alert the client student number does already exist
+		while(($k==0) && ($j<$i)){
+			if (strcmp($_POST['myno'], $tab[$j])==0) {
+				$k=2;
+				$errorR.="<p class='registerError'>Erreur : Vous ne pouvez vous inscrire qu'une seule fois</p>";
+				return $errorR;
+			}
+			else {
+				$j++;
+			}
+		}
+
 		//request to create line in table.users
 		$request = "INSERT INTO users VALUES(DEFAULT, '".$_POST['myno']."', '".$_POST['myname']."', '".$_POST['mysurname']."', ' ', '".$_POST['myemail']."', ' ', ' ', '$password_hash', ' ', 'student', 'pending')";
 		$resultat = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
+
 
 		//We want to increment table.logs to save this action and keep an eye on registering requests
 		if (pg_last_error() == NULL) {
@@ -116,7 +143,7 @@ function register(){
 			$resultUserId = pg_query($requestUserId) or die('ERREUR SQL : '. $requestUserId . 	pg_last_error());
 			$userId = pg_fetch_result($resultUserId, 'idu');
 
-			//Add a line in table.Logs with action made/date/client ip/type of request(insert/delete/update)/and object concerned.
+			//Add a line in table.Logs with : action made/date/client ip/type of request(insert/delete/update)/and object concerned.
 			$request = "INSERT INTO logs VALUES(DEFAULT, 'student registering', '".getTheDate()."', '".getIp()."', 'insert', null, '$userId', null, null, null, null, null)";
 			$resultat = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
 		}
