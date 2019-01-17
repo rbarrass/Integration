@@ -1,0 +1,332 @@
+/*@import url(https://fonts.googleapis.com/css?family=Open+Sans:600);*/
+.sidenav {
+  position: fixed;
+  width: 280px;
+  height: 98%;
+  background-color: #1e2027;
+}
+.sidenav .main-buttons {
+  list-style-type: none;
+  margin: 64px 0;
+  padding: 0;
+  color: #fff;
+}
+.sidenav .main-buttons li {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+}
+.sidenav .main-buttons > li {
+  padding: 16px 52px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.sidenav .main-buttons > li .fa {
+  position: absolute;
+  left: 12px;
+  color: #414655;
+}
+.sidenav .main-buttons > li:hover, .sidenav .main-buttons > li:active, .sidenav .main-buttons > li:focus {
+  background-color: #292c35;
+  cursor: pointer;
+}
+.sidenav .main-buttons > li:hover .hidden, .sidenav .main-buttons > li:active .hidden, .sidenav .main-buttons > li:focus .hidden {
+  width: 228px;
+}
+
+.hidden {
+  width: 0;
+  height: 86%;
+  padding: 64px 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  overflow: hidden;
+  list-style-type: none;
+  background-color: #292c35;
+  -moz-transition: 0.3s;
+  -o-transition: 0.3s;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.hidden li {
+  padding: 16px 24px;
+}
+.hidden li:hover, .hidden li:active, .hidden li:focus {
+  background-color: #323541;
+}
+
+body {
+  background-color: #caccd6;
+  line-height: 30px;
+}
+
+html,
+body {
+  height: 100%;
+}
+/*-------------------------------------------------------------------------------------------*/
+/*@import url('https://fonts.googleapis.com/css?family=Raleway:400,700,900');*/
+
+/* Base styling */
+
+.search__container {
+        padding-top: 34px;
+    }
+
+.search__input {
+        width: 50%;
+        padding: 12px 24px;
+        margin-left: 30%;
+
+        background-color: transparent;
+        transition: transform 250ms ease-in-out;
+        font-size: 14px;
+        line-height: 18px;
+        
+        color: #575756;
+        background-color: transparent;
+        background-image: url(http://mihaeltomic.com/codepen/input-search/ic_search_black_24px.svg);
+        background-repeat: no-repeat;
+        background-size: 18px 18px;
+        background-position: 95% center;
+        border-radius: 50px;
+        border: 1px solid #575756;
+        transition: all 250ms ease-in-out;
+        backface-visibility: hidden;
+        transform-style: preserve-3d;
+    }
+
+.search__input::placeholder {
+            color: rgba(87, 87, 86, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+.search__input:hover,
+        .search__input:focus {
+            padding: 12px 0;
+            outline: 0;
+            border: 1px solid transparent;
+            border-bottom: 1px solid #575756;
+            border-radius: 0;
+            background-position: 100% center; /*to avoid the move of the picture */
+        }
+
+.credits__container {
+        margin-top: 24px;
+    }
+
+.credits__text {
+        text-align: center;
+        font-size: 13px;
+        line-height: 18px;
+    }
+
+.credits__link {
+        color: #ff8b88;
+        text-decoration: none;
+        transition: color 250ms ease-in;
+    }
+
+.credits__link:hover,
+        .credits__link:focus {
+            color: rgb(191, 137, 135);
+        }
+/*********************************************************************************/
+
+#ucp_logo{
+  width: 85%;
+  margin-top: 160%;
+  margin-left: auto;
+}
+/************************************Table*********************************************/
+
+.container {
+  margin-top: 5%;
+  max-width: 1400px;
+  width: 75%;
+  margin-left: 20%;
+  margin-right: 10%;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+h2 {
+  font-size: 26px;
+  margin: 20px 0;
+  text-align: center;
+}
+h2 small {
+  font-size: 0.5em;
+}
+
+.responsive-table li {
+  border-radius: 3px;
+  padding: 25px 30px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+.responsive-table .table-header {
+  background-color: #9E9E9E;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.responsive-table .table-row {
+  background-color: #ffffff;
+  box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+  transition: 1s;
+}
+.responsive-table .col-1 {
+  flex-basis: 10%;
+}
+.responsive-table .col-2 {
+  flex-basis: 25%;
+}
+.responsive-table .col-3 {
+  flex-basis: 25%;
+}
+.responsive-table .col-4 {
+  flex-basis: 25%;
+}
+.responsive-table .col-5{
+  flex-basis: 15%;
+}
+.end{
+  margin-left: 44%;
+  font-weight: bold;
+}
+@media all and (max-width: 767px) {
+  .responsive-table .table-header {
+    display: none;
+  }
+  .responsive-table li {
+    display: block;
+  }
+  .responsive-table .col {
+    flex-basis: 100%;
+  }
+  .responsive-table .col {
+    display: flex;
+    padding: 10px 0;
+  }
+  .responsive-table .col:before {
+    color: #6C7A89;
+    padding-right: 10px;
+    content: attr(data-label);
+    flex-basis: 50%;
+    text-align: right;
+  }
+}
+
+/*********************************************************************************/
+
+.table-row:hover{
+  background-color: #778899;
+  cursor: pointer;
+}
+a{
+  text-decoration: none;
+  color: black;
+}
+#export{
+  float: right;
+  margin-right: 5%;
+  margin-top: 2%;
+}
+.iconsAlert{
+  float: right;
+  margin-right: 2%;
+  margin-top: 1%;
+}
+
+/***************************************************************************************************************** Register Page *********************************************************************v***/
+.registerForm{
+  margin-top: 5%;
+
+  min-width: 280px;
+  max-width: 1400px;
+  width: 16%;
+  margin-left: 48%;
+  margin-right: 10%;
+  margin-bottom: 5%;
+  margin-top: 60px;
+
+  padding-left: 80px;
+  padding-right: 0px;
+  padding-bottom: 30px;
+
+  background-color: #292c35;
+  overflow: hidden; /* cache le texte dépassant du compartiment*/
+  border-radius: 10px 10px 10px 10px;
+  opacity: 0.9;
+  white-space: nowrap; /* évite le passage à la ligne automatique */
+}
+
+.registerForm h2{
+  color: white;
+
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  padding-top: 10px;
+
+  padding-right: 100px;
+}
+
+.registerForm p{
+  color: white;
+
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
+
+  padding-top: 15px;
+  margin-bottom: 0px;
+  margin-left: 14px;
+}
+
+.registerForm input{
+  border-radius: 5px 5px 5px 5px;
+  font-family: "Open Sans", sans-serif;
+  letter-spacing: 2px;
+  margin-left: 14px;
+}
+
+.registerError{
+  margin-left: 16%; 
+  text-align: center; 
+  font-weight: bold; 
+  color: red;
+}
+
+.button {
+  background-color: #caccd6;
+  border: none;
+  color: black;
+  padding: 8px 16px;
+  text-align: center;
+  font-size: 12px;
+  margin: 2px 1px;
+  opacity: 0.6;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  margin-left: 45px;
+  opacity: 1;
+}
+
+
+
