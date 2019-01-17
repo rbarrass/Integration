@@ -11,4 +11,7 @@ Comment faut utiliser la table Logs ?
               - Add a line in table.Logs with : action made/date/client ip/type of request(insert/delete/update)/and object concerned.
               
               
+Copiez collez ça dans vos fichiers :  /*Barrasset Raphaël , Castelain Julien, Ducroux Guillaume, Saint-Amand Matthieu  L3i 2019
+  raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
+              
 Rafouille la fripouille
