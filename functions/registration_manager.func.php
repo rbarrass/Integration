@@ -3,17 +3,18 @@
 raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
 
 require('connectDatabase.php');
+require('main.func.php');
 
 
 function pendingList(){
 	$dbconn = connectionDB();
 	$display = '';
 
-	$query = "SELECT student_idU,nameU,surnameU,emailU FROM users WHERE validationU='pending';";
+	$query = "SELECT student_idU,nameU,surnameU,emailU,idU FROM users WHERE validationU='pending';";
 	$result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
-
+	$i=0;
 	while ($line = pg_fetch_array($result,null,PGSQL_ASSOC)) {
-		$i=0;
+		
 		$j=0;
 		$display.='<li class="table-row">';
 		foreach ($line as $col_value) {
@@ -30,23 +31,30 @@ function pendingList(){
 				case 3:
 					$display.= '<div class="col col-4" data-label="Email">'.$col_value.'</div>';
 					break;
+				case 4:
+					$idUsr = $col_value;
+					break;
 				default:
 					break;
 			}
 			$j++;
 		}
 		$display.= '<div class="col col-5" data-label="Status"><div class="dropdown">
-						  <button onclick="myFunction()" class="dropbtn">Action</button>
-						  <div id="myDropdown" class="dropdown-content">
-						    <a href="#home">Autoriser</a>
-						    <a href="#about">Refuser</a>
-						    <a href="#contact">Bloquer</a>
+						  <button onclick="myFunction'.$i.'()" class="dropbtn">Action</button>
+						  <div id="myDropdown'.$i.'" class="dropdown-content">
+						  <form enctype="multipart/form-data" action="registration_manager.php" method="POST">
+						        <input type="hidden" name="myid" value="'.$idUsr.'">
+						        <input type="submit" name="allowed" value="Autoriser">
+						        <input type="submit" name="denied" value="Refuser">
+						        <input type="submit" name="banned" value="Bloquer">
+						   </form>
+						 
 						  </div>
 						</div><script>
 						/* When the user clicks on the button, 
 						toggle between hiding and showing the dropdown content */
-						function myFunction() {
-						  document.getElementById("myDropdown").classList.toggle("show");
+						function myFunction'.$i.'() {
+						  document.getElementById("myDropdown'.$i.'").classList.toggle("show");
 						}
 
 						// Close the dropdown if the user clicks outside of it
@@ -62,7 +70,7 @@ function pendingList(){
 						    }
 						  }
 						}
-						</script></div>';
+						</script></div>';	
 		$i++;
 		$display.= '</li>';
 	}
