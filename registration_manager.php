@@ -78,6 +78,7 @@
         
         <?php
           pendingList();
+          approval();
         ?>
         
       </ul>
