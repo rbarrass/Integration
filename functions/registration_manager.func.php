@@ -1,15 +1,10 @@
 <?php
 /*Barrasset Raphaël, Castelain Julien, Ducroux Guillaume, Saint-Amand Matthieu	L3i 2019
 raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
-
-require('connectDatabase.php');
 require('main.func.php');
-
-
 function pendingList(){
 	$dbconn = connectionDB();
 	$display = '';
-
 	$query = "SELECT student_idU,nameU,surnameU,emailU,idU FROM users WHERE validationU='pending';";
 	$result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
 	$i=0;
@@ -56,7 +51,6 @@ function pendingList(){
 						function myFunction'.$i.'() {
 						  document.getElementById("myDropdown'.$i.'").classList.toggle("show");
 						}
-
 						// Close the dropdown if the user clicks outside of it
 						window.onclick = function(event) {
 						  if (!event.target.matches(".dropbtn")) {
@@ -74,30 +68,24 @@ function pendingList(){
 		$i++;
 		$display.= '</li>';
 	}
-
 	if ($display == ''){
 		$display.= '<h2>Il n\'y a pas de comptes en attente d\'approbation</h2>';
 	}
 	echo $display;
 }
-
 function approval(){
 	if(isset($_POST['allowed']) ){
 		$dbconn = connectionDB();
 		$query = "UPDATE users SET validationU='allowed' WHERE idU='".$_POST['myid']."'";
 		$result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
-
 		//We want to increment table.logs to save this action and keep an eye on registering requests
 		if (pg_last_error() == NULL) {
 			//Request to search id of account just created 
 				
 			//SESSION!
-
 			//Add a line in table.Logs with : action made/date/client ip/type of request(insert/delete/update)/and object concerned.
 			$request = "INSERT INTO logs VALUES(DEFAULT, 'student approval allowed', '".getTheDate()."', '".getIp()."', 'update', null, '".$_POST['myid']."', null, null, null, null, null)";
 			$resultat = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
-
-
 			//Request for notification popup
 			$request = "SELECT surnameU,nameU FROM users WHERE idU='".$_POST['myid']."'";
 			$result = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
@@ -114,26 +102,21 @@ function approval(){
 						break;
 				}				
 			}
-
 			return $display;
 		}
 	}
-
 	if(isset($_POST['banned']) ){
 		$dbconn = connectionDB();
 		$query = "UPDATE users SET validationU='banned' WHERE idU='".$_POST['myid']."'";
 		$result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
-
 		//We want to increment table.logs to save this action and keep an eye on registering requests
 		if (pg_last_error() == NULL) {
 			//Request to search id of account just created 
 				
 			//SESSION!
-
 			//Add a line in table.Logs with : action made/date/client ip/type of request(insert/delete/update)/and object concerned.
 			$request = "INSERT INTO logs VALUES(DEFAULT, 'student approval banned', '".getTheDate()."', '".getIp()."', 'update', null, '".$_POST['myid']."', null, null, null, null, null)";
 			$resultat = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
-
 			//Request for notification popup
 			$request = "SELECT surnameU,nameU FROM users WHERE idU='".$_POST['myid']."'";
 			$result = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
@@ -150,26 +133,21 @@ function approval(){
 						break;
 				}				
 			}
-
 			return $display;
 		}
 	}
-
 	if(isset($_POST['denied']) ){
 		$dbconn = connectionDB();
 		$query = "DELETE FROM users WHERE idU='".$_POST['myid']."'";
 		$result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
-
 		//We want to increment table.logs to save this action and keep an eye on registering requests
 		if (pg_last_error() == NULL) {
 			//Request to search id of account just created 
 				
 			//SESSION!
-
 			//Add a line in table.Logs with : action made/date/client ip/type of request(insert/delete/update)/and object concerned.
 			$request = "INSERT INTO logs VALUES(DEFAULT, 'student approval denied', '".getTheDate()."', '".getIp()."', 'delete', null, '".$_POST['myid']."', null, null, null, null, null)";
 			$resultat = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
-
 			//Request for notification popup
 			$request = "SELECT surnameU,nameU FROM users WHERE idU='".$_POST['myid']."'";
 			$result = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
@@ -186,7 +164,6 @@ function approval(){
 						break;
 				}				
 			}
-
 			return $display;
 		}
 	}
