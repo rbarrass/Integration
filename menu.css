@@ -228,7 +228,7 @@ h2 small {
 
 .table-row:hover{
   background-color: #778899;
-  cursor: pointer;
+
 }
 a{
   text-decoration: none;
@@ -364,25 +364,13 @@ a{
   z-index: 1;
 }
 
-.dropdown-content input[type=submit] {
+.dropdown-content a {
   color: black;
-  background-color: #caccd6;
-  padding-bottom: 10px;
-  padding-top: 10px;
-
+  padding: 4px 16px;
   text-decoration: none;
   display: block;
-  width: 60%; 
-  margin-top: 0px;
-
-  font-size: 15px;
-
-  border:0 none;
-  cursor:pointer;
-  -webkit-border-radius: 0px;
-  border-radius: 0px; 
 }
 
-.dropdown input[type=submit]:hover {background-color: #ddd;}
+.dropdown a:hover {background-color: #ddd;}
 
 .show {display: block;}

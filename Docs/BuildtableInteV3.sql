@@ -10,7 +10,7 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE Classrooms
-  OWNER TO raphael; 
+  OWNER TO l1k1; 
 
 
 
@@ -38,7 +38,7 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE Users
-  OWNER TO raphael;
+  OWNER TO l1k1;
 
 
  CREATE TABLE Institutions
@@ -58,7 +58,7 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE Institutions
-  OWNER TO raphael;
+  OWNER TO l1k1;
 
 
 CREATE TABLE Contracts
@@ -92,7 +92,7 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE Contracts
-  OWNER TO raphael;
+  OWNER TO l1k1;
 
 
 
@@ -111,7 +111,7 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE Missions
-  OWNER TO raphael;
+  OWNER TO l1k1;
 
 
 CREATE TABLE Reports
@@ -145,7 +145,7 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE Reports
-  OWNER TO raphael;
+  OWNER TO l1k1;
 
 
  CREATE TABLE Logs
@@ -191,4 +191,4 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE Users
-  OWNER TO raphael;
+  OWNER TO l1k1;

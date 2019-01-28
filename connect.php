@@ -54,7 +54,8 @@
     </div>
 </nav>
 
-<?php if($_GET['id']=='login'){
+<?php 
+if($_GET['id']=='login'){
   echo '<main class="login-form"> <!-- ICI COMMENCE LA PARTIE LOG -->
     <div> <!-- NE PAS UTILISER CONTAINER -->
         <div class="row justify-content-center">
@@ -106,25 +107,24 @@
 </main>';    
 }else{
   $containError = register(); 
-  if ($containError=='null') {
-          registerOk();
+  //registerForm();
+  // Redirect to profil.php page if no error detected, else show it
+  if ($containError == "null") {
+    echo "gooda";
   }else{
-          //registerOk();
-          if ($containError == "null") {
-            
-          }else{
-            echo "$containError";
-          }
-          registerFORM();
-        }
-  } 
+    echo "$containError";
+  }
+  if ($containError == "null") {
+    registerOk();
+  }else{
+    registerFORM();
+    //registerOk();
+  }
+  }
 ?>
 
 
 
 
-
 </body>
-</html>
-</body>
-</html>
+</html> 
