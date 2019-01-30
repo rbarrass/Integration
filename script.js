@@ -1,7 +1,7 @@
   /*Barrasset Raphaël, Castelain Julien, Ducroux Guillaume, Saint-Amand Matthieu  L3i 2019
   raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
 var myObj= new Array();
-var motsClefs=new Array();
+var keyword=new Array();
 window.onload = function(){
 	// We retrieve here, with JSon a php object ( an array ), to communicate between server-side and client-side
 	//from php to javascript and display it when the user enter a character
@@ -10,7 +10,7 @@ window.onload = function(){
 	  if (this.readyState == 4 && this.status == 200) {
 	     myObj = JSON.parse(this.responseText);
 	          //alert(myObj[0]);
-	          motsClefs=myObj;
+	          keyword=myObj;
 	  }
 	};
 	xmlhttp.open("GET", "json.php", true);
@@ -40,15 +40,15 @@ window.onload = function(){
 	    // create a variable which contains all the suggestions
 	    var frag = document.createDocumentFragment();
 			
-	    for(var i = 0, c = motsClefs.length; i < c; i++){
-	        if(new RegExp("^"+txt,"i").test(motsClefs[i])){
+	    for(var i = 0, c = keyword.length; i < c; i++){
+	        if(new RegExp("^"+txt,"i").test(keyword[i])){
 			    var word = document.createElement("li");
 			    // add to the fargment
 			    frag.appendChild(word);
 			    // use RegEx
-			    word.innerHTML = motsClefs[i].replace(new RegExp("^("+txt+")","i"),"<strong>$1</strong>");
+			    word.innerHTML = keyword[i].replace(new RegExp("^("+txt+")","i"),"<strong>$1</strong>");
 			    // add the keyword
-			    word.mot = motsClefs[i];
+			    word.mot = keyword[i];
 			    word.onmousedown = function(){
 				input.focus();
 				input.value = this.mot;
