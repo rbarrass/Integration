@@ -1,5 +1,4 @@
 <?php
-
 function autorizedChar($strchain, $index){
 		//name/surname
 		if($index==0)	return preg_match('/^[a-zA-Z-ëéèàù]{1,}$/', $strchain);
@@ -54,7 +53,7 @@ function displayMenu(){
     </div>
 
     <div id="export">
-      <a style="padding-bottom:10px;" href="#">Export Excel <img src="https://img.icons8.com/color/48/000000/download.png" alt="export"></a>
+      <a style="padding-bottom:10px;" href="functions/exportExcell.php">Export Excel <img src="https://img.icons8.com/color/48/000000/download.png" alt="export"></a>
     </div>';
 
 
