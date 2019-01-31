@@ -18,7 +18,7 @@
 			$query2 = "SELECT student_idu, nameu, surnameu, emailu, validationu FROM users ORDER BY nameu";
 			$res2 = pg_query($query2) or die('Echec de la requête : ' .pg_last_error());
 			while ($line2 = pg_fetch_array($res2, null, PGSQL_ASSOC)) {
-					$result.='<a href=""><li class="table-row">';
+					$result.='<li class="table-row">';
 		    		$result.='
 							          <div class="col col-1" data-label="ID">'.$line2["student_idu"].'</div>
 							          <div class="col col-2" data-label="Name">'.$line2["nameu"].'</div>
@@ -26,7 +26,7 @@
 							          <div class="col col-4" data-label="Entreprise">'.$line2["emailu"].'</div>
 							          <div class="col col-5" data-label="Statut">'.$line2["validationu"].'</div>
 							          <div class="col col-6" data-label="Expiration">Deadline soon</div>
-							      </li></a>';
+							      </li>';
 		 
 			}
 			
@@ -39,7 +39,7 @@
 				$query = "SELECT student_idu, nameu, surnameu, emailu, validationu FROM users WHERE idcl='$id'";
 				$res = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
 				while ($line = pg_fetch_array($res, null, PGSQL_ASSOC)) {
-					$result.='<a href=""><li class="table-row">';
+					$result.='<li class="table-row">';
 		    		$result.='
 							          <div class="col col-1" data-label="ID">'.$line["student_idu"].'</div>
 							          <div class="col col-2" data-label="Name">'.$line["nameu"].'</div>
@@ -47,7 +47,7 @@
 							          <div class="col col-4" data-label="Entreprise">'.$line["emailu"].'</div>
 							          <div class="col col-5" data-label="Statut">'.$line["validationu"].'</div>
 							          <div class="col col-6" data-label="Expiration">Deadline soon</div>
-							      </li></a>';
+							      </li>';
 		 
 				}
 		}

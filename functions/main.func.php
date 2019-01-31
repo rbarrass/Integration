@@ -1,7 +1,5 @@
 <?php
 
-
-
 function autorizedChar($strchain, $index){
 		//name/surname
 		if($index==0)	return preg_match('/^[a-zA-Z-ëéèàù]{1,}$/', $strchain);
@@ -50,16 +48,13 @@ function displayMenu(){
             </ul>
           </li>
         </ul>
-           <a href="https://www.u-cergy.fr/fr/index.html"><img src="./pictures/ucp_logo.png" alt="ucp_logo" id="ucp_logo"></a>
     </nav>
     <div class="iconsAlert">
       <img src="https://img.icons8.com/ios-glyphs/30/000000/alarm.png" alt="alert" id="iconsAlert">
     </div>
-    <div class="search__container">
-      <input class="search__input" type="text" placeholder="Search">
-    </div>
+
     <div id="export">
-      <a href="#">Export Excel <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAB2wAAAdsBV+WHHwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAALcSURBVEiJ7ZVPaFRXFMZ/35tM3n2DC60oqCi6K7jIopVuRAIiihjMRMi2oGhLA4VaoVhtEVtBFEQlGETxD7ieidhuulCa7toulLaLUmgXEjehNm1i3n2Z5B4XOjbVyUxmEmfVb/Xueeec3zv3vfdd+F9tkmoFS3G8R9JFYNMC+zyR2ce9WXZ5oeCo5tNIl5qAAhRMGhqO4w8WBQbWNwEFswEAkwZLcTywGHBTKmbZkODAM7YGh537tC1ggF7vrxscBILBqZJzx9oCBujz/loVLviy7NzxtoCrcMwOAwacLMXxh68NXEqSrXPXxSy7gHQYkKQztWo6lgIss+/Kzv03aFa9imvVtDLxBNIRg0PAny3UA61MbHYs8v5GgBxxXEA63xZwJP1sSbLTzB5H0pj9u6XN9Wm2wKQ1AUYj6Tcze7MlakvgELrG0vTH3jR9CHS3DYzUfwhmys5tBLY2Sl86MKz8CpIINjDPsTpHM0ifLBX4fA9M7fV+xGCkbqbZkWKaLomB/Ir356qLEMJ7uSjaZrBKZm9L2mXwwkmss/MWWUbZuXtAKHq/feFgs3GkoQBX93n/+2XI3y4U1s5WKqtWTE//ksIfk5Dvh8nhJFkP3MGsC6BvYqJqMN0vt2201Q8N3hn3/qSZ5QBWO3clhDCqXO7+X3F85nuodDp3tuzcTzkIZna24TCNwAZfRFGULnfudi7LxkpJ0ge8W70v6aMu507c935g3PstPWk6itlbJh0NsLFe77pbLbPCtPf/JFCcLhQ2RyHcrJH2WZdzuzAbGZY2B+nbvjQ9Xa8vzPM7lJ2r+uBjM/tc0grgKFBo1DCKonV7p6YePf+guudJu1tzYoNRwTrgDUmDjWBzlUkBQODquHhS+x2bvQ88agZYVefs7H6AkM/vQXrwSoL0wPL5nkbOsyiVYTnOfQNseR76oeL9jn74+7WCAUrLlq3WzMzXAJWOjt39k5NjAE8B4R0LpUbLgRQAAAAASUVORK5CYII=" alt="export"></a>
+      <a style="padding-bottom:10px;" href="#">Export Excel <img src="https://img.icons8.com/color/48/000000/download.png" alt="export"></a>
     </div>';
 
 
@@ -69,5 +64,25 @@ function displayMenu(){
 
 }
 
+//Get real IP of client even if he use a proxy
+function getIp() {
+  // IP if shared internet connection
+  if (isset($_SERVER['HTTP_CLIENT_IP'])) {
+    return $_SERVER['HTTP_CLIENT_IP'];
+  }
+  // IP through a proxy
+  elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+    return $_SERVER['HTTP_X_FORWARDED_FOR'];
+  }
+  // Else : simple IP
+  else {
+    return (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '');
+  }
+}
+
+function getTheDate(){
+  date_default_timezone_set('UTC');
+  return date("Y-m-d H:i:s");
+}
 
 ?>
