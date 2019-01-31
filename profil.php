@@ -87,7 +87,7 @@
 		                  <td>ENTREPRISE</td>
 		                </tr>
 		                <tr>
-		                  <th><strong>Addresse entreprise</strong></th>
+		                  <th><strong>Adresse entreprise</strong></th>
 		                  <td>2-chome, R 19, JJJJJ </td>
 		                </tr>
 		                <tr>
