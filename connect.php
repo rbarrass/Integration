@@ -123,7 +123,7 @@ if($_GET['id']=='login'){
   }
 ?>
 
-
+<!-- Ajouter condition timer pour inscription = ex: disponibilité pendant 2 mois Septembre-Octobre
 
 
 </body>
