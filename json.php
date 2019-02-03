@@ -22,7 +22,7 @@
 			$k++;
 		}
 	}
-
+	// concatène
 	for($i=0;$i<sizeof($nameArr);$i++){
 		$idArray[$i]=$nameArr[$i].' '.$surnameArr[$i];
 	}
