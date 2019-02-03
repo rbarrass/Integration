@@ -1,9 +1,7 @@
-
 <?php
     require('functions/main.func.php');
     require('functions/bordtable.func.php');
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +12,7 @@
 <body>
   </html>
     <?php
-    
+    //pb ici
       $menu = displayMenu();
       echo $menu;
       
