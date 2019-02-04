@@ -1,4 +1,5 @@
 <?php
+
 function autorizedChar($strchain, $index){
 		//name/surname
 		if($index==0)	return preg_match('/^[a-zA-Z-ëéèàù]{1,}$/', $strchain);
@@ -8,8 +9,7 @@ function autorizedChar($strchain, $index){
 
 function displayMenu(){
 
-	$dbconn = pg_connect("dbname=dbl1k1 host=localhost user=l1k1 password=starbringen")
-	    or die('Connexion impossible : ' . pg_last_error());
+	$dbconn = connectionDB();
 
 	$result = '<nav class="sidenav">
         <ul class="main-buttons">

@@ -9,7 +9,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
-  <link rel="stylesheet" type="text/css" href="style.less" media="screen">
+  <link rel="stylesheet" type="text/css" href="menu.css" media="screen">
   <link href="https://fonts.googleapis.com/css?family=Cantarell" rel="stylesheet">
   <style>
     h1{text-align: center; margin-left: 38%; font-family: "Open Sans", sans-serif; margin-right: 0%; width: 40%;}
