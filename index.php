@@ -3,7 +3,6 @@
   raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
     require('functions/main.func.php');
     require('functions/bordtable.func.php');
-    /*bug*/
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +24,7 @@
     ?>
     <!-- Barre de recherch dynamique gérée par script.js et style avec style.less -->
     <div class="search__container">
-      <form id="auto-suggest" action="" method="get">
+      <form id="auto-suggest" action="profil.php?" method="get">
         <input type="text" class="search__input" name="search" value="Rechercher..." onfocus="if(this.value=='Rechercher...')this.value=''" autocomplete="off"/>
         <ul class="suggestions">
       <!-- remplit par le script -->

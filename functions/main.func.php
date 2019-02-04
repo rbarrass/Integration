@@ -1,5 +1,7 @@
 <?php
 
+
+
 function autorizedChar($strchain, $index){
 		//name/surname
 		if($index==0)	return preg_match('/^[a-zA-Z-ëéèàù]{1,}$/', $strchain);
@@ -9,7 +11,8 @@ function autorizedChar($strchain, $index){
 
 function displayMenu(){
 
-	$dbconn = connectionDB();
+	$dbconn = pg_connect("dbname=dbnadreamz host=localhost user=nadreamz password=Guillaume95")
+	    or die('Connexion impossible : ' . pg_last_error());
 
 	$result = '<nav class="sidenav">
         <ul class="main-buttons">
@@ -27,16 +30,18 @@ function displayMenu(){
             APPRENTIS
 
             <ul class="hidden">
+            <li>2018-2019
+            <ul class="hidden">
 
- 			<li onclick="location.href=\'index.php?psd=Alternants\';">Alternants</li>';
-            $query = 'SELECT branchcl FROM classrooms';
-			$res = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
-			while ($line = pg_fetch_array($res, null, PGSQL_ASSOC)) {
-    			$result.='
-					  <li onclick="location.href=\'index.php?psd='.$line["branchcl"].'\';">'.$line["branchcl"].'</li>';
- 
-			}
-          $result.='</ul></li>
+             			<li onclick="location.href=\'index.php?psd=Alternants\';">Alternants</li>';
+                        $query = 'SELECT branchcl FROM classrooms';
+            			$res = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
+            			while ($line = pg_fetch_array($res, null, PGSQL_ASSOC)) {
+                			$result.='
+            					  <li onclick="location.href=\'index.php?psd='.$line["branchcl"].'\';">'.$line["branchcl"].'</li>';
+             
+            			}
+          $result.='</ul></li></ul></li>
           <li>
             <i class="fa fa-circle fa-2x"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAADFwAAAxcBwpsE1QAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAFKSURBVGiB7ZlBTsNADEW/EULsqYpULsQ9ECekqypwHyrWSKGLz6ZI6TTROIwTWZbfqkoyHv+x/0yUCgwgyZbxIiKtOdy0BvDClRCSTyTfSX6zgnUytfnOOXUkd5pgnSLghRDt84ZxDmXeV71JsgdwB+BRRI7aldQ8N4XWIyS3AD4B9CJyfxFjKqk5BlxLyHCucsztnMEtCSw9j0pIDWtB/yHM9ttUkVZvWBKmIinEGya7lgbNztbiuaxIyd+KT63q0jtcmIqEEdLUWmMGHl4btlOaXYnZK0qa3YgwQszOkVrrpNmVrPaulWZXEkaI+cneQpod+fHBH2GEpNm9kWb3RhghaXZvpNm9kUK8EUaIyuwe/rWtEaYiY0J+AIDkw8q5VCG5Of/sy3tjrfUB4BnAl6NjoqQrL4xV5AXAHsBp8XTmcwLwBuC1vPELePhshbpEcpgAAAAASUVORK5CYII=" alt="" style="width: 33px;"></i>
              STATISTIQUES
@@ -47,21 +52,23 @@ function displayMenu(){
             </ul>
           </li>
           <li>
-            <i class="fa fa-circle fa-2x"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAB2wAAAdsBV+WHHwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAKRSURBVEiJ1ZbPS1VBFMe/VyuMFCvRgoJsIYTUqk3WK6RaBEKL8GW0ahX4BxSRkiAEEWLtQghatGvTIhfuCqwI+wHVIrCHkfGkSBSfJRH1Pi3uXJg3zb1Xr8+gL8zmnDnnc+bcmbkj/U8CuoF3ZnT/C2AOeMHfeg7k1gLYCjzwAG2VgXtAazWADcA1YCkFamvJxDRkAdYA54HiCoCuiiZHzXKhcd8xq7zfP7CA2yVdlXROkl3lvKQnksYlvZRUlPTFybNN0k5J+yUdlnRI0mbLX5Z0R1J/EASfI2AdcAkoOZU+BU4D65fVqsqubQDOAM+cnCXDqhPw2NOe61aSWqADuAjcB94Cs8CcGbPAG+O7ABwAaq34IU/+cQGPPI6tJqgf+OT/dImaBvpMjiaP/2G0oki/AKxqVyUnTxkYA04SdcSauxsYWgPwMNBm74MgAkhSEASB7bSDjSYlFSTNKNypUrh7GyXtkNQu60S4+Xy70K2wC5iyiu8BWhKThHGNwBGgDdiSNt8Hnna6ti41yQrlbXVc69NkutIrqUvSLmP+KGlU0q0gCL66Ae6K54wptb1WzFngW8JeWwR60sBjxnQT6zJIgOYJj0uaysCpJHAH8NOYp1KgzcCCB9IJHPXY54EmL9jYTphJAPsSwIO+pbmLcjQQCzb2YeMaSQC/zgB+JeC4ZTjmJG0HfgM/gL0xYPuv1plQoN32BQEFy/DeEzBifB+APR7/ohUf++AjvFgilVxwwROwkfDfDOF76gZwEHOpsIpW91mGyzHVbgLuOsG9xpdtcwH1wAzh46w+rlUmSQ64DUwCo8YWd5xyVLY3UsVxygP5JGhKQdkukGqILFdmFeEtwAAwAXw3YwK4AjTbc/8ApZapJl66GGkAAAAASUVORK5CYII="></i>
-             ENREGISTREMENTS
-             <ul class="hidden">
-              <li onclick="location.href=\'registration_manager.php\';">Approbation</li>
-              <li>Edition</li>
+            <i class="fa fa-circle fa-2x"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAB2wAAAdsBV+WHHwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAARASURBVEiJ7ZZPaJN3GMc/pu82u6ZbWJNGZ2s7YRNmLrLC0hYVQ4bdrZtml7U9DemGWGQHRVZIJ6gX6Q6iIkJhO9mygzsomNGTpRdbSFsbqnjYjDH9hzT1T9e8y3eH5H0xaUkT7XFf+F1++X2fz+/P8zxvoHx5gJPATG6cBNyvEadkNQO/AStNTU0aGBjQwMCAmpqaBKwAvwL+zYJVAd8B406nUz09PYrFYipULBZTT0+PqqqqBIznPO++DnA38AvwtKGhQefOndPc3FweLB6PKx6P583Nzc3p7Nmz2rlzp4CnQH8uVlEZwNdAxDCMTCgUUiQSUSaTsQObpqnBwUEFg0E5HI6Mw+FQMBjU4OCgTNO012UyGUUiEYVCIRmGkQEiwFc5hi0P0As88ng8CofDa04yPz+vcDisHTt2CFgCLgKf5sZFYGnXrl06f/685ufn19xMOByW2+0W8CjH8gDc9/l8unz5spaXl/NMExMT6u7ultPpFDAJfA9Ur3Nb1bnfJp1Op7q7uzUxMZEXa3l5WZcuXZLP5xPZamC0vr5efX19a076+PFjuVwuAUdLzg446nK5lEgk8mJZTzE5OSlAAO8AHcCoYRhqb2/X8PCwbaitrRUQKAMcqK2ttf3Dw8Nqb29Xb2/vGvCr+gy45ff7C8EzwN0Sx8yrYL/fL0CnT5/OAxsF4DHgd6DNmjh16hTbtm37xDAKl64v0zRJJpMbrtsw2okTJ0oClqsNwclkktHRUUzTLC2gYdDS0oLX630zcFtbG9FoNEG2H5eit/fu3Vs3Pj6eN/nkyRPGxsZ4+PAhrJNcAFcCgcCmZXUgEBDwDPgnBxTwR6Fpd0VFxb9TU1ObBo5Go6qoqDCBj4uZfjx48KBt6ujosHZbXwa4HnjW2dlpx9m/f7+AvCx1FJiqa2pqgGxZ3LhxA7IlVlcGuA64OzQ0lEmn0wB4PB6A94qZvmlsbLTb2507d9TZ2SlgGthSAnQLEOvq6tLIyIgkKZ1Oq6GhQUComHErED9z5ox9TalUyvqyFDVaG3e73VpaWrL9fX19Av4i25qLqgVIHTlyRKurq5KkCxcuCLgPOIv4qoEH/f39kqTV1VUdPnxYQAr4vIRNA/AR8Pe1a9ckSS9fvlRzc7OAm6xf+wZwq7W1VSsrK5Kkq1evWidtLBVqqcvj8SiZTEqSFhYWtGfPHgEjQBB4Kze+AEZ9Pp8WFxclSYlEwnqeb8uFQjZRbra2turFixf2ex87dkyVlZVWI1BlZaWOHz+uVColSXr+/Ll1O2uaRDlyAVMHDhywT2O937179zQ9PW3ngXUr+/btExAF3n8TMEAN8GddXZ2GhoaUTqdVqHQ6revXr1v/ySLABxsFLaU2IdtofgB+8nq93kOHDrF9+3YAEokEt2/fZnZ2dhb4GbgCZDYLbGkr8CXZkvswN5cgm3C3yH4I/te6+g/cpEGvGnqJ9QAAAABJRU5ErkJggg==" alt="" style="width: 33px;"></i>
+            PROMOTION
+            <ul class="hidden">
+              <li onclick="location.href=\'stat.php\';">2019-2020</li>
+              <li>2016-2017</li>
+              <li>2017-2018</li>
             </ul>
           </li>
         </ul>
+           
     </nav>
     <div class="iconsAlert">
       <img src="https://img.icons8.com/ios-glyphs/30/000000/alarm.png" alt="alert" id="iconsAlert">
     </div>
-
+   
     <div id="export">
-      <a style="padding-bottom:10px;" href="functions/exportExcell.php">Export Excel <img src="https://img.icons8.com/color/48/000000/download.png" alt="export"></a>
+      <a href="#">Export Excel <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAB2wAAAdsBV+WHHwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAALcSURBVEiJ7ZVPaFRXFMZ/35tM3n2DC60oqCi6K7jIopVuRAIiihjMRMi2oGhLA4VaoVhtEVtBFEQlGETxD7ieidhuulCa7toulLaLUmgXEjehNm1i3n2Z5B4XOjbVyUxmEmfVb/Xueeec3zv3vfdd+F9tkmoFS3G8R9JFYNMC+zyR2ce9WXZ5oeCo5tNIl5qAAhRMGhqO4w8WBQbWNwEFswEAkwZLcTywGHBTKmbZkODAM7YGh537tC1ggF7vrxscBILBqZJzx9oCBujz/loVLviy7NzxtoCrcMwOAwacLMXxh68NXEqSrXPXxSy7gHQYkKQztWo6lgIss+/Kzv03aFa9imvVtDLxBNIRg0PAny3UA61MbHYs8v5GgBxxXEA63xZwJP1sSbLTzB5H0pj9u6XN9Wm2wKQ1AUYj6Tcze7MlakvgELrG0vTH3jR9CHS3DYzUfwhmys5tBLY2Sl86MKz8CpIINjDPsTpHM0ifLBX4fA9M7fV+xGCkbqbZkWKaLomB/Ir356qLEMJ7uSjaZrBKZm9L2mXwwkmss/MWWUbZuXtAKHq/feFgs3GkoQBX93n/+2XI3y4U1s5WKqtWTE//ksIfk5Dvh8nhJFkP3MGsC6BvYqJqMN0vt2201Q8N3hn3/qSZ5QBWO3clhDCqXO7+X3F85nuodDp3tuzcTzkIZna24TCNwAZfRFGULnfudi7LxkpJ0ge8W70v6aMu507c935g3PstPWk6itlbJh0NsLFe77pbLbPCtPf/JFCcLhQ2RyHcrJH2WZdzuzAbGZY2B+nbvjQ9Xa8vzPM7lJ2r+uBjM/tc0grgKFBo1DCKonV7p6YePf+guudJu1tzYoNRwTrgDUmDjWBzlUkBQODquHhS+x2bvQ88agZYVefs7H6AkM/vQXrwSoL0wPL5nkbOsyiVYTnOfQNseR76oeL9jn74+7WCAUrLlq3WzMzXAJWOjt39k5NjAE8B4R0LpUbLgRQAAAAASUVORK5CYII=" alt="export"></a>
     </div>';
 
 
@@ -71,25 +78,5 @@ function displayMenu(){
 
 }
 
-//Get real IP of client even if he use a proxy
-function getIp() {
-  // IP if shared internet connection
-  if (isset($_SERVER['HTTP_CLIENT_IP'])) {
-    return $_SERVER['HTTP_CLIENT_IP'];
-  }
-  // IP through a proxy
-  elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-    return $_SERVER['HTTP_X_FORWARDED_FOR'];
-  }
-  // Else : simple IP
-  else {
-    return (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '');
-  }
-}
-
-function getTheDate(){
-  date_default_timezone_set('UTC');
-  return date("Y-m-d H:i:s");
-}
 
 ?>

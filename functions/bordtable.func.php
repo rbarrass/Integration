@@ -9,24 +9,32 @@
 		          <div class="col col-1">ID</div>
 		          <div class="col col-2">Nom</div>
 		          <div class="col col-3">Prénom</div>
-		          <div class="col col-4">Entreprise</div>
+		          <div class="col col-4">Mail</div>
 		          <div class="col col-5">Statut</div>
-		          <div class="col col-6">Expiration</div>
+		          <div class="col col-6">Employeur</div>
+		          <div class="col col-7">Maître Apprentissage</div>
+		          <div class="col col-8">Tuteur UCP</div>
+
 		        </li>';
 		$branch = $_GET['psd'];
 		if ($branch=="Alternants") {
 			$query2 = "SELECT student_idu, nameu, surnameu, emailu, validationu FROM users ORDER BY nameu";
 			$res2 = pg_query($query2) or die('Echec de la requête : ' .pg_last_error());
 			while ($line2 = pg_fetch_array($res2, null, PGSQL_ASSOC)) {
-					$result.='<li class="table-row">';
+					$result.='<a href=""><li class="table-row">';
 		    		$result.='
 							          <div class="col col-1" data-label="ID">'.$line2["student_idu"].'</div>
 							          <div class="col col-2" data-label="Name">'.$line2["nameu"].'</div>
 							          <div class="col col-3" data-label="Surname">'.$line2["surnameu"].'</div>
-							          <div class="col col-4" data-label="Entreprise">'.$line2["emailu"].'</div>
+							          <div class="col col-4" data-label="Mail">'.$line2["emailu"].'</div>
 							          <div class="col col-5" data-label="Statut">'.$line2["validationu"].'</div>
-							          <div class="col col-6" data-label="Expiration">Deadline soon</div>
-							      </li>';
+							          <div class="col col-6" data-label="Employeur">Deadline soon</div>
+							          <div class="col col-7" data-label="Maître Apprentissage">Deadline soon</div>
+							          <div class="col col-8" data-label="Tuteur UCP">Deadline soon</div>
+
+
+
+							      </li></a>';
 		 
 			}
 			
@@ -39,15 +47,17 @@
 				$query = "SELECT student_idu, nameu, surnameu, emailu, validationu FROM users WHERE idcl='$id'";
 				$res = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
 				while ($line = pg_fetch_array($res, null, PGSQL_ASSOC)) {
-					$result.='<li class="table-row">';
+					$result.='<a href=""><li class="table-row">';
 		    		$result.='
 							          <div class="col col-1" data-label="ID">'.$line["student_idu"].'</div>
 							          <div class="col col-2" data-label="Name">'.$line["nameu"].'</div>
 							          <div class="col col-3" data-label="Surname">'.$line["surnameu"].'</div>
-							          <div class="col col-4" data-label="Entreprise">'.$line["emailu"].'</div>
+							          <div class="col col-4" data-label="Mail">'.$line["emailu"].'</div>
 							          <div class="col col-5" data-label="Statut">'.$line["validationu"].'</div>
-							          <div class="col col-6" data-label="Expiration">Deadline soon</div>
-							      </li>';
+							          <div class="col col-6" data-label="Employeur">Deadline soon</div>
+							          <div class="col col-7" data-label="Maître Apprentissage">Deadline soon</div>
+							          <div class="col col-8" data-label="Tuteur UCP">Deadline soon</div>
+							      </li></a>';
 		 
 				}
 		}
