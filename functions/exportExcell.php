@@ -10,7 +10,7 @@
   }
 
   // filename for download
-  $filename = "sauvegarde_etudiants_master" . date('Ymd') . ".xls";
+  $filename = "sauvegarde_etudiants_master" . date('Y-m-d') . ".xls";
 
   header("Content-Disposition: attachment; filename=\"$filename\"");
   header("Content-Type: application/vnd.ms-excel");

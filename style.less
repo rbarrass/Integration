@@ -3,7 +3,7 @@
   position: fixed;
   width: 280px;
   height: 98%;
-  background-color: #1e2027;
+  background-color: #343a40;
 }
 .sidenav .main-buttons {
   list-style-type: none;
@@ -30,7 +30,7 @@
   color: #414655;
 }
 .sidenav .main-buttons > li:hover, .sidenav .main-buttons > li:active, .sidenav .main-buttons > li:focus {
-  background-color: #292c35;
+  background-color: #00BFFF;
   cursor: pointer;
 }
 .sidenav .main-buttons > li:hover .hidden, .sidenav .main-buttons > li:active .hidden, .sidenav .main-buttons > li:focus .hidden {
@@ -46,7 +46,7 @@
   right: 0;
   overflow: hidden;
   list-style-type: none;
-  background-color: #292c35;
+  background-color: #0198E1 ;
   -moz-transition: 0.3s;
   -o-transition: 0.3s;
   -webkit-transition: 0.3s;
@@ -55,9 +55,10 @@
 }
 .hidden li {
   padding: 16px 24px;
+  transition: 0.8s;
 }
 .hidden li:hover, .hidden li:active, .hidden li:focus {
-  background-color: #323541;
+  background-color: #325C74;
 }
 
 body {
@@ -115,27 +116,6 @@ body {
             border-bottom: 1px solid #575756;
             border-radius: 0;
             background-position: 100% center; /*to avoid the move of the picture */
-        }
-
-.credits__container {
-        margin-top: 24px;
-    }
-
-.credits__text {
-        text-align: center;
-        font-size: 13px;
-        line-height: 18px;
-    }
-
-.credits__link {
-        color: #ff8b88;
-        text-decoration: none;
-        transition: color 250ms ease-in;
-    }
-
-.credits__link:hover,
-        .credits__link:focus {
-            color: rgb(191, 137, 135);
         }
 
 #auto-suggest .search {
@@ -254,27 +234,25 @@ h2 small {
     text-align: right;
   }
 }
-
-/*********************************************************************************/
-
 .table-row:hover{
-  background-color: #778899;
+  background-color: #D3D3D3;
   cursor: pointer;
 }
-#export{
+/*******************************Icon NAV**************************************************/
+
+.icons{
   float: right;
-  margin-right: 5%;
-  margin-top: 2%;
+  display: flex;
 }
-.iconsAlert{
-  float: right;
-  margin-right: 2%;
-  margin-top: 1%;
+.iconsAlert, .export, .logout{
+  margin-right: 25px;
   cursor: pointer;
 }
-.iconsAlert:hover{
-  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAB2wAAAdsBV+WHHwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAJhSURBVEiJ7ZbNaxNBGMZ/78YoaK24yUHbCoLSpHproqilxeIn4k0EP456EeyfoIIHDx6l1IMIonhRvHpooYI0KLotXtRsryJRaiJSRIRmXg/Jxs0mabObogg+p5lnZp7ffDEM/NcfkkQZNJtOnlTlFhhVjY3tmV94GjZjTRSwqk4A20AQMRPA9rAZoVbsDCS3YrgEeqU+Ra6bmNze+3bh06qDX/cnz4joHaCrRZdFQS9m3NKjVQNXoQ8Ba4WuRtCz7cBrYAVrNpV8Lqhk3OKQ57/pT/QuCe+A7nYmCXzDkoHs+y8Fz3DSiZeK/szmS6MCBv8K5lL2UdAhhaQ/ZUkYCwEF2KRlvVznKLaojMyl7SOe5ds6OV3pw/1A0IkQ0EqSaGCMPqhmn2oAKxwAUGUykLMjLBhkZ13NYqpaqh2h/7L0AhijbiBlfXhw/c23fpg8AEpfM7AALMUsjQBaVmVLvMzaZfaDPwKsUx3wDI34pAbHWmtlVxX7oQEskKs4UrsYr9Ib7ajgF7u7N3tlg3W8Op1cAxj0MYAYPe85cRPrI6LiJtZTqxg9ByDwpAE86JYmQXL+7ShbseGoYClbI78r8hlkZjBfmqpZyw2eTSemVDkckT2ZdYvHWk6sVYOTSo6CTkeEVqRmODv/daZZU9NH38kQR/VGR1BAxbrpZIi3DdZFexxhX6dggf26aI+3aKuXk0o8Aw52Cg1oOusWD/mNJiuWSN+h5aSiq5757yn0W+ykEgVgS8AuZN1iT7P+rbTSH6pRwr0GT5t4Kyj8oW8oXuV7ApQL1Yncpat4LXTO39Ive3SyRiTTMzAAAAAASUVORK5CYII=);
+#iconsAlertImg, #exportImg, #logoutImg{
+  width: 33px;
 }
+
+
 /*************************************/
 /***************************************************************************************************************** Register Page *********************************************************************v***/
 .registerForm{
