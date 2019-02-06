@@ -3,6 +3,7 @@
 raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
 
 require('main.func.php');
+require('connectDatabase.php');
 
 function register(){
 	if(isset($_POST['validRegister']) ){

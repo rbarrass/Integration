@@ -11,6 +11,7 @@
   <meta charset="UTF-8">
   <title>Document</title>
   <link rel="stylesheet" type="text/css" href="style.less" media="screen">
+  <script type="text/javascript" src="script.js"></script>
   <style>
     h2{
       color: green;
@@ -24,8 +25,8 @@
       echo $menu;
     ?>
     
-     <div class="search__container">
-      <form id="auto-suggest" action="" method="get">
+    <div class="search__container">
+      <form id="auto-suggest" action="profil.php?" method="get">
         <input type="text" class="search__input" name="search" value="Rechercher..." onfocus="if(this.value=='Rechercher...')this.value=''" autocomplete="off"/>
         <ul class="suggestions">
       <!-- remplit par le script -->

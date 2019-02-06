@@ -1,5 +1,4 @@
 <?php
-
 function autorizedChar($strchain, $index){
 		//name/surname
 		if($index==0)	return preg_match('/^[a-zA-Z-ëéèàù]{1,}$/', $strchain);
@@ -9,7 +8,8 @@ function autorizedChar($strchain, $index){
 
 function displayMenu(){
 
-	$dbconn = connectionDB();
+	$dbconn = pg_connect("dbname=dbl1k1 host=localhost user=l1k1 password=starbringen") or die('Connexion impossible : ' . pg_last_error());
+
 
 	$result = '<nav class="sidenav">
         <ul class="main-buttons">
@@ -69,13 +69,19 @@ function displayMenu(){
                 </li>
               </ul>
           </nav>
-          <div class="iconsAlert">
-            <img src="https://img.icons8.com/ios-glyphs/30/000000/alarm.png" alt="alert" id="iconsAlert">
-          </div>
+          <div class="icons">
+            <div class="iconsAlert">
+              <img src="https://img.icons8.com/ios-glyphs/30/000000/alarm.png" alt="" id="iconsAlertImg">
+            </div>
 
-          <div id="export">
-            <a style="padding-bottom:10px;" href="functions/exportExcell.php">Export Excel <img src="https://img.icons8.com/color/48/000000/download.png" alt="export"></a>
-          </div>';
+            <div class="export">
+              <a style="padding-bottom:10px;" href="functions/exportExcell.php"><img src="https://img.icons8.com/color/48/000000/download.png" alt="" id="exportImg"></a>
+            </div>
+            <div class="logout">
+              <a style="padding-bottom:10px;" href="connect.php"><img src="https://img.icons8.com/ios-glyphs/30/000000/exit.png" alt="" id="logoutImg"></a>
+            </div>
+          </div>'         
+          ;
 
 
 
