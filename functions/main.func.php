@@ -78,7 +78,7 @@ function displayMenu(){
               <a style="padding-bottom:10px;" href="functions/exportExcell.php"><img src="https://img.icons8.com/color/48/000000/download.png" alt="" id="exportImg"></a>
             </div>
             <div class="logout">
-              <a style="padding-bottom:10px;" href="connect.php"><img src="https://img.icons8.com/ios-glyphs/30/000000/exit.png" alt="" id="logoutImg"></a>
+              <a style="padding-bottom:10px;" href="connect.php?id=login"><img src="https://img.icons8.com/ios-glyphs/30/000000/exit.png" alt="" id="logoutImg"></a>
             </div>
           </div>        
 
