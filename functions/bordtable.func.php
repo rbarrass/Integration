@@ -18,7 +18,7 @@
 		        </li>';
 		if(!empty($_GET['psd'])){
 			$branch = $_GET['psd'];
-<<<<<<< HEAD
+
 			/*
 			$currentdate = date('Y');
 			$requete = "SELECT DISTINCT promotionu FROM users";
@@ -30,7 +30,7 @@
 					$query2 = "SELECT student_idu, nameu, surnameu, emailu, validationu FROM users ORDER BY nameu";
 					$res2 = pg_query($query2) or die('Echec de la requête : ' .pg_last_error());
 					while ($line2 = pg_fetch_array($res2, null, PGSQL_ASSOC)) {
-							$result.='<li onclick="location.href='';" class="table-row">';
+							$result.='<li onclick="location.href=\'stat.php\';" class="table-row">';
 				    		$result.='
 									          <div class="col col-1" data-label="ID">'.$line2["student_idu"].'</div>
 									          <div class="col col-2" data-label="Name">'.$line2["nameu"].'</div>
@@ -41,29 +41,10 @@
 									          <div class="col col-7" data-label="Maître Apprentissage">Deadline soon</div>
 									          <div class="col col-8" data-label="Tuteur UCP">Deadline soon</div>
 									      </li>';
-=======
-			if ($branch=="Alternants") {
-				$query2 = "SELECT student_idu, nameu, surnameu, emailu, validationu FROM users ORDER BY nameu";
-				$res2 = pg_query($query2) or die('Echec de la requête : ' .pg_last_error());
-				while ($line2 = pg_fetch_array($res2, null, PGSQL_ASSOC)) {
-						$result.='<li onclick="location.href=\'stat.php\';" class="table-row">';
-			    		$result.='
-								          <div class="col col-1" data-label="ID">'.$line2["student_idu"].'</div>
-								          <div class="col col-2" data-label="Name">'.$line2["nameu"].'</div>
-								          <div class="col col-3" data-label="Surname">'.$line2["surnameu"].'</div>
-								          <div class="col col-4" data-label="Mail">'.$line2["emailu"].'</div>
-								          <div class="col col-5" data-label="Statut">'.$line2["validationu"].'</div>
-								          <div class="col col-6" data-label="Employeur">Deadline soon</div>
-								          <div class="col col-7" data-label="Maître Apprentissage">Deadline soon</div>
-								          <div class="col col-8" data-label="Tuteur UCP">Deadline soon</div>
-
-
-
-								      </li>';
-			 
-				}
+		
 				
-			}
+					}
+				}
 			else{
 					$query1 = "SELECT idcl from classrooms WHERE branchcl='$branch'" ;
 					$res1 = pg_query($query1) or die('Échec de la requête : ' . pg_last_error());
@@ -72,7 +53,7 @@
 					$query = "SELECT student_idu, nameu, surnameu, emailu, validationu FROM users WHERE idcl='$id' ORDER BY nameu";
 					$res = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
 					while ($line = pg_fetch_array($res, null, PGSQL_ASSOC)) {
-						$result.='<a href=""><li class="table-row">';
+						$result.='<li onclick="location.href=\'stat.php\';" class="table-row">';
 			    		$result.='
 								          <div class="col col-1" data-label="ID">'.$line["student_idu"].'</div>
 								          <div class="col col-2" data-label="Name">'.$line["nameu"].'</div>
@@ -82,34 +63,10 @@
 								          <div class="col col-6" data-label="Employeur">Deadline soon</div>
 								          <div class="col col-7" data-label="Maître Apprentissage">Deadline soon</div>
 								          <div class="col col-8" data-label="Tuteur UCP">Deadline soon</div>
-								      </li></a>';
+								      </li>';
 			 
->>>>>>> bfd1c5ec14843fac741a57be2510a2a28b1ad1fe
 					}
-					
 				}
-				else{
-						$query1 = "SELECT idcl from classrooms WHERE branchcl='$branch'" ;
-						$res1 = pg_query($query1) or die('Échec de la requête : ' . pg_last_error());
-						$line1 = pg_fetch_array($res1, null, PGSQL_ASSOC);
-						$id = $line1["idcl"];
-						$query = "SELECT student_idu, nameu, surnameu, emailu, validationu FROM users WHERE idcl='$id' ORDER BY nameu";
-						$res = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
-						while ($line = pg_fetch_array($res, null, PGSQL_ASSOC)) {
-							$result.='<a href=""><li class="table-row">';
-				    		$result.='
-									          <div class="col col-1" data-label="ID">'.$line["student_idu"].'</div>
-									          <div class="col col-2" data-label="Name">'.$line["nameu"].'</div>
-									          <div class="col col-3" data-label="Surname">'.$line["surnameu"].'</div>
-									          <div class="col col-4" data-label="Mail">'.$line["emailu"].'</div>
-									          <div class="col col-5" data-label="Statut">'.$line["validationu"].'</div>
-									          <div class="col col-6" data-label="Employeur">Deadline soon</div>
-									          <div class="col col-7" data-label="Maître Apprentissage">Deadline soon</div>
-									          <div class="col col-8" data-label="Tuteur UCP">Deadline soon</div>
-									      </li></a>';
-				 
-						}
-					}
 				$result.='<li class="table-header">
 				          <div class="end">2018-2019</div>
 				        </li>
@@ -122,7 +79,7 @@
 					$query3 = "SELECT student_idu, nameu, surnameu, emailu, validationu FROM users WHERE promotionu='$promo' ORDER BY nameu";
 					$res3 = pg_query($query3) or die('Echec de la requête : ' .pg_last_error());
 					while ($line3 = pg_fetch_array($res3, null, PGSQL_ASSOC)) {
-							$result.='<a href=""><li class="table-row">';
+							$result.='<li onclick="location.href=\'stat.php\';" class="table-row">';
 				    		$result.='
 									          <div class="col col-1" data-label="ID">'.$line3["student_idu"].'</div>
 									          <div class="col col-2" data-label="Name">'.$line3["nameu"].'</div>
@@ -132,7 +89,7 @@
 									          <div class="col col-6" data-label="Employeur">Deadline soon</div>
 									          <div class="col col-7" data-label="Maître Apprentissage">Deadline soon</div>
 									          <div class="col col-8" data-label="Tuteur UCP">Deadline soon</div>
-									      </li></a>';
+									      </li>';
 					}
 					$result.='<li class="table-header">
 				          <div class="end">'.$promo.'</div>
