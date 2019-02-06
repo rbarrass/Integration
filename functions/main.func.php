@@ -8,7 +8,7 @@ function autorizedChar($strchain, $index){
 
 function displayMenu(){
 
-	$dbconn = pg_connect("dbname=dbl1k1 host=localhost user=l1k1 password=starbringen") or die('Connexion impossible : ' . pg_last_error());
+	$dbconn = pg_connect("dbname=dbnadreamz host=localhost user=nadreamz password=Guillaume95") or die('Connexion impossible : ' . pg_last_error());
 
 
 	$result = '<nav class="sidenav">

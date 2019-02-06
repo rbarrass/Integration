@@ -29,7 +29,7 @@
 					$query2 = "SELECT student_idu, nameu, surnameu, emailu, validationu FROM users ORDER BY nameu";
 					$res2 = pg_query($query2) or die('Echec de la requête : ' .pg_last_error());
 					while ($line2 = pg_fetch_array($res2, null, PGSQL_ASSOC)) {
-							$result.='<a href=""><li class="table-row">';
+							$result.='<li onclick="location.href='';" class="table-row">';
 				    		$result.='
 									          <div class="col col-1" data-label="ID">'.$line2["student_idu"].'</div>
 									          <div class="col col-2" data-label="Name">'.$line2["nameu"].'</div>
@@ -39,7 +39,7 @@
 									          <div class="col col-6" data-label="Employeur">Deadline soon</div>
 									          <div class="col col-7" data-label="Maître Apprentissage">Deadline soon</div>
 									          <div class="col col-8" data-label="Tuteur UCP">Deadline soon</div>
-									      </li></a>';
+									      </li>';
 					}
 					
 				}
