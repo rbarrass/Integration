@@ -8,7 +8,7 @@ function autorizedChar($strchain, $index){
 
 function displayMenu(){
 
-	$dbconn = pg_connect("dbname=dbnadreamz host=localhost user=nadreamz password=Guillaume95") or die('Connexion impossible : ' . pg_last_error());
+	$dbconn = pg_connect("dbname=dbl1k1 host=localhost user=l1k1 password=starbringen") or die('Connexion impossible : ' . pg_last_error());
 
 
 	$result = '<nav class="sidenav">
@@ -71,7 +71,7 @@ function displayMenu(){
           </nav>
           <div class="icons">
             <div class="iconsAlert">
-              <img src="https://img.icons8.com/ios-glyphs/30/000000/alarm.png" alt="" id="iconsAlertImg">
+              <img onclick="document.getElementById(\'id01\').style.display=\'block\'" src="https://img.icons8.com/ios-glyphs/30/000000/alarm.png" alt="" id="iconsAlertImg">
             </div>
 
             <div class="export">
@@ -80,8 +80,37 @@ function displayMenu(){
             <div class="logout">
               <a style="padding-bottom:10px;" href="connect.php"><img src="https://img.icons8.com/ios-glyphs/30/000000/exit.png" alt="" id="logoutImg"></a>
             </div>
-          </div>'         
-          ;
+          </div>        
+
+          <!-- The Modal (contains the Sign Up form) -->
+          <div id="id01" class="modal">
+            <span onclick="document.getElementById(\'id01\').style.display=\'none\'" class="close" title="Close Modal">x</span>
+            <form class="modal-content" action="/action_page.php">
+              <div class="container">
+                <h1>Envoi de mail à l\'ensemble des étudiants</h1>
+                <hr>
+                <input class="mailTitle" type="text" name="mailTitle" placeholder="Titre du mail">
+                <textarea class="mailContent" name="comment" placeholder="Entrez le contenu de votre mail"></textarea> 
+                <hr>
+                <div class="clearfix">
+                  <button type="button" onclick="document.getElementById(\'id01\').style.display=\'none\'" class="cancelMail">Cancel</button>
+                  <button type="submit" class="sendMail">Envoyer</button>
+                </div>
+              </div>
+            </form>
+          </div> 
+
+          <script>
+            // Get the modal
+            var modal = document.getElementById(\'id01\');
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+          </script> ';
 
 
 
@@ -89,7 +118,6 @@ function displayMenu(){
 
 
 }
-
 //Get real IP of client even if he use a proxy
 function getIp() {
   // IP if shared internet connection

@@ -174,7 +174,7 @@ h2 small {
   margin-bottom: 25px;
 }
 .responsive-table .table-header {
-  background-image:-moz-linear-gradient(left, #42647F, #4682B4);
+  background-image:-moz-linear-gradient(left, #787878, #B8B8B8);
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 0.03em;
@@ -239,10 +239,16 @@ h2 small {
   cursor: pointer;
 }
 /*******************************Icon NAV**************************************************/
+@keyframes pop{ 
+    0% {opacity: 0; width: 25%; background-color: black; color: black; border-radius: 1px 1px 1px 1px;}
+    100% {opacity: 0.9; width: 50%; background-color: #ddd; color: black; border-radius: 10px 10px 10px 10px;}
+}
 
 .icons{
   float: right;
   display: flex;
+  white-space: nowrap;
+  animation: pop 2s ease-in-out 0s forwards; 
 }
 .iconsAlert, .export, .logout{
   margin-right: 25px;
@@ -251,7 +257,6 @@ h2 small {
 #iconsAlertImg, #exportImg, #logoutImg{
   width: 33px;
 }
-
 
 /*************************************/
 /***************************************************************************************************************** Register Page *********************************************************************v***/
@@ -463,4 +468,105 @@ h2 small {
   margin-left: 0;
   margin-right: 0;
 }
-/****************************TEST BARRE RECHERCHE *********************************/
+/************************************************MODAL EMAIL**********************************************/
+/* Full-width input fields */
+
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+  padding: 14px 20px;
+  background-color: #f44336;
+}
+
+.cancelbtn, .signupbtn {
+  float: left;
+  width: 50%;
+}
+
+.container {
+  padding: 16px;
+}
+/*background*/
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; 
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  padding-top: 50px;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.75);/*for the opacityof the background*/
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 50%; 
+}
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* The Close Button (x) */
+.close {
+  position: absolute;
+  right: 35px;
+  top: 15px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #f1f1f1;
+}
+
+.close:hover,
+.close:focus {
+  color: #f44336;
+  cursor: pointer;
+}
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+.mailTitle, .mailContent{
+  width: 100%;
+  padding :12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.sendMail, .cancelMail{
+  width: 25%;
+  color: white;
+  padding: 7px 21px;
+  margin:8px;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 0 20px 0 rgba(0,0,0,0.2), 0 5px 5px rgba(0,0,0,0.24);
+  transition: 0.5s ease-in-out;
+}
+.sendMail{
+  background-color: #00BFFF;
+  border: 1px solid #00BFFF;
+}
+.cancelMail{
+  background-color: red;
+  border: 1px solid red;
+}
+.sendMail:hover{
+  background-color: white;
+  color: black;
+  border: 1px solid #00BFFF;
+}
+.cancelMail:hover{
+  background-color: white;
+  color: black;
+  border: 1px solid red;
+}
