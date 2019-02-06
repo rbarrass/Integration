@@ -17,6 +17,7 @@
 
 		        </li>';
 		if(!empty($_GET['psd'])){
+			$branch = $_GET['psd'];
 			if ($branch=="Alternants") {
 				$query2 = "SELECT student_idu, nameu, surnameu, emailu, validationu FROM users ORDER BY nameu";
 				$res2 = pg_query($query2) or die('Echec de la requête : ' .pg_last_error());
@@ -44,7 +45,7 @@
 					$res1 = pg_query($query1) or die('Échec de la requête : ' . pg_last_error());
 					$line1 = pg_fetch_array($res1, null, PGSQL_ASSOC);
 					$id = $line1["idcl"];
-					$query = "SELECT student_idu, nameu, surnameu, emailu, validationu FROM users WHERE idcl='$id'";
+					$query = "SELECT student_idu, nameu, surnameu, emailu, validationu FROM users WHERE idcl='$id' ORDER BY nameu";
 					$res = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
 					while ($line = pg_fetch_array($res, null, PGSQL_ASSOC)) {
 						$result.='<a href=""><li class="table-row">';
@@ -61,14 +62,38 @@
 			 
 					}
 				}
-			}
-			/* faire le empty pour le promo et affiché le tableau de bord en fonction des promotions des années en cours ou précédentes*/
-
-		$result.='<li class="table-header">
+				$result.='<li class="table-header">
 				          <div class="end">2018-2019</div>
 				        </li>
 				      </ul>
 				    </div>';
+			}
+			if (!empty($_GET['promo'])) {
+					$promo = $_GET['promo'];
+					$query3 = "SELECT student_idu, nameu, surnameu, emailu, validationu FROM users WHERE promotionu='$promo' ORDER BY nameu";
+					$res3 = pg_query($query3) or die('Echec de la requête : ' .pg_last_error());
+					while ($line3 = pg_fetch_array($res3, null, PGSQL_ASSOC)) {
+							$result.='<a href=""><li class="table-row">';
+				    		$result.='
+									          <div class="col col-1" data-label="ID">'.$line3["student_idu"].'</div>
+									          <div class="col col-2" data-label="Name">'.$line3["nameu"].'</div>
+									          <div class="col col-3" data-label="Surname">'.$line3["surnameu"].'</div>
+									          <div class="col col-4" data-label="Mail">'.$line3["emailu"].'</div>
+									          <div class="col col-5" data-label="Statut">'.$line3["validationu"].'</div>
+									          <div class="col col-6" data-label="Employeur">Deadline soon</div>
+									          <div class="col col-7" data-label="Maître Apprentissage">Deadline soon</div>
+									          <div class="col col-8" data-label="Tuteur UCP">Deadline soon</div>
+
+
+
+									      </li></a>';
+					}
+					$result.='<li class="table-header">
+				          <div class="end">'.$promo.'</div>
+				        </li>
+				      </ul>
+				    </div>';
+			}
 
 		$dbclose = closeDB($dbconnexion);
 		return $result;

@@ -16,7 +16,7 @@
 <body>
   </html>
     <?php
-    
+      
       $menu = displayMenu();
       echo $menu;
       
