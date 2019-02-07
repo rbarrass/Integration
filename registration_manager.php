@@ -21,8 +21,7 @@
 </head>
 <body>
     <?php
-      $menu = displayMenu();
-      echo $menu;
+      echo displayMenu();
     ?>
     
     <div class="search__container">

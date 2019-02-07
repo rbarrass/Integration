@@ -78,6 +78,14 @@ window.onload = function(){
 	};
 };
 
+function createUserCheck() {
+  if (confirm("Vous êtes sut le point de créer un nouvel utilisateur")) {
+    return "ok";
+  } else {
+    return "cancelled";
+  }
+}
+
 
 
 
