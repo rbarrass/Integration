@@ -212,6 +212,7 @@ h2 small {
   margin-left: 44%;
   font-weight: bold;
 }
+/*responsive if under 767px*/
 @media all and (max-width: 767px) {
   .responsive-table .table-header {
     display: none;
@@ -253,6 +254,13 @@ h2 small {
 .iconsAlert, .export, .logout{
   margin-right: 25px;
   cursor: pointer;
+}
+#iconsAlertImg:hover{
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAB2wAAAdsBV+WHHwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAJsSURBVEiJ7ZZNaxNRFIafM8kEK2KxqHRSBUE3dRssxk6KxY+ITRcigh9L3Qj2J1SLCxcuRepCBFHcKK4aCrZQxSYgdi+6rnVaXInSoqlzXCQzJJNpm5lURfBd3Xnnnvc5d+7lMvBff0gSp2hx2C6ocgdQ0BGrWJ6MmpGMA1ZlHNhbfZJxYF/UjEgr/pzPWasprqI6GujkZkLNe7snXy1uOnhxKHdeRe8D29aY8hXRK9ZE+emmgWvQJ4CxwVQX0QutwH2wjmEszdmvXUHSxVK/588Xsj1JEu+A7a00ifAl+UN6d72YdTzLGbbfgH7vzpQHZQyX+hU4b+2TKvQL7KzPSUpipGUogNJZSbnXGiylC5UBZy53wvN8sBicA1DhUSDqdMtQL1SloUZUHwMYomebwMARAMGdCqxgf1SwwoEGsME0gCr+FtaDewBSqz8/BHK2RgUTOPkrCfN9tQP2hIEFwDWTGgO0rjq/+Zn+Ya4HLwCsukavZ2jMKzVYW9myfLBmzoeBy7US/2AsnOnrigv+mM/u8MauyikAEY9RB1aXZ9WRXPI8s5Ly9ySqzKSk/QcxLtYaeN4EtvpKU6KUEfU/h4vm4oLVMAZ8ruoSULIOzU773nrFnwr2tMDxOGBBprqLs/m1368hZ6h/EJGZOFBPKuTSE6VS2LvQS18zGRORW+1AAUTltmYyZsvgpXTHXeBwu2DQbC2ruamg4RTsl8DR9qENDcxYxfKxeidsxbF+h9aV/IbMf06R72KnYDtAdyDFsSZK6fCKcG30D9UkhYdNnkqTt5Eib7rlrFx3rA4ELtcaeWA5yzei5vw1/QIo/rb+o/pT8gAAAABJRU5ErkJggg==') no-repeat;
+}
+.logout:hover{
+  content: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAB2wAAAdsBV+WHHwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAFFSURBVEiJ7ZUxSwNRDMd/OQ/cnHS4gkgd6iR2byuWIiqt/Rq6+GkE/Rh2OOwgYrEnDuLU3UXsDbd0kg7PxqEUekWsvXpvaf9bQl5+CSEvsJQlybgRVktVRC+BbMJ8b6AXnv90Oy3QiZeh13NAAbZBrv4S6EzYm3NAR9pKAramJdia3LQBYa34qLAmX3LoNdvRyG+j41WBPVy9D09KG9bAfdc9Al5RdlnRIKoXMlbA2Uarp+IeI3SAnBnIQ1QvZJLMuOz5Qeu3gLBW1JhDzbiVMwOnMXPHKpjpUVOzaPxITFaaUJ4fxPJ2Tw/WHTV3CnmEDkYqqc84qhcyoiZQyIO89Ffcfa/ZjlLfYzOQG2Bn2CnVrN/qgZ09/gR5xkhl/ANJvWPPD8o/+RfvSCw4WODjH3K+zwxWlTOgm5Q4LFzPk75fKhV9A32YXm6rn4gjAAAAAElFTkSuQmCC') ;
+  width: 33px;
 }
 #iconsAlertImg, #exportImg, #logoutImg{
   width: 33px;
@@ -502,7 +510,7 @@ h2 small {
   width: 80%;
   max-width: 920px;
   margin: 100px auto;
-  animation-name: modalbox;
+  animation-name: modaleffect;
   animation-duration: .4s;
   animation-timing-function: cubic-bezier(0,0,.3,1.6);
 }
@@ -523,7 +531,7 @@ h2 small {
   text-align: right;
   cursor: pointer;
 }
-@keyframes modalbox {
+@keyframes modaleffect {
   0% {
     top: -250px; 
     opacity: 0;
@@ -533,22 +541,7 @@ h2 small {
     opacity: 1;
   }
 }
-button {
-  top: 50%;
-  left: 50%;
-  padding: 20px 40px;
-  background: transparent;
-  color: #ffffff;
-  border: 1px solid #ffffff;
-  text-decoration: none;
-}
 
-
-button {
-  border: 1px solid #333333;
-  outline: none;
-  color: #333333;
-}
 .mailTitle, .mailContent{
   width: 100%;
   padding :12px 20px;

@@ -71,7 +71,7 @@ function displayMenu(){
           </nav>
           <div class="icons">
             <div class="iconsAlert">
-              <img onclick="document.getElementById(\'id01\').style.display=\'block\'" src="https://img.icons8.com/ios-glyphs/30/000000/alarm.png" alt="" id="iconsAlertImg">
+              <img onclick="document.getElementById(\'id01\').style.display=\'block\'" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEjSURBVEhL7daxSsNQFIDhVDsILl20S3ESnFyKIBQtOPQFCj5HoZMudRURFB18hSLoVOhLdOni4BOIdJDSdlT/AxVCOOTe5CSBgD98FDqc2/S2uQn+S1Bl/Vpol1jhHYfyRhHt4hs/a6/IvWO84G9R8YUBasi8TdwgfKVRHzhFpt1DWyxqiSYyqYW4K42aYgPmonvqowNT8snn0IbHuYOpHWiDXeRbMrUHbbDLCKZKt/AYpo6gDXaZwFQX2mCXGUyn1xO0wT5S38G2IPdfbaiPa6SqD22grwXqSNQ+5LjTBiYhNxLvvT7AG7RBadxiG7HJuStHmzbA4gHOrvCcoSFOUM5kr84VbeRaFdpv4BG510P4UegTDRTSGeRvcgF5zi5LQfAL6uodDLILLAkAAAAASUVORK5CYII=" alt="" id="iconsAlertImg">
             </div>
 
             <div class="export">
@@ -99,7 +99,6 @@ function displayMenu(){
                   <input type="submit" class="sendMail">
                 </form>
                 <br />
-                <button class="close-modal" id="cl">Close!</button>
               </div>
             </div>
           </div> 
@@ -107,12 +106,11 @@ function displayMenu(){
           <script>
             // Get the modal
             var modal = document.getElementById(\'id01\');
-            var close = document.getElementById(\'cl\');
             var close2 = document.getElementById(\'cl2\');
             var closeAround= document.getElementById(\'around\');
             // When the user clicks anywhere outside of the modal, close it
             window.onclick = function(event) {
-                if (event.target == close || event.target == close2 || event.target == closeAround) {
+                if (event.target == close2 || event.target == closeAround) {
                     modal.style.display = "none";
                 }
             }
