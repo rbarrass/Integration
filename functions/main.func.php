@@ -88,11 +88,16 @@ function displayMenu(){
             <div class="modal-box">
               <div class="modal-header">
                 <div class="close-modal" id="cl2">&#10006;</div> 
-                <h1>Simple modal box</h1>
+                <h1>Mail général</h1>
               </div>
               <div class="modal-body">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic soluta saepe, atque, iure quidem maiores non dolores, fuga eaque voluptatibus corporis accusantium quas. Eligendi velit eum fugiat eius? Distinctio reiciendis sint error, repellat ut soluta doloremque, accusamus vitae placeat?</p>
-                <p>Laboriosam voluptas, iure rem provident laborum culpa atque fugit inventore sit. Corrupti dolore architecto inventore officia, odit totam voluptatem laboriosam tempore reiciendis, et neque, consequuntur. Non, tenetur? Tempore reprehenderit tenetur nemo asperiores alias commodi assumenda architecto minima numquam repellendus debitis nulla, rerum officia itaque, sunt nihil sequi quod perspiciatis, animi quas voluptates velit aperiam voluptatem.</p>
+                <form action="" method="">
+                  <label for="mailTitle">Titre du mail :</label>
+                  <input type="text" name="mailTitle" class="mailTitle" placeholder="Insérer un titre..." required>
+                  <textarea class="mailContent" name="story">
+                  </textarea>
+                  <input type="submit" class="sendMail">
+                </form>
                 <br />
                 <button class="close-modal" id="cl">Close!</button>
               </div>
