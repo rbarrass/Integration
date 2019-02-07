@@ -30,7 +30,7 @@
 					$query2 = "SELECT student_idu, nameu, surnameu, emailu, validationu FROM users ORDER BY nameu";
 					$res2 = pg_query($query2) or die('Echec de la requête : ' .pg_last_error());
 					while ($line2 = pg_fetch_array($res2, null, PGSQL_ASSOC)) {
-							$result.='<li onclick="location.href=\'stat.php\';" class="table-row">';
+							$result.='<li onclick="document.getElementById(\'choiceTutor\').style.display=\'block\'"  class="table-row">';
 				    		$result.='
 									          <div class="col col-1" data-label="ID">'.$line2["student_idu"].'</div>
 									          <div class="col col-2" data-label="Name">'.$line2["nameu"].'</div>
@@ -53,7 +53,7 @@
 					$query = "SELECT student_idu, nameu, surnameu, emailu, validationu FROM users WHERE idcl='$id' ORDER BY nameu";
 					$res = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
 					while ($line = pg_fetch_array($res, null, PGSQL_ASSOC)) {
-						$result.='<li onclick="location.href=\'stat.php\';" class="table-row">';
+						$result.='<li onclick="document.getElementById(\'choiceTutor\').style.display=\'block\'" class="table-row">';
 			    		$result.='
 								          <div class="col col-1" data-label="ID">'.$line["student_idu"].'</div>
 								          <div class="col col-2" data-label="Name">'.$line["nameu"].'</div>
@@ -71,7 +71,16 @@
 				          <div class="end">2018-2019</div>
 				        </li>
 				      </ul>
-				    </div>';
+				    </div>
+				     <!-- The Modal (contains the Sign Up form) -->
+			          <div class="modal2" id="choiceTutor">
+			            <div class="modal2-sandbox" id="around2"></div>
+			            <div class="modal2-box">
+			              <div class="modal2-body">
+			                
+			              </div>
+			            </div>
+			          </div> ';
 			//}
 			}
 			if (!empty($_GET['promo'])) {
