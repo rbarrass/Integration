@@ -52,7 +52,7 @@ function displayMenu(){
              ENREGISTREMENTS
              <ul class="hidden">
               <li onclick="location.href=\'registration_manager.php\';">Approbation</li>
-              <li>Edition</li>
+              <li onclick="location.href=\'edition_manager.php\';">Edition</li>
             </ul>
           </li>
           <li>
