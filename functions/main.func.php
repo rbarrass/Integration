@@ -11,6 +11,7 @@ function displayMenu(){
 	$dbconn = connectionDB();
 
 
+
 	$result = '<nav class="sidenav">
         <ul class="main-buttons">
           <li>
