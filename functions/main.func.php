@@ -83,30 +83,31 @@ function displayMenu(){
           </div>        
 
           <!-- The Modal (contains the Sign Up form) -->
-          <div id="id01" class="modal">
-            <span onclick="document.getElementById(\'id01\').style.display=\'none\'" class="close" title="Close Modal">x</span>
-            <form class="modal-content" action="/action_page.php">
-              <div class="container">
-                <h1>Envoi de mail à l\'ensemble des étudiants</h1>
-                <hr>
-                <input class="mailTitle" type="text" name="mailTitle" placeholder="Titre du mail">
-                <textarea class="mailContent" name="comment" placeholder="Entrez le contenu de votre mail"></textarea> 
-                <hr>
-                <div class="clearfix">
-                  <button type="button" onclick="document.getElementById(\'id01\').style.display=\'none\'" class="cancelMail">Cancel</button>
-                  <button type="submit" class="sendMail">Envoyer</button>
-                </div>
+          <div class="modal" id="id01">
+            <div class="modal-sandbox" id="around"></div>
+            <div class="modal-box">
+              <div class="modal-header">
+                <div class="close-modal" id="cl2">&#10006;</div> 
+                <h1>Simple modal box</h1>
               </div>
-            </form>
+              <div class="modal-body">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic soluta saepe, atque, iure quidem maiores non dolores, fuga eaque voluptatibus corporis accusantium quas. Eligendi velit eum fugiat eius? Distinctio reiciendis sint error, repellat ut soluta doloremque, accusamus vitae placeat?</p>
+                <p>Laboriosam voluptas, iure rem provident laborum culpa atque fugit inventore sit. Corrupti dolore architecto inventore officia, odit totam voluptatem laboriosam tempore reiciendis, et neque, consequuntur. Non, tenetur? Tempore reprehenderit tenetur nemo asperiores alias commodi assumenda architecto minima numquam repellendus debitis nulla, rerum officia itaque, sunt nihil sequi quod perspiciatis, animi quas voluptates velit aperiam voluptatem.</p>
+                <br />
+                <button class="close-modal" id="cl">Close!</button>
+              </div>
+            </div>
           </div> 
 
           <script>
             // Get the modal
             var modal = document.getElementById(\'id01\');
-
+            var close = document.getElementById(\'cl\');
+            var close2 = document.getElementById(\'cl2\');
+            var closeAround= document.getElementById(\'around\');
             // When the user clicks anywhere outside of the modal, close it
             window.onclick = function(event) {
-                if (event.target == modal) {
+                if (event.target == close || event.target == close2 || event.target == closeAround) {
                     modal.style.display = "none";
                 }
             }
