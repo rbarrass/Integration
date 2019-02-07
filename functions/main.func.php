@@ -8,7 +8,7 @@ function autorizedChar($strchain, $index){
 
 function displayMenu(){
 
-	$dbconn = pg_connect("dbname=dbl1k1 host=localhost user=l1k1 password=starbringen") or die('Connexion impossible : ' . pg_last_error());
+	$dbconn = connectionDB();
 
 
 	$result = '<nav class="sidenav">
@@ -42,7 +42,7 @@ function displayMenu(){
              STATISTIQUES
              <ul class="hidden">
               <li onclick="location.href=\'stat.php\';">Utilisateurs</li>
-              <li>Apprentis</li>
+              <li onclick="location.href=\'tuteur.php?name=Lemaire&surname=Marc\';">Tuteur</li>
               <li>Visites</li>
             </ul>
           </li>
