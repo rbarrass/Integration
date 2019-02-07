@@ -2,22 +2,15 @@
   /*Barrasset Raphaël, Castelain Julien, Ducroux Guillaume, Saint-Amand Matthieu  L3i 2019
   raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
   require('functions/main.func.php');
-  require('functions/registration_manager.func.php');
+  require('functions/logs.func.php');
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>Logs</title>
   <link rel="stylesheet" type="text/css" href="style.less" media="screen">
-  <script type="text/javascript" src="script.js"></script>
-  <style>
-    h2{
-      color: green;
-      margin-top: 50px;
-    }
-  </style>
 </head>
 <body>
     <?php
@@ -36,19 +29,16 @@
     <div class="container">
       <ul class="responsive-table">
         <li class="table-header">
-          <div class="col col-1">N° Etudiant</div>
-          <div class="col col-2">Nom</div>
-          <div class="col col-3">Prénom</div>
-          <div class="col col-4">Email</div>
-          <div class="col col-5">En attente</div>
+          <div class="col col-1">Action</div>
+          <div class="col col-2">Requête</div>
+          <div class="col col-3">Date</div>
+          <div class="col col-4">IP</div>
+          <div class="col col-5">Auteur</div>
         </li>
         
         <?php
-          pendingList();
-          if (approval() != ''){
-            //refresh page
-            echo '<meta http-equiv="refresh" content=0 >';
-          }
+          displayLogs();
+          
         ?>
         
       </ul>

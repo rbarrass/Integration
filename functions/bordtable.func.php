@@ -27,7 +27,7 @@
 			$date = explode("-", $row);
 			if (((int)$date[0]<=$currentdate) && ($currentdate<=(int)$date[1])) {*/
 				if ($branch=="Alternants") {
-					$query2 = "SELECT student_idu, nameu, surnameu, emailu, validationu FROM users ORDER BY nameu";
+					$query2 = "SELECT student_idu, nameu, surnameu, emailu, validationu, nametut FROM users INNER JOIN tuteur ON users.idtut=tuteur.idtut ORDER BY nameu";
 					$res2 = pg_query($query2) or die('Echec de la requête : ' .pg_last_error());
 					while ($line2 = pg_fetch_array($res2, null, PGSQL_ASSOC)) {
 							$result.='<li onclick="document.getElementById(\'choiceTutor\').style.display=\'block\'"  class="table-row">';
@@ -39,7 +39,7 @@
 									          <div class="col col-5" data-label="Statut">'.$line2["validationu"].'</div>
 									          <div class="col col-6" data-label="Employeur">Deadline soon</div>
 									          <div class="col col-7" data-label="Maître Apprentissage">Deadline soon</div>
-									          <div class="col col-8" data-label="Tuteur UCP">Deadline soon</div>
+									          <div class="col col-8" data-label="Tuteur UCP">'.$line2["nametut"].'</div>
 									      </li>';
 		
 				
