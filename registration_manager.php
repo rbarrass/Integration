@@ -46,7 +46,10 @@
         
         <?php
           pendingList();
-          approval();
+          if (approval() != ''){
+            //refresh page
+            echo '<meta http-equiv="refresh" content=0 >';
+          }
         ?>
         
       </ul>

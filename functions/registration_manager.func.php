@@ -91,6 +91,7 @@ function approval(){
 			$result = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
 			$identity = pg_fetch_array($result,null,PGSQL_ASSOC);
 			$i=0;
+			//popup content
 			$display = '<p>Vous avez autorisé ';
 			foreach ($identity as $col_value) {
 				switch ($i) {
@@ -102,6 +103,7 @@ function approval(){
 						break;
 				}				
 			}
+
 			return $display;
 		}
 	}
@@ -122,6 +124,7 @@ function approval(){
 			$result = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
 			$identity = pg_fetch_array($result,null,PGSQL_ASSOC);
 			$i=0;
+			//popup content
 			$display = '<p>Vous avez reffusé à  ';
 			foreach ($identity as $col_value) {
 				switch ($i) {
@@ -138,34 +141,16 @@ function approval(){
 	}
 	if(isset($_POST['denied']) ){
 		$dbconn = connectionDB();
+		//Delete logs linked to this user
+		$query = "DELETE FROM logs WHERE idU='".$_POST['myid']."'";
+		$result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
+		//Delete user from db
 		$query = "DELETE FROM users WHERE idU='".$_POST['myid']."'";
 		$result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
-		//We want to increment table.logs to save this action and keep an eye on registering requests
-		if (pg_last_error() == NULL) {
-			//Request to search id of account just created 
-				
-			//SESSION!
-			//Add a line in table.Logs with : action made/date/client ip/type of request(insert/delete/update)/and object concerned.
-			$request = "INSERT INTO logs VALUES(DEFAULT, 'student approval denied', '".getTheDate()."', '".getIp()."', 'delete', null, '".$_POST['myid']."', null, null, null, null, null)";
-			$resultat = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
-			//Request for notification popup
-			$request = "SELECT surnameU,nameU FROM users WHERE idU='".$_POST['myid']."'";
-			$result = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
-			$identity = pg_fetch_array($result,null,PGSQL_ASSOC);
-			$i=0;
-			$display = 'Vous avez définitivement bloqué ';
-			foreach ($identity as $col_value) {
-				switch ($i) {
-					case 0:
-						$display.= $col_value.' ';
-						break;
-					default:
-						$display.= $col_value;
-						break;
-				}				
-			}
-			return $display;
-		}
+		//popup content
+		$display = '<p>Vous avez reffusé l\'accès';	
+		return $display;
+
 	}
 }
 ?>
