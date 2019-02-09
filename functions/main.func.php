@@ -90,7 +90,7 @@ function displayMenu(){
             </div>
           </div>        
 
-          <!-- The Modal (contains the Sign Up form) -->
+          <!-- The Modal (contains the "send to all mail" form) -->
           <div class="modal" id="id01">
             <div class="modal-sandbox" id="around"></div>
             <div class="modal-box">
@@ -99,7 +99,7 @@ function displayMenu(){
                 <h1>Mail général</h1>
               </div>
               <div class="modal-body">
-                <form action="" method="">
+                <form action="" method=""> <!-- Action to define -->
                   <label for="mailTitle">Titre du mail :</label>
                   <input type="text" name="mailTitle" class="mailTitle" placeholder="Insérer un titre..." required>
                   <textarea class="mailContent" name="story">
