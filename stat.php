@@ -1,6 +1,7 @@
 <?php
     require('functions/main.func.php');
     require('functions/bordtable.func.php');
+    verifyIfConnected();
 ?>
 <!DOCTYPE html>
 <html lang="en">

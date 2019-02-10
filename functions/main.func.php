@@ -97,7 +97,7 @@ function displayIcons(){
               <a style="padding-bottom:10px;" href="functions/exportExcell.php"><img src="https://img.icons8.com/color/48/000000/download.png" alt="" id="exportImg"></a>
             </div>
             <div class="logout">
-              <a style="padding-bottom:10px;" href="connect.php?id=login"><img src="https://img.icons8.com/ios-glyphs/30/000000/exit.png" alt="" id="logoutImg"></a>
+              <a style="padding-bottom:10px;" href="functions/logout.php"><img src="https://img.icons8.com/ios-glyphs/30/000000/exit.png" alt="" id="logoutImg"></a>
             </div>
           </div>        
 
@@ -159,5 +159,17 @@ function getTheDate(){
   date_default_timezone_set('UTC');
   return date("Y-m-d H:i:s");
 }
-
+function logout(){
+    session_unset ();
+    session_destroy ();
+    header ('location: index.php?id=login');
+}
+function verifyIfConnected(){
+    session_start();
+    if($_SESSION['typeu']=='supervisor'){
+      //do nothing just verify, you cannot verify if != because typeu doesn't exists when a session isn't started
+    }else{// if the user know the URL but is not connected, he's redirected to another page
+      header('location:connect.php?id=login');
+    }
+}
 ?>

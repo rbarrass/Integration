@@ -62,5 +62,14 @@
     else {
     	echo 'Les variables du formulaire ne sont pas déclarées.';
 	}
+/* FOR LOGOUT PART
+    session_start ();
 
+    session_unset ();
+
+    session_destroy ();
+
+    header ('location: index.php');
+*/
 ?>
+ 
