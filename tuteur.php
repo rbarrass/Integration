@@ -14,7 +14,7 @@
   <script type="text/javascript" src="script.js"></script>
 </head>
 <body>
-  </html>
+  <html>
     <?php
       
       $menu = displayMenu();
@@ -35,6 +35,10 @@
     <?php
           $tuteurbord = dispBordtuteur();
           echo $tuteurbord;
+          if (approvalstud() != ''){
+            //refresh page
+            echo '<meta http-equiv="refresh" content=0 >';
+          }
     ?>    
   </html>
 </body>
