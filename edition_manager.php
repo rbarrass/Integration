@@ -3,7 +3,7 @@
   raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
 
   require('functions/edition_manager.func.php');
-  verifyIfConnected();
+  verifyIfConnected('supervisor');
 ?>
 
 <!DOCTYPE html>

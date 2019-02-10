@@ -164,9 +164,9 @@ function logout(){
     session_destroy ();
     header ('location: index.php?id=login');
 }
-function verifyIfConnected(){
+function verifyIfConnected($who){
     session_start();
-    if($_SESSION['typeu']=='supervisor'){
+    if($_SESSION['typeu']==$who){
       //do nothing just verify, you cannot verify if != because typeu doesn't exists when a session isn't started
     }else{// if the user know the URL but is not connected, he's redirected to another page
       header('location:connect.php?id=login');
