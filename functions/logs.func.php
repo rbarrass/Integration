@@ -38,3 +38,65 @@ function displayLogs(){
 	}
 	echo $display;
 }
+
+function logsFilter(){
+	$result = '<div class="icons">
+            <div class="iconsAlert">
+              <img onclick="document.getElementById(\'id01\').style.display=\'block\'" src="https://img.icons8.com/ios-glyphs/30/000000/alarm.png" alt="" id="iconsAlertImg">
+            </div>
+
+            <div class="export">
+              <a style="padding-bottom:10px;" href="functions/exportExcell.php"><img src="https://img.icons8.com/color/48/000000/download.png" alt="" id="exportImg"></a>
+            </div>
+            <div class="logout">
+              <a style="padding-bottom:10px;" href="connect.php?id=login"><img src="https://img.icons8.com/ios-glyphs/30/000000/exit.png" alt="" id="logoutImg"></a>
+            </div>
+          </div>        
+
+          <!-- The Modal (contains the Sign Up form) -->
+          <div class="modal" id="id01">
+            <div class="modal-sandbox" id="around"></div>
+            <div class="modal-box">
+              <div class="modal-header">
+                <div class="close-modal" id="cl2">&#10006;</div> 
+                <h1>Filtre</h1>
+              </div>
+              <div class="modal-body">
+                <form action="" method="">
+                  <label for="mailTitle">Evénement :</label>
+                  
+                                <div class="col-md-6">
+                                	<select id="targettype" class="form-control" name="targettype">
+									  <option value="student">Etudiant</option>
+									  <option value="tutor">Enseignant tuteur</option>
+									  <option value="internshipsupervisor">Maître de stage</option>
+									</select>
+                                </div>
+                  <input type="text" name="mailTitle" class="mailTitle" placeholder="Insérer un titre..." required>
+                  <textarea class="mailContent" name="story">
+                  </textarea>
+                  <input type="submit" class="sendMail">
+                </form>
+                <br />
+                <button class="close-modal" id="cl">Close!</button>
+              </div>
+            </div>
+          </div> 
+
+          <script>
+            // Get the modal
+            var modal = document.getElementById(\'id01\');
+            var close = document.getElementById(\'cl\');
+            var close2 = document.getElementById(\'cl2\');
+            var closeAround= document.getElementById(\'around\');
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == close || event.target == close2 || event.target == closeAround) {
+                    modal.style.display = "none";
+                }
+            }
+          </script> ';
+
+  return $result;
+
+}

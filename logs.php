@@ -24,7 +24,7 @@
 <body>
     <?php
       echo displayMenu();
-      echo displayIcons();
+      echo logsFilter();
     ?>
     
     <div class="search__container">
