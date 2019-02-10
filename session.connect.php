@@ -1,4 +1,8 @@
-<?php /* ALL of this file has been created for the connection part */
+<?php
+  /*Barrasset Raphaël, Castelain Julien, Ducroux Guillaume, Saint-Amand Matthieu  L3i 2019
+  raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
+
+ /* ALL of this file has been created for the connection part */
 	/*Allows to set the "remember me" with cookie*/
 	require ('functions/connectDatabase.php');
 	if(isset($_POST['remember'])){
@@ -20,26 +24,40 @@
 					$arr[0]=$val;
 				}
 			}
+		//Verify the user's state, and redirect him to the correct page
 	  	if($arr[0]==$cryppassword){
-	   		session_start();
-	    	//initialize superglobal $_SESSION
-		   	$_SESSION['email-address'] = $_POST['email-address']; // SESSION est une SUPERGLOBAL
-		   	$_SESSION['password'] = $_POST['password'];
-		    		
-		     header ('location: profil.php');
+		   		session_start();
+		    	//initialize superglobal $_SESSION
+			   	$_SESSION['email-address'] = $_POST['email-address']; 
+			   	$reqIdu=pg_query("SELECT idu FROM users WHERE emailu='".$_POST['email-address']."';") or die('Erreur de connection.'); // ***********POUR JULIEN***************
+			    $reqTypeu=pg_query("SELECT typeu FROM users WHERE emailu='".$_POST['email-address']."';") or die('Erreur de connection.');
+				$idu = pg_fetch_array($reqIdu,null,PGSQL_ASSOC); // utiliser $idu['idu'];	JULIEN		    
+			    $typeu = pg_fetch_array($reqTypeu,null,PGSQL_ASSOC);
+				//echo $typeu['typeu']; => value of typeu => student/professor...
+				$_SESSION['idu'] = $idu['idu'];
+				$_SESSION['typeu'] = $typeu['typeu'];
+				switch ($_SESSION['typeu']) {
+				    case 'student':
+				        header('location: profil.php?idu='.$_SESSION['idu'].''); // CHANGER ICI AVEC LE GET ***JULIEN*** avec $_SESSION en récupérant l'idu avec un SELECT
+				        break;
+				    case 'tutor':
+				        header('location: test.php');//tuteur
+				        break;
+				    case 'intershipsupervisor':
+				        header('location: test.php'); //maître de sstage 
+				        break;
+				    case 'supervisor':
+				    	header('location: index.php'); //gestionnaire
+				    	break;
+				   	case 'administrator':
+				   		header('location: test.php');//administrateur
+				   		break;
+				}
 	     	} 
 	    else {
-	    	if($_POST['email-address']=="admin" && $_POST['password']=="admin"){
-	    			session_start();
-
-					$_SESSION['email-address'] = $_POST['email-address'];
-					$_SESSION['password']=$_POST['password'];
-					header('location: profil.php');
-	    		}
-	    	else{
-			    	header('location: connect.php?id=login');
-	    		}
+	    		header('location: connect.php?id=login');
 	    	}
+
 	}
     else {
     	echo 'Les variables du formulaire ne sont pas déclarées.';
