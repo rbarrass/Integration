@@ -35,7 +35,7 @@ function pendingList(){
 			$j++;
 		}
 		$display.= '<div class="col col-5" data-label="Status"><div class="dropdown">
-						  <button onclick="myFunction'.$i.'()" class="dropbtn">Action</button>
+						  <button onclick="myFunction'.$i.'()" class="dropbtn" >Action</button>
 						  <div id="myDropdown'.$i.'" class="dropdown-content">
 						  <form enctype="multipart/form-data" action="registration_manager.php" method="POST">
 						        <input type="hidden" name="myid" value="'.$idUsr.'">

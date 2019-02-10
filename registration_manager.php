@@ -17,6 +17,12 @@
       color: green;
       margin-top: 50px;
     }
+    
+    .table-row:hover{
+      background-color: #fffff1;
+      cursor: default;
+    }
+  </style>
   </style>
 </head>
 <body>

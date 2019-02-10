@@ -12,10 +12,20 @@
   <title>Logs</title>
   <link rel="stylesheet" type="text/css" href="style.less" media="screen">
   <script type="text/javascript" src="script.js"></script>
+  <style type="text/css">
+    .col-1, .col-2 {
+      text-transform: capitalize;
+    }
+    .table-row:hover{
+      background-color: #fffff1;
+      cursor: default;
+    }
+  </style>
 </head>
 <body>
     <?php
       echo displayMenu();
+      echo logsFilter();
     ?>
     
     <!-- Barre de recherch dynamique gérée par script.js et style avec style.less -->
@@ -31,8 +41,8 @@
     <div class="container">
       <ul class="responsive-table">
         <li class="table-header">
-          <div class="col col-1">Action</div>
-          <div class="col col-2">Requête</div>
+          <div class="col col-1" style="text-transform: uppercase;">Action</div>
+          <div class="col col-2" style="text-transform: uppercase;">Requête</div>
           <div class="col col-3">Date</div>
           <div class="col col-4">IP</div>
           <div class="col col-5">Auteur</div>
