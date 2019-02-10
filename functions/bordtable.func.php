@@ -27,7 +27,7 @@
 			$date = explode("-", $row);
 			if (((int)$date[0]<=$currentdate) && ($currentdate<=(int)$date[1])) {*/
 				if ($branch=="Alternants") {
-					$query2 = "SELECT student_idu, nameu, surnameu, emailu, validationu, nametut FROM users INNER JOIN tuteur ON users.idtut=tuteur.idtut ORDER BY nameu";
+					$query2 = "SELECT student_idu, nameu, surnameu, emailu, validationu, nametut, namei FROM tuteur INNER JOIN users ON tuteur.idtut=users.idtut INNER JOIN institutions ON users.idi=institutions.idi ORDER BY nameu";
 					$res2 = pg_query($query2) or die('Echec de la requête : ' .pg_last_error());
 					while ($line2 = pg_fetch_array($res2, null, PGSQL_ASSOC)) {
 							$result.='<li onclick="location.href=\'stat.php\';" class="table-row">';
@@ -37,7 +37,7 @@
 									          <div class="col col-3" data-label="Surname">'.$line2["surnameu"].'</div>
 									          <div class="col col-4" data-label="Mail">'.$line2["emailu"].'</div>
 									          <div class="col col-5" data-label="Statut">'.$line2["validationu"].'</div>
-									          <div class="col col-6" data-label="Employeur">Deadline soon</div>
+									          <div class="col col-6" data-label="Employeur">'.$line2["namei"].'</div>
 									          <div class="col col-7" data-label="Maître Apprentissage">Deadline soon</div>
 									          <div class="col col-8" data-label="Tuteur UCP">'.$line2["nametut"].'</div>
 									      </li>';
@@ -50,7 +50,7 @@
 					$res1 = pg_query($query1) or die('Échec de la requête : ' . pg_last_error());
 					$line1 = pg_fetch_array($res1, null, PGSQL_ASSOC);
 					$id = $line1["idcl"];
-					$query = "SELECT student_idu, nameu, surnameu, emailu, validationu FROM users WHERE idcl='$id' ORDER BY nameu";
+					$query = "SELECT student_idu, nameu, surnameu, emailu, validationu, nametut, namei FROM tuteur INNER JOIN users ON tuteur.idtut=users.idtut INNER JOIN institutions ON users.idi=institutions.idi WHERE idcl='$id' ORDER BY nameu";
 					$res = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
 					while ($line = pg_fetch_array($res, null, PGSQL_ASSOC)) {
 						$result.='<li onclick="location.href=\'stat.php\';" class="table-row">';
@@ -60,9 +60,9 @@
 								          <div class="col col-3" data-label="Surname">'.$line["surnameu"].'</div>
 								          <div class="col col-4" data-label="Mail">'.$line["emailu"].'</div>
 								          <div class="col col-5" data-label="Statut">'.$line["validationu"].'</div>
-								          <div class="col col-6" data-label="Employeur">Deadline soon</div>
+								          <div class="col col-6" data-label="Employeur">'.$line["namei"].'</div>
 								          <div class="col col-7" data-label="Maître Apprentissage">Deadline soon</div>
-								          <div class="col col-8" data-label="Tuteur UCP">Deadline soon</div>
+								          <div class="col col-8" data-label="Tuteur UCP">'.$line["nametut"].'</div>
 								      </li>';
 			 
 					}
@@ -76,7 +76,7 @@
 			}
 			if (!empty($_GET['promo'])) {
 					$promo = $_GET['promo'];
-					$query3 = "SELECT student_idu, nameu, surnameu, emailu, validationu FROM users WHERE promotionu='$promo' ORDER BY nameu";
+					$query3 = "SELECT student_idu, nameu, surnameu, emailu, validationu, nametut, namei FROM tuteur INNER JOIN users ON tuteur.idtut=users.idtut INNER JOIN institutions ON users.idi=institutions.idi WHERE promotionu='$promo' ORDER BY nameu";
 					$res3 = pg_query($query3) or die('Echec de la requête : ' .pg_last_error());
 					while ($line3 = pg_fetch_array($res3, null, PGSQL_ASSOC)) {
 							$result.='<li onclick="location.href=\'stat.php\';" class="table-row">';
@@ -86,9 +86,9 @@
 									          <div class="col col-3" data-label="Surname">'.$line3["surnameu"].'</div>
 									          <div class="col col-4" data-label="Mail">'.$line3["emailu"].'</div>
 									          <div class="col col-5" data-label="Statut">'.$line3["validationu"].'</div>
-									          <div class="col col-6" data-label="Employeur">Deadline soon</div>
+									          <div class="col col-6" data-label="Employeur">'.$line3["namei"].'</div>
 									          <div class="col col-7" data-label="Maître Apprentissage">Deadline soon</div>
-									          <div class="col col-8" data-label="Tuteur UCP">Deadline soon</div>
+									          <div class="col col-8" data-label="Tuteur UCP">'.$line3["nametut"].'</div>
 									      </li>';
 					}
 					$result.='<li class="table-header">
