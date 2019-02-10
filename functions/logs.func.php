@@ -64,10 +64,9 @@ function logsFilter(){
               <div class="modal-body">
                 <form action="" method="">
                   <label for="mailTitle">Evénement :</label>
-                  
-                                <div class="col-md-6">
-                                	<select id="targettype" class="form-control" name="targettype">
-									  <option value="student">Etudiant</option>
+                        <div class="col-md-6">
+                         	<select id="targettype" class="form-control" name="targettype">
+									  <option value="student"></option>
 									  <option value="tutor">Enseignant tuteur</option>
 									  <option value="internshipsupervisor">Maître de stage</option>
 									</select>
