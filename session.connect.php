@@ -38,7 +38,7 @@
 				$_SESSION['typeu'] = $typeu['typeu'];
 				switch ($_SESSION['typeu']) {
 				    case 'student':
-				        header('location: profil.php?idu='.$_SESSION['idu'].''); 
+				        header('location: profil.php'); 
 				        break;
 				    case 'tutor':
 				        header('location: test.php');//tuteur

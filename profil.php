@@ -1,13 +1,13 @@
 <?php
-  /*Barrasset Raphaël, Castelain Julien, Ducroux Guillaume, Saint-Amand Matthieu  L3i 2019
-  raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
   require("functions/displayFunc.php");
+  require("functions/main.func.php");
+  verifyIfConnected('student');
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>Mon Profil</title>
 	<link rel="stylesheet" type="text/css" href="style.less" media="screen">
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -39,7 +39,14 @@
 </head>
 <body>
 	<?php 
-	$array_profil = profilDisplay("juju@gmail.com");
+	//if($_GET['idu'] == $_SESSION['idu']){
+	if(isset($_GET['idu'])){
+		if($_GET['idu']==1){
+			validProfile($_GET['idu']);
+			echo "<p style='color: green;'> Votre inscription a bien été validée !</p>";
+		}
+	}
+	$array_profil = profilDisplay(1);
 	echo '<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	    <div class="container">
 	        <a class="navbar-brand" href="#" id="nameU">Université de Cergy-Pontoise</a>
@@ -86,11 +93,11 @@
 		                </tr>
 		                <tr>
 		                  <th><strong>Entreprise</strong></th>
-		                  <td>ENTREPRISE</td>
+		                  <td>'.$array_profil[8]['namei'].'</td>
 		                </tr>
 		                <tr>
-		                  <th><strong>Adresse entreprise</strong></th>
-		                  <td>2-chome, R 19, JJJJJ </td>
+		                	<th><strong>Adresse entreprise</strong></th>
+		                  <td>'.$array_profil[9]['adri'].'</td>
 		                </tr>
 		                <tr>
 		                  <th><strong>Téléphone</strong></th>
@@ -98,16 +105,16 @@
 		                </tr>
 		                <tr>
 		                  <th><strong>ID étudiant</strong></th>
-		                  <td>11111111</td>
+		                  <td>'.$array_profil[3]['student_idu'].'</td>	
 		                </tr>
 		                <tr>
 		                  <th><strong>Tuteur </strong></th>
-		                  <td>M.LeMaire</td>
+		                  <td>'.$array_profil[10]['nametut'].'</td>
 		                </tr>
 		                <tr>
 		                  <th><strong>Durée du contrat</strong></th>
 		                  <td>3 mois</td>
-		                </tr>		                		                		                
+		                </tr>              		                
 		              </tbody>
 	            	</table>
 	          	</div>
@@ -116,10 +123,11 @@
 		</div>
 		<div class="row">
 			<div class="col-md-offset-5 col-md-2">
-				  <a href="#" class="access">Éditer</a>
+				  <a href="editProfil.php" class="access">Éditer</a>
 			</div>
 		</div>
 	</div>';
+	//}
 	?>
 		
 	</body>

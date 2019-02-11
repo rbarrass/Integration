@@ -1,4 +1,5 @@
 <?php
+
 function autorizedChar($strchain, $index){
     //name/surname
     if($index==0) return preg_match('/^[a-zA-Z-ëéèàù]{1,}$/', $strchain);
@@ -172,4 +173,222 @@ function verifyIfConnected($who){
       header('location:connect.php?id=login');
     }
 }
+
+/* PARTIE PROFIL */
+
+//this function serves to modify/complete the profile's informations
+
+function moreInformations($idu){
+
+  //connexion to the database
+  include_once("connectDatabase.php");
+
+  $dbconn =connectionDB();
+
+  //this variable serves to return a potential error
+
+  $sizeError="";
+
+  //if there is any form empty do :
+
+  if(isset($_POST['editvalid'])){
+
+      //if the longer of the new name is composed more than 30 caracters do:
+
+     if (strlen($_POST['newname']) > 30){
+        $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille du nom est limitée à 30 caractères</p>";
+      }else{
+        $_POST['newname'] = ucfirst(strtolower($_POST['newname']));
+        pg_query("UPDATE users SET nameu='".$_POST['newname']."' WHERE idu='".$idu."' ") or die('Erreur dans la table users');
+      }
+
+      //if the longer of the new surname is composed more than 30 caracters do:
+
+      if (strlen($_POST['newsur']) > 30){
+        $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille du prénom est limitée à 30 caractères</p>";
+      }else{
+        $_POST['newsur'] = ucfirst(strtolower($_POST['newsur']));
+        pg_query("UPDATE users SET surnameu='".$_POST['newsur']."' WHERE idu='".$idu."' ") or die('Erreur dans la table users');
+      }
+
+      //if the longer of the new student's id is composed more than 30 caracters do:
+
+      if (strlen($_POST['newid']) > 30){
+        $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille de l'id est limitée à 30 caractères</p>";
+      }else{
+        $_POST['newid'] = ucfirst(strtolower($_POST['newid']));
+        pg_query("UPDATE users SET student_idu='".$_POST['newid']."' WHERE idu='".$idu."' ") or die('Erreur dans la table users');
+      }
+
+      //if the longer of the new email's address is composed more than 30 caracters do:
+
+      if (strlen($_POST['new@']) > 30){
+        $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille de l'adresse email est limitée à 30 caractères</p>";
+      }else{
+        $_POST['new@'] = ucfirst(strtolower($_POST['new@']));
+        pg_query("UPDATE users SET emailu='".$_POST['new@']."' WHERE idu='".$idu."' ") or die('Erreur dans la table users');
+      }
+
+      //if the longer of the new stdent's address is composed more than 100 caracters do:
+
+      if (strlen($_POST['newadr']) > 100){
+        $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille de votre adresse est limitée à 100 caractères</p>";
+      }else{
+        $_POST['newadr'] = ucfirst(strtolower($_POST['newadr']));
+        pg_query("UPDATE users SET adru='".$_POST['newadr']."' WHERE idu='".$idu."' ") or die('Erreur dans la table users');
+      }
+
+      //update of the student's gender
+
+        $_POST['newgender'] = ucfirst(strtolower($_POST['newgender']));
+        pg_query("UPDATE users SET genderu='".$_POST['newgender']."' WHERE idu='".$idu."' ") or die('Erreur dans la table users');
+
+      //if the longer of the new phone number is composed more than 10 caracters do:
+
+      if (strlen($_POST['newtel']) > 10){
+        $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille du numero de telephone est limitée à 10 caractères</p>";
+      }else{
+        $_POST['newtel'] = ucfirst(strtolower($_POST['newtel']));
+        pg_query("UPDATE users SET phoneu='".$_POST['newtel']."' WHERE idu='".$idu."' ") or die('Erreur dans la table users');
+      }
+
+      //if the longer of the new password and the confirmation of the new password are composed more than 30 caracters do:
+
+      if (strlen($_POST['newpwd']) > 30 && strlen($_POST['newpwd']) < 8){
+        $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille du MDP est limitée à 30 caractères</p>";
+      }else{
+        if($_POST['newpwd'] == $_POST['newpwd1']){
+          $_POST['newpwd'] = ucfirst(strtolower($_POST['newpwd']));
+          pg_query("UPDATE users SET passwordu='".$_POST['newpwd']."' WHERE idu='".$idu."' ") or die('Erreur dans la table users');
+        }else{
+          $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: les deux mots de passes ne sont pas identiques</p>";
+        }
+      }
+
+        $_POST['newPromo'] = ucfirst(strtolower($_POST['newPromo']));
+        pg_query("UPDATE users SET promotionu='".$_POST['newPromo']."' WHERE idu='".$idu."' ") or die('Erreur dans la table users');
+
+        $_POST['newGroup'] = ucfirst(strtolower($_POST['newGroup']));
+        pg_query("UPDATE users SET groupu='".$_POST['newGroup']."' WHERE idu='".$idu."' ") or die('Erreur dans la table users');
+
+        //if the longer of the new entreprise's name is composed more than 30 caracters do:
+
+      if ( strlen($_POST['newent']) > 30 ){
+        $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille du nom de l'entreprise est limitée à 30 caractères</p>";
+      }else{
+        $_POST['newent'] = ucfirst(strtolower($_POST['newent']));
+        pg_query("UPDATE institutions SET namei='".$_POST['newent']."' FROM users WHERE institutions.idu=users.idu AND users.idu='".$idu."'") or die('Erreur dans la table users');
+      }
+
+        //if the longer of the new entreprise's address is composed more than 100 caracters do:
+
+      if ( strlen($_POST['newadre']) > 100 ){
+         $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille de l'adresse de l'entreprise est limitée à 100 caractères</p>";
+      }else{
+        $_POST['newadre'] = ucfirst(strtolower($_POST['newadre']));
+        pg_query("UPDATE institutions SET adri='".$_POST['newadre']."'FROM users WHERE institutions.idu=users.idu AND users.idu='".$idu."'") or die('Erreur dans la table users');
+      }
+
+      if ( strlen($_POST['newtut']) > 30 ){
+         $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille du nom de votre tuteur est limitée à 30 caractères</p>";
+      }else{
+        $_POST['newtut'] = ucfirst(strtolower($_POST['newtut']));
+        pg_query("UPDATE tuteur SET nametut='".$_POST['newtut']."'FROM users WHERE tuteur.idtut=users.idu AND users.idu='".$idu."'") or die('Erreur dans la table users');
+      }
+
+      closeDB($dbconn);
+      $sizeError="ok";
+  }else{
+
+  }
+  return $sizeError;
+}
+
+function send($idu){
+
+$boundary = "-----=" . md5( uniqid ( rand() ) );
+$headers = "Reply-to: \"noReplyUCP\" <noReplyUCP@u-cergy.net>\n"; 
+$headers .= "From: \"noReplyUCP\"<noReplyUCP@u-cergy.net>\n";
+//NOTE: l'adresse email indiquée dans le header From doit etre l'adresse absolue du serveur qui envoie les messages, et peut etre differente de votre adresse de contact si vous etes par exemple sur un serveur dedié partagé. dans mon cas l'adresse specifiee ici est <webusers@mail.nomduserveur.com>
+$headers .= "MIME-Version: 1.0\n";
+$headers .= "Content-Type: text/html; boundary=\"$boundary\"";
+//g.ducroux@outlook.fr
+//throwaraccoon@gmail.com
+//julom78@gmail.com
+
+$link="http://localhost/profil.php?idu=".$idu."";
+
+$destinataire = "julom78@gmail.com";
+
+$subject = "Validation de votre inscription";
+
+$message_txt  = "Finissez votre inscription en cliquant sur ce lien : ".$link."\n\n";
+
+$message_html  = "<html>\n";
+$message_html .= "<body>\n";
+$message_html .= "<p>Finissez votre inscription en cliquant sur ce lien : ".$link."\n\n</p><br><br>";
+
+
+$message = $message_html;
+$message .= "\n\n";
+$message .= "<p style='display:none;'>".$boundary."</p>\n";
+$message .= "</body>\n";
+$message .= "</html>\n";
+
+
+mail($destinataire,$subject,$message,$headers);
+
+}
+
+function sendToSecretary($idu){
+  include_once("connectDatabase.php");
+
+  $dbconn =connectionDB();
+
+  $req = pg_query("SELECT nameu FROM users WHERE idu='".$idu."'") or die('Erreur dans la table users');
+  $array[0] = pg_fetch_array($req, null, PGSQL_ASSOC);
+
+  $req = pg_query("SELECT surnameu FROM users WHERE idu='".$idu."'") or die('Erreur dans la table users');
+  $array[1] = pg_fetch_array($req, null, PGSQL_ASSOC);
+
+  closeDB($dbconn);
+
+  $boundary = "-----=" . md5( uniqid ( rand() ) );
+  $headers = "Reply-to: \"noReplyUCP\" <noReplyUCP@u-cergy.net>\n"; 
+  $headers .= "From: \"noReplyUCP\"<noReplyUCP@u-cergy.net>\n";
+
+  $headers .= "MIME-Version: 1.0\n";
+  $headers .= "Content-Type: text/html; boundary=\"$boundary\"";
+
+  $destinataire = "julom78@gmail.com";
+
+  $subject = "Une inscription a été validée";
+
+  $message_txt  = "L'inscrption de ".$array[1]['surnameu']." ".$array[0]['nameu']." a bien été validée.\n\n";
+
+  $message_html  = "<html>\n";
+  $message_html .= "<body>\n";
+  $message_html .= "<p>L'inscrption de ".$array[1]['surnameu']." ".$array[0]['nameu']." a bien été validée.</p><br><br>";
+
+
+  $message = $message_html;
+  $message .= "\n\n";
+  $message .= "<p style='display:none;'>".$boundary."</p>\n";
+  $message .= "</body>\n";
+  $message .= "</html>\n";
+
+
+  mail($destinataire,$subject,$message,$headers);
+
+}
+
+function validProfile($idu){
+  include_once("connectDatabase.php");
+  $dbconn = connectionDB();
+  pg_query("UPDATE users SET validationu='OK'") or die('Erreur dans la table users');
+  closeDB($dbconn);
+
+  sendToSecretary($idu);
+}
+
 ?>
