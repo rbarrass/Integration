@@ -29,16 +29,16 @@
 		   		session_start();
 		    	//initialize superglobal $_SESSION
 			   	$_SESSION['email-address'] = $_POST['email-address']; 
-			   	$reqIdu=pg_query("SELECT idu FROM users WHERE emailu='".$_POST['email-address']."';") or die('Erreur de connection.'); // ***********POUR JULIEN***************
+			   	$reqIdu=pg_query("SELECT idu FROM users WHERE emailu='".$_POST['email-address']."';") or die('Erreur de connection.'); 
 			    $reqTypeu=pg_query("SELECT typeu FROM users WHERE emailu='".$_POST['email-address']."';") or die('Erreur de connection.');
-				$idu = pg_fetch_array($reqIdu,null,PGSQL_ASSOC); // utiliser $idu['idu'];	JULIEN		    
+				$idu = pg_fetch_array($reqIdu,null,PGSQL_ASSOC); 	    
 			    $typeu = pg_fetch_array($reqTypeu,null,PGSQL_ASSOC);
 				//echo $typeu['typeu']; => value of typeu => student/professor...
 				$_SESSION['idu'] = $idu['idu'];
 				$_SESSION['typeu'] = $typeu['typeu'];
 				switch ($_SESSION['typeu']) {
 				    case 'student':
-				        header('location: profil.php?idu='.$_SESSION['idu'].''); // CHANGER ICI AVEC LE GET ***JULIEN*** avec $_SESSION en récupérant l'idu avec un SELECT
+				        header('location: profil.php?idu='.$_SESSION['idu'].''); 
 				        break;
 				    case 'tutor':
 				        header('location: test.php');//tuteur

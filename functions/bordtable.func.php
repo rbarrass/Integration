@@ -27,7 +27,7 @@
 			$date = explode("-", $row);
 			if (((int)$date[0]<=$currentdate) && ($currentdate<=(int)$date[1])) {*/
 				if ($branch=="Alternants") {
-					$query2 = "SELECT student_idu, nameu, surnameu, emailu, validationu, nametut, namei FROM tuteur INNER JOIN users ON tuteur.idtut=users.idtut INNER JOIN institutions ON users.idu=institutions.idu ORDER BY nameu";
+					$query2 = "SELECT student_idu, nameu, surnameu, emailu, validationu, nametut, namei FROM tuteur INNER JOIN users ON tuteur.idtut=users.idtut INNER JOIN institutions ON users.idi=institutions.idi ORDER BY nameu";
 					$res2 = pg_query($query2) or die('Echec de la requête : ' .pg_last_error());
 					while ($line2 = pg_fetch_array($res2, null, PGSQL_ASSOC)) {
 							$result.='<li  class="table-row">';
