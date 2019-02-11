@@ -57,7 +57,7 @@
 	        <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	            <ul class="navbar-nav ml-auto">
 	                <li class="nav-item">
-	                    <a class="nav-link" href="connect.php" style="color: #00BFFF; font-size:15px;">Se déconnecter</a>
+	                    <a class="nav-link" href="functions/logout.php" style="color: #00BFFF; font-size:15px;">Se déconnecter</a>
 	                </li>
 	            </ul>
 

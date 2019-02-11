@@ -77,8 +77,8 @@ window.onload = function(){
 	        this.value = "Rechercher...";
 	};
 };
-
-function createUserCheck() {
+//A DEPLACER
+/**************function createUserCheck() {
   if (confirm("Vous êtes sut le point de créer un nouvel utilisateur")) {
     return "ok";
   } else {
@@ -89,7 +89,7 @@ function createUserCheck() {
 function dropDownButton() {
 	/* When the user clicks on the button, 
 	toggle between hiding and showing the dropdown content */
-	function myFunction'.$i.'() {
+/***************	function myFunction'.$i.'() {
 	  document.getElementById("myDropdown'.$i.'").classList.toggle("show");
 	}
 	// Close the dropdown if the user clicks outside of it
