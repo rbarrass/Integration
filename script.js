@@ -78,7 +78,7 @@ window.onload = function(){
 	};
 };
 //A DEPLACER
-/**************function createUserCheck() {
+/*function createUserCheck() {
   if (confirm("Vous êtes sut le point de créer un nouvel utilisateur")) {
     return "ok";
   } else {
@@ -108,7 +108,7 @@ function dropDownButton() {
 						
 }
 
-
+*/
 
 
 

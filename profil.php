@@ -1,7 +1,7 @@
 <?php
   require("functions/displayFunc.php");
   require("functions/main.func.php");
-  verifyIfConnected('student');
+  // pas de VERIFY pour l'instant
 ?>
 <!DOCTYPE html>
 <html lang="en">

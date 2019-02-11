@@ -25,7 +25,7 @@
     ?>
     <!-- Barre de recherch dynamique gérée par script.js et style avec style.less -->
     <div class="search__container">
-      <form id="auto-suggest" action="profil.php" method="get">
+      <?php $i=1; echo '<form id="auto-suggest" action="profil.php?idu='.$i.'" method="post">';?>
         <input type="text" class="search__input" name="search" value="Rechercher..." onfocus="if(this.value=='Rechercher...')this.value=''" autocomplete="off"/>
         <ul class="suggestions">
       <!-- remplit par le script -->
