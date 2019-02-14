@@ -26,6 +26,18 @@
         </ul>
       </form>
     </div>
-    <?php echo statistics(); ?>
+    <div id="adminPart1">
+              <div id="statistic">
+                <?php 
+                  echo '<img src="testgraph.php" />';
+                ?>
+              </div>
+              <div id="statistic2">
+                <?php 
+                  echo '<img src="testgraph.php" />';
+                ?>
+              </div>
+
+    </div>
 	</html>
 </body>

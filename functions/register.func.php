@@ -228,7 +228,7 @@ function register(){
 		}
 
 		//request to create line in table.users
-		$request = "INSERT INTO users VALUES(DEFAULT, '".$_POST['myno']."', '".$_POST['myname']."', '".$_POST['mysurname']."', ' ', '".$_POST['myemail']."', ' ', ' ', '$password_hash', ' ', 'student', 'pending')";
+		$request = "INSERT INTO users VALUES(DEFAULT, '".$_POST['myno']."', '".$_POST['myname']."', '".$_POST['mysurname']."', ' ', '".$_POST['myemail']."', ' ', ' ', '$password_hash', ' ', 'student', 'pending', '2018-2020', ' ', '1', '1', '1')";
 		$resultat = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
 
 

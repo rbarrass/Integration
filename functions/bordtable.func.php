@@ -27,7 +27,7 @@
 			$date = explode("-", $row);
 			if (((int)$date[0]<=$currentdate) && ($currentdate<=(int)$date[1])) {*/
 				if ($branch=="Alternants") {
-					$query2 = "SELECT student_idu, nameu, surnameu, emailu, validationu, nametut, namei FROM tuteur INNER JOIN users ON tuteur.idtut=users.idtut INNER JOIN institutions ON users.idi=institutions.idi ORDER BY nameu";
+					$query2 = "SELECT student_idu, nameu, surnameu, emailu, validationu, nametut, namei FROM tuteur INNER JOIN users ON tuteur.idtut=users.idtut INNER JOIN institutions ON users.idi=institutions.idi WHERE typeu='student' AND validationu='allowed' ORDER BY nameu";
 					$res2 = pg_query($query2) or die('Echec de la requête : ' .pg_last_error());
 					while ($line2 = pg_fetch_array($res2, null, PGSQL_ASSOC)) {
 							$result.='<li  class="table-row">';
@@ -50,7 +50,7 @@
 					$res1 = pg_query($query1) or die('Échec de la requête : ' . pg_last_error());
 					$line1 = pg_fetch_array($res1, null, PGSQL_ASSOC);
 					$id = $line1["idcl"];
-					$query = "SELECT student_idu, nameu, surnameu, emailu, validationu, nametut, namei FROM tuteur INNER JOIN users ON tuteur.idtut=users.idtut INNER JOIN institutions ON users.idi=institutions.idi WHERE idcl='$id' ORDER BY nameu";
+					$query = "SELECT student_idu, nameu, surnameu, emailu, validationu, nametut, namei FROM tuteur INNER JOIN users ON tuteur.idtut=users.idtut INNER JOIN institutions ON users.idi=institutions.idi WHERE idcl='$id' AND typeu='student' AND validationu='allowed' ORDER BY nameu";
 					$res = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
 					while ($line = pg_fetch_array($res, null, PGSQL_ASSOC)) {
 						$result.='<li onclick="document.getElementById(\'choiceTutor\').style.display=\'block\'" class="table-row">';
@@ -85,7 +85,7 @@
 			}
 			if (!empty($_GET['promo'])) {
 					$promo = $_GET['promo'];
-					$query3 = "SELECT student_idu, nameu, surnameu, emailu, validationu, nametut, namei FROM tuteur INNER JOIN users ON tuteur.idtut=users.idtut INNER JOIN institutions ON users.idi=institutions.idi WHERE promotionu='$promo' ORDER BY nameu";
+					$query3 = "SELECT student_idu, nameu, surnameu, emailu, validationu, nametut, namei FROM tuteur INNER JOIN users ON tuteur.idtut=users.idtut INNER JOIN institutions ON users.idi=institutions.idi WHERE promotionu='$promo' AND typeu='student' AND validationu='allowed' ORDER BY nameu";
 					$res3 = pg_query($query3) or die('Echec de la requête : ' .pg_last_error());
 					while ($line3 = pg_fetch_array($res3, null, PGSQL_ASSOC)) {
 							$result.='<li onclick="location.href=\'stat.php\';" class="table-row">';
