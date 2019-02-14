@@ -23,7 +23,7 @@
     ?>
     <!-- Barre de recherch dynamique gérée par script.js et style avec style.less -->
     <div class="search__container">
-      <?php $i=1; echo '<form id="auto-suggest"  action="" method="POST">';?>
+      <?php $i=1; echo '<form id="auto-suggest"  action="functions/main.func.php" method="POST">';?>
         <input type="text" class="search__input" id="etu_search" name="search" value="Rechercher..." onfocus="if(this.value=='Rechercher...')this.value=''" autocomplete="off"  />
         <ul class="suggestions">
       <!-- remplit par le script -->
