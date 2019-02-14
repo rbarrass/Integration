@@ -5,7 +5,7 @@ require('connectDatabase.php');
 function pendingList(){
 	$dbconn = connectionDB();
 	$display = '';
-	$query = "SELECT student_idU,nameU,surnameU,emailU,idU FROM users WHERE validationU='pending';";
+	$query = "SELECT student_idU,nameU,surnameU,emailU,idU FROM users WHERE validationU='OK';";
 	$result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
 	$i=0;
 	while ($line = pg_fetch_array($result,null,PGSQL_ASSOC)) {

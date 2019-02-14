@@ -22,11 +22,11 @@
       $array[6] = pg_fetch_array($req, null, PGSQL_ASSOC);
       $req = pg_query("SELECT profilimgu FROM users WHERE idu='".$idu."'") or die('Échec de la requête : ' . pg_last_error());
       $array[7] = pg_fetch_array($req, null, PGSQL_ASSOC);
-      $req = pg_query("SELECT namei FROM institutions WHERE idu='".$idu."'") or die('Échec de la requête : ' . pg_last_error());
+      $req = pg_query(" SELECT namei FROM institutions INNER JOIN users ON users.idi = institutions.idi WHERE idu='".$idu."'") or die('Échec de la requête : ' . pg_last_error());
       $array[8] = pg_fetch_array($req, null, PGSQL_ASSOC);
-      $req = pg_query("SELECT adri FROM institutions WHERE idu='".$idu."'") or die('Échec de la requête : ' . pg_last_error());
+      $req = pg_query("SELECT adri FROM institutions INNER JOIN users ON users.idi = institutions.idi WHERE idu='".$idu."'") or die('Échec de la requête : ' . pg_last_error());
       $array[9] = pg_fetch_array($req, null, PGSQL_ASSOC);
-      $req = pg_query("SELECT nametut FROM tuteur WHERE idtut='".$idu."'") or die('Échec de la requête : ' . pg_last_error());
+      $req = pg_query("SELECT nametut FROM tuteur INNER JOIN users ON users.idtut = tuteur.idtut WHERE idu='".$idu."'") or die('Échec de la requête : ' . pg_last_error());
       $array[10] = pg_fetch_array($req, null, PGSQL_ASSOC);
       if ($array[7]['profilimgu'] == "") $array[7]['profilimgu'] = "./pictures/profil_pic/default.png";
       pg_close($dbconn);
@@ -34,3 +34,4 @@
     }
 
     ?>
+
