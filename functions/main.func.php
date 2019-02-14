@@ -174,7 +174,7 @@ function verifyIfConnected($who){
     }
 }
 
-/* PARTIE PROFIL */
+/* EDIT PROFIL PART */
 
 //this function serves to modify/complete the profile's informations
 
@@ -316,9 +316,9 @@ $headers .= "Content-Type: text/html; boundary=\"$boundary\"";
 //throwaraccoon@gmail.com
 //julom78@gmail.com
 
-$link="http://localhost/profil.php?idu=".$idu."";
+$link="http://localhost/profil.php?idu=".$idu.""; // à modifier
 
-$destinataire = "julom78@gmail.com";
+$destinataire = "throwaraccoon@gmail.com";
 
 $subject = "Validation de votre inscription";
 
@@ -334,7 +334,7 @@ $message .= "\n\n";
 $message .= "<p style='display:none;'>".$boundary."</p>\n";
 $message .= "</body>\n";
 $message .= "</html>\n";
-
+$mail_from="noReplyUCP@u-cergy.net";
 
 mail($destinataire,$subject,$message,$headers);
 

@@ -64,19 +64,25 @@ if($_GET['id']=='login'){
                 <div class="card">
                     <div class="card-header">Login</div>
                     <div class="card-body">
-                        <form action="session.connect.php" method="post">         <!-- ***************A DEFINIR si, rien, il envoie en GET les info***************-->
+                        <form action="session.connect.php" method="post">       
                             <div class="form-group row">
                                 <label for="myname" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
                                 <div class="col-md-6">
-                                    <input type="text" id="myname" class="form-control" name="email-address" placeholder="Votre email" required autofocus><!-- MAIL -->
-                                </div>
+                                    <input type="text" id="myname" class="form-control" name="email-address" placeholder="Votre email" required autofocus '; 
+                                            if(!empty($_COOKIE['log']['login'])){
+                                            echo 'value="'.$_COOKIE['log']['login'].'">';
+                                            }else{ echo '>';} 
+                               echo ' </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
                                 <div class="col-md-6">
-                                    <input type="password" id="password" class="form-control" name="password" placeholder="Votre mot de passe" required> <!-- PASS -->
-                                </div>
+                                    <input type="password" id="password" class="form-control" name="password" placeholder="Votre mot de passe" required ';
+                                            if(!empty($_COOKIE['log']['password'])){
+                                            echo 'value="'.$_COOKIE['log']['password'].'">';
+                                            }else{ echo '>';} 
+                               echo ' </div>
                             </div>
 
                             <div class="form-group row">
@@ -91,7 +97,7 @@ if($_GET['id']=='login'){
 
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Register
+                                    Log in
                                 </button>
                                 <a onclick="document.getElementById(\'id01\').style.display=\'block\'" class="btn btn-link">
                                     Forgot Your Password?
@@ -129,30 +135,12 @@ if($_GET['id']=='login'){
                 <br />
               </div>
             </div>
-          </div> 
-
-          <script>
-            // Get the modal
-            var modal = document.getElementById(\'id01\');
-            var close2 = document.getElementById(\'cl2\');
-            var closeAround= document.getElementById(\'around\');
-            // When the user clicks anywhere outside of the modal, close it
-            window.onclick = function(event) {
-                if (event.target == close2 || event.target == closeAround) {
-                    modal.style.display = "none";
-                }
-            }
-          </script> 
-    </div>
-    </div>
-
-</main>';    
+          </div> ';    
 }else{
   $containError = register(); 
   //registerForm();
   // Redirect to profil.php page if no error detected, else show it
   if ($containError == "null") {
-    echo "gooda";
   }else{
     echo "$containError";
   }
@@ -164,9 +152,5 @@ if($_GET['id']=='login'){
   }
   }
 ?>
-
-<!-- Ajouter condition timer pour inscription = ex: disponibilité pendant 2 mois Septembre-Octobre
-
-
 </body>
 </html> 

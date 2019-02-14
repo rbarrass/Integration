@@ -18,10 +18,7 @@
   </html>
     <?php
       echo displayIcons();
-      $menu = displayMenu();
-      echo $menu;
-      
-
+      echo displayMenu();
     ?>
     <!-- Barre de recherch dynamique gérée par script.js et style avec style.less -->
     <div class="search__container">
@@ -34,8 +31,7 @@
     </div>
 
     <?php
-        $tablebord = displayBordTable();
-        echo $tablebord;
+        echo displayBordTable();
     ?>    
   </html>
 </body>

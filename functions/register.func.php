@@ -197,9 +197,7 @@ function register(){
 		$query = 'SELECT student_idU FROM users';
 		$result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
 		$tab = array();
-		$i=0;
-		$j=0;
-		$k=0;
+		$i=0;$j=0;$k=0;
 		while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
     		foreach ($line as $col_value) {
     			$tab[$i]=$col_value;
@@ -234,7 +232,6 @@ function register(){
 
 		//We want to increment table.logs to save this action and keep an eye on registering requests
 		if (pg_last_error() == NULL) {
-			echo "hello";//MARCHE
 			//Request to search id of account just created 
 			$requestUserId = "SELECT idU FROM users WHERE emailU='".$_POST['myemail']."'";
 			$resultUserId = pg_query($requestUserId) or die('ERREUR SQL : '. $requestUserId . 	pg_last_error());
@@ -244,9 +241,8 @@ function register(){
 			$request = "INSERT INTO logs VALUES(DEFAULT, 'student registering', '".getTheDate()."', '".getIp()."', 'insert', null, '$userId', null, null, null, null, null)";
 			$resultat = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
 		}
-		echo "error";
 		$errorR = "null";
-		echo $errorR;
+    send(1);
 		return $errorR;
 	}
 }
@@ -338,7 +334,7 @@ function registerOk(){
           <div class="col-md-8">
               <div class="card-body">
                   <div class="alert alert-primary" role="alert">
-                      Votre compte a bien été enregistré. Veuillez vérifier votre adresse mail, un lien vous sera envoyé.
+                      Votre compte a bien été enregistré. Veuillez vérifier votre adresse mail, un lien vous sera envoyé.'.$_POST['email-address'].'
                   </div>
               </div>
           </div>
