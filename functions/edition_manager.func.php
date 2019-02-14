@@ -12,54 +12,34 @@ Supervisor feature
 
 //Display manual registration form
 function editRegisteringForm(){
-	echo '<main class="register-form"> <!-- Registering part -->
-    <div> 
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Créer un compte utilisateur</div>
-                    <div class="card-body">
+	echo '
+                      <div class="edit_manager" style="padding-top: 100px;">
                         <form action="edition_manager.php" method="post">
-                            <div class="form-group row">
-                                <label for="targetname" class="col-md-4 col-form-label text-md-right">Nom :</label>
-                                <div class="col-md-6">
-                                    <input type="text" id="targetname" class="form-control" name="targetname" placeholder="Nom de famille de l\'utilisateur" required autofocus><!-- NAME -->
+                                <label for="targetname">Nom :</label>
+                                <div class="col">
+                                    <input type="text" class="edit_register" name="targetname" placeholder="Nom de famille de l\'utilisateur" required autofocus><!-- NAME -->
                                 </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="targetsurname" class="col-md-4 col-form-label text-md-right">Prénom :</label>
-                                <div class="col-md-6">
-                                    <input type="text" id="targetsurname" class="form-control" name="targetsurname" placeholder="Prénom de l\'utilisateur" required> <!-- Surname -->
+                                <label for="targetsurname">Prénom :</label>
+                                <div class="col">
+                                    <input type="text" class="edit_register" name="targetsurname" placeholder="Prénom de l\'utilisateur" required> <!-- Surname -->
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="targetemail" class="col-md-4 col-form-label text-md-right">E-mail :</label>
-                                <div class="col-md-6">
-                                    <input type="email" id="targetemail" class="form-control" name="targetemail" placeholder="Adresse email de l\'utilisateur ( Valide )" required> <!-- MAIL -->
+                                <label for="targetemail">E-mail :</label>
+                                <div class="col">
+                                    <input type="email" class="edit_register" name="targetemail" placeholder="Adresse email de l\'utilisateur ( Valide )" required> <!-- MAIL -->
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="targettype" class="col-md-4 col-form-label text-md-right">Type d\'utilisateur</label>
-                                <div class="col-md-6">
-                                	<select id="targettype" class="form-control" name="targettype">
-									  <option value="student">Etudiant</option>
-									  <option value="tutor">Enseignant tuteur</option>
-									  <option value="internshipsupervisor">Maître de stage</option>
-									</select>
+                                <label for="targettype">Type d\'utilisateur :</label>
+                                <div class="col">
+                                  <select id="targettype" class="edit_register" name="targettype">
+                                  <option value="student">Etudiant</option>
+                                  <option value="tutor">Enseignant tuteur</option>
+                                  <option value="internshipsupervisor">Maître de stage</option>
+                                </select>
                                 </div>
-                            </div>
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary" name="validCreation">
+                                <button type="submit" class="sendMail" name="validCreation">
                                     Créer
                                 </button>
-                            </div>
-                    </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>';
+                         </form>
+                        </div>';
   
 
 }

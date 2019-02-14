@@ -9,7 +9,7 @@
 		setcookie('log[password]',$_POST['password']);
 	}else{
 		setcookie('log[login]', NULL, -1);//delete the cookie
-		setcookie('log[password]', NULL, -1);//delete the seccond cookie
+		setcookie('log[password]', NULL, -1);//delete the second cookie
 	}
 		require ('functions/connectDatabase.php');
 
