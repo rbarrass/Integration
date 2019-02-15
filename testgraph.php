@@ -1,8 +1,8 @@
 <?php
       require('src/jpgraph.php');
-    require('src/jpgraph_pie.php');
+      require('src/jpgraph_pie.php');
 
-      $dbconn = pg_connect("dbname=dbnadreamz host=localhost user=nadreamz password=Guillaume95") or die('Connexion impossible : ' . pg_last_error());
+      $dbconn = pg_connect("dbname=dbl1k1 host=localhost user=l1k1 password=starbringen") or die('Connexion impossible : ' . pg_last_error());
       $tabclass = array();
       $tabnbeleve = array();
       $sql = "SELECT COUNT(*) AS count, branchcl FROM users INNER JOIN classrooms ON users.idcl=classrooms.idcl GROUP BY classrooms.branchcl";

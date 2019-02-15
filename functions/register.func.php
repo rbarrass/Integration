@@ -242,7 +242,7 @@ function register(){
 			$resultat = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
 		}
 		$errorR = "null";
-    send(1);
+   // send(1);
 		return $errorR;
 	}
 }
