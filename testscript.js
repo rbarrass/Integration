@@ -60,7 +60,7 @@ window.onload = function(){
                   },
                   title: {
                     display: true,
-                    text: 'Chart.js Bar Chart'
+                    text: 'Représentation des étudiants par section et apprentissage'
                   }
                 }
               });
