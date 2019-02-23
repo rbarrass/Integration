@@ -67,7 +67,7 @@ window.onload = function(){
 
     }
   };
-  xmlhttp.open("GET", "nbrUser.php", true);
+  xmlhttp.open("GET", "studentJob.php", true);
   xmlhttp.send(); 
 };
 

@@ -13,7 +13,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
   <script src="https://www.chartjs.org/dist/2.7.3/Chart.bundle.js"></script>
   <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
-  <script type="text/javascript" src="testscript.js"></script>
+  <script type="text/javascript" src="barchart.studentJob.js"></script>
+  <script type="text/javascript" src="piechart.nbrUser.js"></script>
 </head>
 <body>
   </html>
@@ -43,12 +44,11 @@
     </div>
 
 	</html>
-<div id="container" style="width: 75%; margin-left: 20%;">
+  <div id="container" style="width: 75%; margin-left: 20%;">
     <canvas id="canvas"></canvas>
   </div>
+  <div id="canvas-holder" style="width:75%; margin-left: 20%; margin-top: 5%;">
+    <canvas id="chart-area"></canvas>
+  </div>
 
-  <script>
-
-    
-  </script>
 </body>
