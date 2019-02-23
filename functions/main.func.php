@@ -170,7 +170,11 @@ function verifyIfConnected($who){
     if($_SESSION['typeu']==$who){
       //do nothing just verify, you cannot verify if != because typeu doesn't exists when a session isn't started
     }else{// if the user know the URL but is not connected, he's redirected to another page
-      header('location:connect.php?id=login');
+      //header('location:connect.php?id=login');
+  //  echo '<meta http-equiv="refresh" content="5; URL=http://www.connect.php">';
+    echo '<script>
+  document.location.href="connect.php?id=login"; 
+</script>';
     }
 }
 
