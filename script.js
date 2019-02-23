@@ -9,7 +9,7 @@ window.onload = function(){
 	xmlhttp.onreadystatechange = function() {
 	  if (this.readyState == 4 && this.status == 200) {
 	     myObj = JSON.parse(this.responseText);
-	          //alert(myObj[0]);
+	         // alert(myObj[0]);
 	          keyword=myObj;
 	  }
 	};
