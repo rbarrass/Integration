@@ -1,7 +1,7 @@
 <?php
     require('functions/main.func.php');
     require('functions/bordtable.func.php');
-    verifyIfConnected('supervisor');
+    //verifyIfConnected('supervisor');
 ?>
 <!DOCTYPE html>
 <html lang="en">

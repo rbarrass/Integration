@@ -46,7 +46,7 @@ function displayMenu(){
              <ul class="hidden">
               <li onclick="location.href=\'stat.php\';">Utilisateurs</li>
               <li onclick="location.href=\'tuteur.php?name=Lemaire&surname=Marc\';">Tuteur</li>
-              <li>Visites</li>
+              <li onclick="location.href=\'reportTutor.php?name=Lemaire&surname=Marc\';">Compte-Rendu</li>
             </ul>
           </li>
           <li>
@@ -54,6 +54,7 @@ function displayMenu(){
              ENREGISTREMENTS
              <ul class="hidden">
               <li onclick="location.href=\'registration_manager.php\';">Approbation</li>
+              <li onclick="location.href=\'registration_tutor_student.php\';">Valider tuteurs</li>
               <li onclick="location.href=\'edition_manager.php\';">Edition</li>
             </ul>
           </li>

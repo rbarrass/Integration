@@ -3,7 +3,6 @@
   raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
   require('functions/main.func.php');
   require('functions/registration_manager.func.php');
-  //verifyIfConnected('supervisor');
 ?>
 
 <!DOCTYPE html>
@@ -51,8 +50,8 @@
         </li>
         
         <?php
-          pendingList();
-          if (approval() != ''){
+          pendingtutorList();
+          if (approvaltut_student() != ''){
             //refresh page
             echo '<meta http-equiv="refresh" content=0 >';
           }
