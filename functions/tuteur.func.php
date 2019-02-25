@@ -18,7 +18,7 @@
 
 		        </li>';
 		
-		$query1 = "SELECT student_idu, nameu, surnameu, emailu, namei FROM users INNER JOIN institutions ON users.idi=institutions.idi WHERE idtut=(SELECT idtut FROM tuteur WHERE nametut='$name' AND surnametut='$surname' LIMIT 1) ORDER BY nameu";
+		$query1 = "SELECT student_idu, nameu, surnameu, emailu, namei FROM users INNER JOIN institutions ON users.idi=institutions.idi WHERE idtut=(SELECT idtut FROM tuteur WHERE nametut='$name' AND surnametut='$surname' LIMIT 1) AND validationtutU='validate' ORDER BY nameu";
 		$res1 = pg_query($query1) or die('Echec de la requête : ' .pg_last_error());
 		while ($line1 = pg_fetch_array($res1, null, PGSQL_ASSOC)) {
 			$result.='<li onclick="location.href=\'\';" class="table-row">';
@@ -53,7 +53,7 @@
 
 		        </li>';
 		$i=0;
-		$query2 = "SELECT student_idu, nameu, surnameu, emailu, idu, namei FROM users INNER JOIN institutions ON users.idi=institutions.idi WHERE idtut='1' ORDER BY nameu";
+		$query2 = "SELECT student_idu, nameu, surnameu, emailu, idu, namei FROM users INNER JOIN institutions ON users.idi=institutions.idi WHERE idtut='1' AND validationU='allowed' ORDER BY nameu";
 		$res2 = pg_query($query2) or die('Echec de la requête : ' .pg_last_error());
 		while ($line2 = pg_fetch_array($res2, null, PGSQL_ASSOC)) {
 			$result.='<li class="table-row">';
@@ -122,7 +122,7 @@
 		$requete = "SELECT idtut FROM tuteur WHERE nametut='$nametuteur' AND surnametut='$surnametuteur' LIMIT 1";
 		$res1 = pg_query($requete) or die('Échec de la requête : ' . pg_last_error());
 		$idtuteur = pg_fetch_result($res1, 'idtut');
-		$query = "UPDATE users SET idtut='$idtuteur' WHERE idU='".$_POST['myid']."'";
+		$query = "UPDATE users SET idtut='$idtuteur', validationtutU='pending' WHERE idU='".$_POST['myid']."'";
 		$res = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
 		//We want to increment table.logs to save this action and keep an eye on registering requests
 		if (pg_last_error() == NULL) {
@@ -157,6 +157,29 @@
 	}
 }
 
+
+	if(isset($_POST['submit2'])){
+		$dbconnexion = connectionDB();
+		$nametuteur=$_GET['name'];
+		$surnametuteur=$_GET['surname'];
+		$requete = "SELECT idtut FROM tuteur WHERE nametut='$nametuteur' AND surnametut='$surnametuteur' LIMIT 1";
+		$res1 = pg_query($requete) or die('Échec de la requête : ' . pg_last_error());
+		$idtuteur = pg_fetch_result($res1, 'idtut');
+		$namestud = $_POST['students'];
+		$exp = explode(" ", $namestud);
+		$name = $exp[0];
+		$surname = $exp[1];
+		$report_text = $_POST['report'];
+		$query4 = "SELECT idU FROM users WHERE nameu='$name' AND surnameu='$surname' LIMIT 1";
+		$res0 = pg_query($query4) or die('ERREUR SQL : '. $query3 . 	pg_last_error());
+		$numeroidu = pg_fetch_result($res0, 'idu');
+		$query4 = "SELECT idU FROM users WHERE nameu='$name' AND surnameu='$surname'";
+		$res0 = pg_query($query4) or die('ERREUR SQL : '. $query3 . 	pg_last_error());
+		$numeroidu = pg_fetch_result($res0, 0, 0);
+		$query3="INSERT INTO reports VALUES (DEFAULT, '".getTheDate()."', '$report_text', '$idtuteur', '$numeroidu')";
+		$res = pg_query($query3) or die('ERREUR SQL : '. $query3 . 	pg_last_error());
+
+	}
 
 
 ?>
