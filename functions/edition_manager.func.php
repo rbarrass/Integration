@@ -12,7 +12,7 @@ Supervisor feature
 
 //Display manual registration form
 function editRegisteringForm(){
-	echo '<main class="register-form"> <!-- Registering part -->
+	echo '<main class="login-form"> <!-- Registering part -->
     <div> 
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -44,8 +44,9 @@ function editRegisteringForm(){
                                 <div class="col-md-6">
                                 	<select id="targettype" class="form-control" name="targettype">
 									  <option value="student">Etudiant</option>
-									  <option value="tutor">Enseignant tuteur</option>
 									  <option value="internshipsupervisor">Maître de stage</option>
+									  <option value="tutor">Enseignant tuteur</option>
+									  <option value="tutorVip">Enseignant tuteur responsable de formation</option>
 									</select>
                                 </div>
                             </div>
@@ -148,8 +149,15 @@ function accountCreation(){
 		    </div>';
 			return $errorR;
 		}//Pas fini, verif typing
-		// we take all the emails that are in the database and we ckeck if the email that the client put in the form already exist in the database
-		$query = 'SELECT emailU FROM users';
+		/*
+		* we take all the emails that are in the database and we ckeck if the email that the client put in the form already exist in the database
+		* With this, we check in witch db table to look (tutor or users)
+		*/
+		if (($_POST['targettype'] == "tutor") || ($_POST['targettype'] == "tutorVip")){
+			$query = 'SELECT emailtut FROM tutors';
+		}else{
+			$query = 'SELECT emailU FROM users';
+		}
 		$result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
 		$tab = array();
 		$i=0;
@@ -188,20 +196,38 @@ function accountCreation(){
 		//Crypting it
       	$password_hash = crypt($pwd, 'rl');
 		
-		//request to create line in table.users
-		$request = "INSERT INTO users VALUES(DEFAULT, '', '".$_POST['targetname']."', '".$_POST['targetsurname']."', ' ', '".$_POST['targetemail']."', ' ', ' ', '$password_hash', ' ', '".$_POST['targettype']."', 'allowed')";
-		$resultat = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
+		//request to create line in table.users or table.tutors(simple or vip)
+		if ($_POST['targettype'] == "tutor"){
+			$request = "INSERT INTO tutors VALUES(DEFAULT, '".$_POST['targetname']."', '".$_POST['targetsurname']."', '".$_POST['targetemail']."', '$password_hash', 'false')";
 
+		}elseif ($_POST['targettype'] == "tutorVip") {
+			$request = "INSERT INTO tutors VALUES(DEFAULT, '".$_POST['targetname']."', '".$_POST['targetsurname']."', '".$_POST['targetemail']."', '$password_hash', 'true')";
+		
+		}else{
+		$request = "INSERT INTO users VALUES(DEFAULT, '', '".$_POST['targetname']."', '".$_POST['targetsurname']."', ' ', '".$_POST['targetemail']."', ' ', ' ', '$password_hash', ' ', '".$_POST['targettype']."', 'allowed')";
+		}
+		$resultat = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
 
 		//We want to increment table.logs to save this action and keep an eye on registering requests
 		if (pg_last_error() == NULL) {
 			//Request to search id of account just created 
-			$requestUserId = "SELECT idU FROM users WHERE emailU='".$_POST['targetemail']."'";
-			$resultUserId = pg_query($requestUserId) or die('ERREUR SQL : '. $requestUserId . 	pg_last_error());
-			$userId = pg_fetch_result($resultUserId, 'idu');
+			if (($_POST['targettype'] == "tutor") || ($_POST['targettype'] == "tutorVip")){
+				$requestUserId = "SELECT idtut FROM tutors WHERE emailtut='".$_POST['targetemail']."'";
+				$resultUserId = pg_query($requestUserId) or die('ERREUR SQL : '. $requestUserId . 	pg_last_error());
+				$tutorId = pg_fetch_result($resultUserId, 'idtut');
 
-			//Add a line in table.Logs with : action made/date/client ip/type of request(insert/delete/update)/and object concerned.
-			$request = "INSERT INTO logs VALUES(DEFAULT, 'manual supervisor registering', '".getTheDate()."', '".getIp()."', 'insert', null, '$userId', null, null, null, null, null)";
+				//Add a line in table.Logs with : action made/date/client ip/type of request(insert/delete/update)/and object concerned.
+				$request = "INSERT INTO logs VALUES(DEFAULT, 'manual supervisor registering', '".getTheDate()."', '".getIp()."', 'insert', null, null, '$tutorId', null, null, null, null, null)";
+			}else{
+				$requestUserId = "SELECT idU FROM users WHERE emailU='".$_POST['targetemail']."'";
+				$resultUserId = pg_query($requestUserId) or die('ERREUR SQL : '. $requestUserId . 	pg_last_error());
+				$userId = pg_fetch_result($resultUserId, 'idu');
+
+				//Add a line in table.Logs with : action made/date/client ip/type of request(insert/delete/update)/and object concerned.
+				$request = "INSERT INTO logs VALUES(DEFAULT, 'manual supervisor registering', '".getTheDate()."', '".getIp()."', 'insert', null, '$userId', null, null, null, null, null, null)";
+			}
+
+		
 			$resultat = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
 		}
 
