@@ -33,7 +33,8 @@ window.onload = function(){
                 data: [
                   2,
                   5,
-                  keyword[1]
+                  keyword[1],
+                  0
                 ]
               },{
                 label: "Étudiant en contrat de professionnalisation",
@@ -43,7 +44,8 @@ window.onload = function(){
                 data: [
                   2,
                   7,
-                  keyword[2]
+                  keyword[2],
+                  0
                 ]
               }]
 
