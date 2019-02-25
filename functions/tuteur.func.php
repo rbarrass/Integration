@@ -158,6 +158,44 @@
 }
 
 
+	function dispBordReport(){
+		$dbconnexion = connectionDB();
+		$name=$_GET['name'];
+		$surname=$_GET['surname'];
+		$result ='<div class="container">
+		      <ul class="responsive-table">
+		        <li class="table-header">
+		          <div class="col col-1">Nom elève</div>
+		          <div class="col col-2">Date</div>
+		          <div class="col col-3">Employeur</div>
+		          <div class="col col-4">Maître Apprentissage</div>
+
+		        </li>';
+		
+		$query1 = "SELECT nameu, dater, namei  FROM reports INNER JOIN users ON reports.idu=users.idu INNER JOIN institutions ON users.idi=institutions.idi WHERE reports.idtut=(SELECT idtut FROM tuteur WHERE nametut='$name' AND surnametut='$surname' LIMIT 1) ORDER BY dater";
+		$res1 = pg_query($query1) or die('Echec de la requête : ' .pg_last_error());
+		while ($line1 = pg_fetch_array($res1, null, PGSQL_ASSOC)) {
+			$result.='<li onclick="location.href=\'\';" class="table-row">';
+			$result.='
+									          <div class="col col-1" data-label="Name">'.$line1["nameu"].'</div>
+									          <div class="col col-2" data-label="Date">'.$line1["dater"].'</div>
+									          <div class="col col-3" data-label="Employeur">'.$line1["namei"].'</div>
+									          <div class="col col-4" data-label="Maître Apprentissage">Deadline soon</div>
+									          
+									      </li>';
+		
+				
+		}
+		$result.='<li class="table-header">
+				          <div class="end">Historique de vos compte-rendus</div>
+				        </li>
+				      </ul>
+				    </div>';
+
+		return $result;
+	}
+
+
 	if(isset($_POST['submit2'])){
 		$dbconnexion = connectionDB();
 		$nametuteur=$_GET['name'];
@@ -173,10 +211,7 @@
 		$query4 = "SELECT idU FROM users WHERE nameu='$name' AND surnameu='$surname' LIMIT 1";
 		$res0 = pg_query($query4) or die('ERREUR SQL : '. $query3 . 	pg_last_error());
 		$numeroidu = pg_fetch_result($res0, 'idu');
-		$query4 = "SELECT idU FROM users WHERE nameu='$name' AND surnameu='$surname'";
-		$res0 = pg_query($query4) or die('ERREUR SQL : '. $query3 . 	pg_last_error());
-		$numeroidu = pg_fetch_result($res0, 0, 0);
-		$query3="INSERT INTO reports VALUES (DEFAULT, '".getTheDate()."', '$report_text', '$idtuteur', '$numeroidu')";
+		$query3="INSERT INTO reports VALUES (DEFAULT, '".getTheDate()."', '$report_text', '', '$idtuteur', '$numeroidu')";
 		$res = pg_query($query3) or die('ERREUR SQL : '. $query3 . 	pg_last_error());
 
 	}

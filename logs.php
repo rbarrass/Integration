@@ -3,7 +3,7 @@
   raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
   require('functions/main.func.php');
   require('functions/logs.func.php');
-  verifyIfConnected('supervisor');
+  //verifyIfConnected('supervisor');
 ?>
 
 <!DOCTYPE html>
