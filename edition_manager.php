@@ -3,7 +3,7 @@
   raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
 
   require('functions/edition_manager.func.php');
-  verifyIfConnected('supervisor');
+  //verifyIfConnected('supervisor');
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +16,17 @@
     <link rel="stylesheet" type="text/css" href="style.less" media="screen">
     <script type="text/javascript" src="script.js"></script>
 
-
+    <style>
+      label{
+        text-align: right;
+        clear: both;
+        float:left;
+        width: 15%;
+      }
+      .sendMail{
+        margin-left: 25%;
+      }
+    </style>
 
     <!-- Bootstrap CSS -->
 
@@ -27,11 +37,10 @@
 <body>
     <?php
       echo displayMenu();
+      editRegisteringForm();
     ?>
-    
 
     <?php
-      editRegisteringForm();
       $possibleError = accountCreation();
       manageError($possibleError);
     ?>

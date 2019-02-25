@@ -32,7 +32,7 @@
 			font-size: 30px;
 		}
 		body{
-			  background-color: #F5F5F5;
+			background-color: #F5F5F5;
 		}
 
 	</style>
@@ -46,7 +46,7 @@
 			echo "<p style='color: green;'> Votre inscription a bien été validée !</p>";
 		}
 	}
-	$array_profil = profilDisplay(1);
+	$array_profil = profilDisplay($_GET['idu']);
 	echo '<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	    <div class="container">
 	        <a class="navbar-brand" href="#" id="nameU">Université de Cergy-Pontoise</a>

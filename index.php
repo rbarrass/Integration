@@ -3,7 +3,7 @@
   raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
     require('functions/main.func.php');
     require('functions/bordtable.func.php');
-    verifyIfConnected('supervisor');
+    //verifyIfConnected('supervisor');
 ?>
 
 <!DOCTYPE html>
@@ -13,29 +13,27 @@
   <title>Document</title>
   <link rel="stylesheet" type="text/css" href="style.less" media="screen">
   <script type="text/javascript" src="script.js"></script>
+
 </head>
 <body>
   </html>
     <?php
       echo displayIcons();
-      $menu = displayMenu();
-      echo $menu;
-      
-
+      echo displayMenu();
     ?>
     <!-- Barre de recherch dynamique gérée par script.js et style avec style.less -->
     <div class="search__container">
-      <?php $i=1; echo '<form id="auto-suggest" action="profil.php?idu='.$i.'" method="post">';?>
-        <input type="text" class="search__input" name="search" value="Rechercher..." onfocus="if(this.value=='Rechercher...')this.value=''" autocomplete="off"/>
+      <?php $i=1; echo '<form id="auto-suggest"  action="functions/main.func.php" method="POST">';?>
+        <input type="text" class="search__input" id="etu_search" name="search" value="Rechercher..." onfocus="if(this.value=='Rechercher...')this.value=''" autocomplete="off"  />
         <ul class="suggestions">
       <!-- remplit par le script -->
         </ul>
       </form>
     </div>
 
+          
     <?php
-        $tablebord = displayBordTable();
-        echo $tablebord;
+        echo displayBordTable();
     ?>    
   </html>
 </body>

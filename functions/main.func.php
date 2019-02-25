@@ -46,7 +46,7 @@ function displayMenu(){
              <ul class="hidden">
               <li onclick="location.href=\'stat.php\';">Utilisateurs</li>
               <li onclick="location.href=\'tuteur.php?name=Lemaire&surname=Marc\';">Tuteur</li>
-              <li>Visites</li>
+              <li onclick="location.href=\'reportTutor.php?name=Lemaire&surname=Marc\';">Compte-Rendu</li>
             </ul>
           </li>
           <li>
@@ -54,6 +54,7 @@ function displayMenu(){
              ENREGISTREMENTS
              <ul class="hidden">
               <li onclick="location.href=\'registration_manager.php\';">Approbation</li>
+              <li onclick="location.href=\'registration_tutor_student.php\';">Valider tuteurs</li>
               <li onclick="location.href=\'edition_manager.php\';">Edition</li>
             </ul>
           </li>
@@ -170,11 +171,15 @@ function verifyIfConnected($who){
     if($_SESSION['typeu']==$who){
       //do nothing just verify, you cannot verify if != because typeu doesn't exists when a session isn't started
     }else{// if the user know the URL but is not connected, he's redirected to another page
-      header('location:connect.php?id=login');
+      //header('location:connect.php?id=login');
+  //  echo '<meta http-equiv="refresh" content="5; URL=http://www.connect.php">';
+    echo '<script>
+  document.location.href="connect.php?id=login"; 
+</script>';
     }
 }
 
-/* PARTIE PROFIL */
+/* EDIT PROFIL PART */
 
 //this function serves to modify/complete the profile's informations
 
@@ -316,9 +321,9 @@ $headers .= "Content-Type: text/html; boundary=\"$boundary\"";
 //throwaraccoon@gmail.com
 //julom78@gmail.com
 
-$link="http://localhost/profil.php?idu=".$idu."";
+$link="http://localhost/profil.php?idu=".$idu.""; // à modifier
 
-$destinataire = "julom78@gmail.com";
+$destinataire = "throwaraccoon@gmail.com";
 
 $subject = "Validation de votre inscription";
 
@@ -334,7 +339,7 @@ $message .= "\n\n";
 $message .= "<p style='display:none;'>".$boundary."</p>\n";
 $message .= "</body>\n";
 $message .= "</html>\n";
-
+$mail_from="noReplyUCP@u-cergy.net";
 
 mail($destinataire,$subject,$message,$headers);
 
@@ -390,5 +395,23 @@ function validProfile($idu){
 
   sendToSecretary($idu);
 }
-
+/* Allow to redirect the supervisor when this one looking for a student using the searchBar */
+if(isset($_POST['search'])){
+  searchStudent();
+}
+/* We search the user by its user ID */
+function searchStudent(){
+  include_once("connectDatabase.php");
+  if(!empty($_POST['search'])){
+    $data = $_POST['search'];
+    $name = explode(" ", $data);
+    $family_name=$name[0];
+    $surname = $name[1];
+    $dbconn= connectionDB();
+    $requestUser = "SELECT idU FROM users WHERE nameu='".$family_name."' AND surnameu='".$surname."'";
+    $resultUser = pg_query($requestUser) or die('ERREUR SQL : '. $requestUser .   pg_last_error());
+    $userId = pg_fetch_result($resultUser, 'idu');
+    header('location: ../profil.php?idu='.$userId.'');
+  }
+}
 ?>

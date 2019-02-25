@@ -4,14 +4,15 @@
 
  /* ALL of this file has been created for the connection part */
 	/*Allows to set the "remember me" with cookie*/
-	require ('functions/connectDatabase.php');
 	if(isset($_POST['remember'])){
 		setcookie('log[login]',$_POST['email-address']);
 		setcookie('log[password]',$_POST['password']);
 	}else{
 		setcookie('log[login]', NULL, -1);//delete the cookie
-		setcookie('log[password]', NULL, -1);//delete the seccond cookie
+		setcookie('log[password]', NULL, -1);//delete the second cookie
 	}
+		require ('functions/connectDatabase.php');
+
 	/*Allows to open a new session and direct the user to another page*/
 	if (isset($_POST['email-address']) && isset($_POST['password'])) {
 			
