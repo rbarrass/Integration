@@ -47,15 +47,11 @@
 </head>
 <body>
  <?php
+                        //session_start();
                         require('functions/main.func.php');
                         //When $_SESSION is allowed, do :
                         //$sizeError = moreInformations($_SESSION[$idu]); 
-                        $sizeError = moreInformations($_SESSION['idu']);
-                        if($sizeError == "ok"){
-                          send($_SESSION['idu']);
-                          header('Location: profil.php');
-                          exit();
-                        }
+                       
                         // Redirect to profil.php page if no error detected, else show it
                     ?>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -86,61 +82,63 @@
             <h4 class="panel-title">Éditer son profil :</h4>
               </div>
               <div class="panel-body">
-                <table class="table profile__table">
-                  <tbody>
-                    <tr>
-                      <th><strong>Adresse</strong></th>
-                      <td><input type="text" name="newadr" required="" ></td>
-                    </tr>
-                    <tr>
-                      <th><strong>Sexe</strong></th>
-                      <td><select name="newgender" required="" >
-                              <option value="Homme">Homme</option>
-                              <option value="Femme">Femme</option>
-                            </select> </td>
-                    </tr>
-                    <tr>
-                      <th><strong>Numéro de téléphone</strong></th>
-                      <td><input type="text" name="newtel"required="" ></td>
-                    </tr>
-                    <tr>
-                      <th><strong>Mot de passe</strong></th>
-                      <td> <input type="password" name="newpwd" required=""  placeholder="Votre mot de passe (8 caractères minimum)"></td>
-                    </tr>
-                    <tr>
-                      <th><strong>Confirmer votre mot de passe</strong></th>
-                      <td><input type="password" name="newpwd1" required="" placeholder="Votre mot de passe (8 caractères minimum)"></td>  
-                    </tr>
-                    <tr>
-                      <th><strong>Filière </strong></th>
-                      <td>   <select name="newPromo" required="" >
-                              <option value="SID">SID</option>
-                              <option value="RS">RS</option>
-                              <option value="STRC">STRC</option>
-                            </select> </td>
-                    </tr>
-                    <tr>
-                      <th><strong>Groupe de TD</strong></th>
-                      <td> <select name="newGroup" required="" >
-                              <option value="A">A</option>
-                              <option value="B">B</option>
-                              <option value="C">C</option>
-                            </select> </td>
-                    </tr>  
-                    <tr>
-                      <th><strong>Nom de l'entreprise accueillant l'étudiant</strong></th>
-                      <td><input type="text" name="newent" required="" > </td>
-                    </tr>  
-                    <tr>
-                      <th><strong>Adresse de l'entreprise accueillant l'étudiant </strong></th>
-                      <td><input type="text" name="newadre" required="" ></td>
-                    </tr> 
-                    <tr>
-                      <th><strong></strong></th>
-                      <td><input type="submit" name="editvalid" value="Mettre à jour" class="sendMail" /></td>
-                    </tr>                             
-                  </tbody>
-                </table>
+                <form action="functions/main.func.php" method="POST">
+                  <table class="table profile__table">
+                    <tbody>
+                      <tr>
+                        <th><strong>Adresse</strong></th>
+                        <td><input type="text" name="newadr" required="" ></td>
+                      </tr>
+                      <tr>
+                        <th><strong>Sexe</strong></th>
+                        <td><select name="newgender" required="" >
+                                <option value="Homme">Homme</option>
+                                <option value="Femme">Femme</option>
+                              </select> </td>
+                      </tr>
+                      <tr>
+                        <th><strong>Numéro de téléphone</strong></th>
+                        <td><input type="text" name="newtel"required="" ></td>
+                      </tr>
+                      <tr>
+                        <th><strong>Mot de passe</strong></th>
+                        <td> <input type="password" name="newpwd" required=""  placeholder="Votre mot de passe (8 caractères minimum)"></td>
+                      </tr>
+                      <tr>
+                        <th><strong>Confirmer votre mot de passe</strong></th>
+                        <td><input type="password" name="newpwd1" required="" placeholder="Votre mot de passe (8 caractères minimum)"></td>  
+                      </tr>
+                      <tr>
+                        <th><strong>Filière </strong></th>
+                        <td>   <select name="newPromo" required="" >
+                                <option value="SID">SID</option>
+                                <option value="RS">RS</option>
+                                <option value="STRC">STRC</option>
+                              </select> </td>
+                      </tr>
+                      <tr>
+                        <th><strong>Groupe de TD</strong></th>
+                        <td> <select name="newGroup" required="" >
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                              </select> </td>
+                      </tr>  
+                      <tr>
+                        <th><strong>Nom de l'entreprise accueillant l'étudiant</strong></th>
+                        <td><input type="text" name="newent" required="" > </td>
+                      </tr>  
+                      <tr>
+                        <th><strong>Adresse de l'entreprise accueillant l'étudiant </strong></th>
+                        <td><input type="text" name="newadre" required="" ></td>
+                      </tr> 
+                      <tr>
+                        <th><strong></strong></th>
+                        <td><input type="submit" name="editvalid" value="Mettre à jour" class="sendMail" /></td>
+                      </tr>                             
+                    </tbody>
+                  </table>
+                </form>
               </div>
         </div>
         </div>

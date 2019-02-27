@@ -39,14 +39,8 @@
 </head>
 <body>
 	<?php 
-	//if($_GET['idu'] == $_SESSION['idu']){
-	if(isset($_GET['idu'])){
-		if($_GET['idu']==1){
-			validProfile($_GET['idu']);
-			echo "<p style='color: green;'> Votre inscription a bien été validée !</p>";
-		}
-	}
-	$array_profil = profilDisplay($_GET['idu']);
+	session_start();
+	$array_profil = profilDisplay($_SESSION['idu']);
 	echo '<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	    <div class="container">
 	        <a class="navbar-brand" href="#" id="nameU">Université de Cergy-Pontoise</a>
@@ -129,6 +123,18 @@
 	</div>';
 	//}
 	?>
-		
+		<?php if(isset($_GET['idu'])){
+		if($_GET['idu'] == $_SESSION['idu']){
+			validProfile($_GET['idu']);
+			echo '    <div class="row justify-content-center">
+          <div class="col-md-8">
+              <div class="card-body">
+                  <div class="alert alert-primary" role="alert" style="font-size:20px; text-align:center;">
+                      Votre inscription a bien été validée.
+                  </div>
+              </div>
+          </div>
+    </div>';
+		} } ?>
 	</body>
 </html>
