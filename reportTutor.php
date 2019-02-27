@@ -63,5 +63,13 @@
               </div>';
         echo $result;
     ?>    
+
+    <?php
+      
+      $histbord = dispBordReport();
+      echo $histbord;
+      
+
+    ?>
   </html>
 </body>

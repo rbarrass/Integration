@@ -3,7 +3,7 @@
   raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
 
   require('functions/edition_manager.func.php');
-  verifyIfConnected('supervisor');
+  //verifyIfConnected('supervisor');
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +30,7 @@
 
     <!-- Bootstrap CSS -->
 
-   <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
+   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 
     <title>Edition des comptes</title>
 </head>
