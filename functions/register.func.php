@@ -226,7 +226,7 @@ function register(){
 		}
 
 		//request to create line in table.users
-		$request = "INSERT INTO users VALUES(DEFAULT, '".$_POST['myno']."', '".$_POST['myname']."', '".$_POST['mysurname']."', ' ', '".$_POST['myemail']."', ' ', ' ', '$password_hash', ' ', 'student', 'pending', '', '2018-2020','1', ' ', '1', '1', '1')";
+		$request = "INSERT INTO users VALUES(DEFAULT, '".$_POST['myno']."', '".$_POST['myname']."', '".$_POST['mysurname']."', ' ', '".$_POST['myemail']."', ' ', ' ', '$password_hash', ' ', 'student', 'pending', ' ', '2018-2020','1', '',DEFAULT,' ',DEFAULT,DEFAULT,' ',' ',' ','1', '1', '1')";
 		$resultat = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
 
 
@@ -310,7 +310,18 @@ function registerForm(){
           <div class="col-md-8">
               <div class="card-body">
                   <div class="alert alert-primary" role="alert">
-                      Les informations entrées seront utilisés pour vous contacter et vous répertorier parmi les autres étudiants. Vous pourrez les modifier une fois votre adresse mail vérifiée.
+                      Votre compte a bien été enregistré. Veuillez vérifier votre adresse mail, un lien vous sera envoyé.
+                  </div>
+              </div>
+          </div>
+    </div>
+
+
+    <div class="row justify-content-center">
+          <div class="col-md-8">
+              <div class="card-body">
+                  <div class="alert alert-danger" role="alert">
+                    <strong>Erreur</strong> : votre compte n\'a pas pu être enregistré. Votre compte existe déjà ou les conditions ne sont pas respectées.
                   </div>
               </div>
           </div>

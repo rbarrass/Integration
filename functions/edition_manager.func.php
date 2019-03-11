@@ -12,37 +12,32 @@ Supervisor feature
 
 //Display manual registration form
 function editRegisteringForm(){
-	echo '<main class="login-form"> <!-- Registering part -->
-    <div> 
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Créer un compte utilisateur</div>
-                    <div class="card-body">
-                        <form action="edition_manager.php" method="post">
-                            <div class="form-group row">
-                                <label for="targetname" class="col-md-4 col-form-label text-md-right">Nom :</label>
-                                <div class="col-md-6">
-                                    <input type="text" id="targetname" class="form-control" name="targetname" placeholder="Nom de famille de l\'utilisateur" required autofocus><!-- NAME -->
+	echo '	     <div class="titleEdit">Créer un compte utilisateur</div>
+                    <div>
+                        <form class="formEdit" action="edition_manager.php" method="post">
+                            <div>
+                                <label for="targetname" class="labelEdit">Nom :</label>
+                                <div>
+                                    <input type="text" id="targetname" name="targetname" placeholder="Nom de famille de l\'utilisateur" required autofocus><!-- NAME -->
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <label for="targetsurname" class="col-md-4 col-form-label text-md-right">Prénom :</label>
-                                <div class="col-md-6">
-                                    <input type="text" id="targetsurname" class="form-control" name="targetsurname" placeholder="Prénom de l\'utilisateur" required> <!-- Surname -->
+                            <div>
+                                <label for="targetsurname" class="labelEdit">Prénom :</label>
+                                <div>
+                                    <input type="text" id="targetsurname" name="targetsurname" placeholder="Prénom de l\'utilisateur" required> <!-- Surname -->
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="targetemail" class="col-md-4 col-form-label text-md-right">E-mail :</label>
-                                <div class="col-md-6">
-                                    <input type="email" id="targetemail" class="form-control" name="targetemail" placeholder="Adresse email de l\'utilisateur ( Valide )" required> <!-- MAIL -->
+                            <div>
+                                <label for="targetemail" class="labelEdit">E-mail :</label>
+                                <div>
+                                    <input type="email" id="targetemail" name="targetemail" placeholder="Adresse email de l\'utilisateur ( Valide )" required> <!-- MAIL -->
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="targettype" class="col-md-4 col-form-label text-md-right">Type d\'utilisateur</label>
-                                <div class="col-md-6">
-                                	<select id="targettype" class="form-control" name="targettype">
+                            <div>
+                                <label for="targettype" class="labelEdit">Type d\'utilisateur</label>
+                                <div>
+                                	<select id="targettype" name="targettype">
 									  <option value="student">Etudiant</option>
 									  <option value="internshipsupervisor">Maître de stage</option>
 									  <option value="tutor">Enseignant tuteur</option>
@@ -50,17 +45,13 @@ function editRegisteringForm(){
 									</select>
                                 </div>
                             </div>
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary" name="validCreation">
+                            <div>
+                                <button type="submit" name="validCreation">
                                     Créer
                                 </button>
                             </div>
                     </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>';
+                    </form>';
   
 
 }
