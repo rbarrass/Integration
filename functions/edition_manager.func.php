@@ -15,29 +15,29 @@ function editRegisteringForm(){
 	echo '	     <div class="titleEdit">Créer un compte utilisateur</div>
                     <div>
                         <form class="formEdit" action="edition_manager.php" method="post">
-                            <div>
+                            <div class="fieldEdit">
                                 <label for="targetname" class="labelEdit">Nom :</label>
                                 <div>
-                                    <input type="text" id="targetname" name="targetname" placeholder="Nom de famille de l\'utilisateur" required autofocus><!-- NAME -->
+                                    <input type="text" id="targetname" class="inputEdit" name="targetname" placeholder="Nom de famille de l\'utilisateur" required autofocus><!-- NAME -->
                                 </div>
                             </div>
 
-                            <div>
+                            <div class="fieldEdit">
                                 <label for="targetsurname" class="labelEdit">Prénom :</label>
                                 <div>
-                                    <input type="text" id="targetsurname" name="targetsurname" placeholder="Prénom de l\'utilisateur" required> <!-- Surname -->
+                                    <input type="text" id="targetsurname" class="inputEdit" name="targetsurname" placeholder="Prénom de l\'utilisateur" required> <!-- Surname -->
                                 </div>
                             </div>
-                            <div>
+                            <div class="fieldEdit">
                                 <label for="targetemail" class="labelEdit">E-mail :</label>
                                 <div>
-                                    <input type="email" id="targetemail" name="targetemail" placeholder="Adresse email de l\'utilisateur ( Valide )" required> <!-- MAIL -->
+                                    <input type="email" id="targetemail" class="inputEdit" name="targetemail" placeholder="Adresse email de l\'utilisateur ( Valide )" required> <!-- MAIL -->
                                 </div>
                             </div>
-                            <div>
-                                <label for="targettype" class="labelEdit">Type d\'utilisateur</label>
+                            <div class="fieldEdit">
+                                <label for="targettype" class="labelEdit">Utilisateur :</label>
                                 <div>
-                                	<select id="targettype" name="targettype">
+                                	<select class="labelEdit" id="targettype" name="targettype">
 									  <option value="student">Etudiant</option>
 									  <option value="internshipsupervisor">Maître de stage</option>
 									  <option value="tutor">Enseignant tuteur</option>
@@ -45,7 +45,7 @@ function editRegisteringForm(){
 									</select>
                                 </div>
                             </div>
-                            <div>
+                            <div class="fieldEdit">
                                 <button type="submit" name="validCreation">
                                     Créer
                                 </button>
