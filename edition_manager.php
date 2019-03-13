@@ -38,10 +38,13 @@
     <?php
       echo displayMenu();
       editRegisteringForm();
+      editDeleteForm();
     ?>
 
     <?php
       $possibleError = accountCreation();
+      manageError($possibleError);
+      $possibleError = accountDeletion();
       manageError($possibleError);
     ?>
 </body>

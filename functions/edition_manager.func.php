@@ -10,7 +10,7 @@ Supervisor feature
 
 */
 
-//Display manual registration form
+//Display manual user registration form
 function editRegisteringForm(){
 	echo '	     <div class="titleEdit">Créer un compte utilisateur</div>
                     <div>
@@ -37,7 +37,7 @@ function editRegisteringForm(){
                             <div class="fieldEdit">
                                 <label for="targettype" class="labelEdit">Utilisateur :</label>
                                 <div>
-                                	<select class="labelEdit" id="targettype" name="targettype">
+                                	<select class="listEdit" id="targettype" name="targettype">
 									  <option value="student">Etudiant</option>
 									  <option value="internshipsupervisor">Maître de stage</option>
 									  <option value="tutor">Enseignant tuteur</option>
@@ -45,16 +45,16 @@ function editRegisteringForm(){
 									</select>
                                 </div>
                             </div>
-                            <div class="fieldEdit">
-                                <button type="submit" name="validCreation">
+                            <div class="butonDivEdit">
+                                <button class="butonEdit" type="submit" name="validCreation">
                                     Créer
                                 </button>
                             </div>
-                    </div>
-                    </form>';
+                    </form></div>';
   
 
 }
+
 
 //check/confirm/creat account 
 function accountCreation(){
@@ -227,6 +227,109 @@ function accountCreation(){
 	//We don't use form, so no error can be spoted. This line inform it to manage manageError()
 	return $error = 'nothing yet';
 }
+
+
+//Display manual user deletion form
+function editDeleteForm(){
+	echo '
+		<div class="titleEdit" style="margin-top: 50px;">Supprimer un compte utilisateur</div>
+		 <div>
+                        <form class="formEdit" action="edition_manager.php" method="post">
+                            <div class="fieldEdit">
+                                <label for="targetname" class="labelEdit">Nom :</label>
+                                <div>
+                                    <input type="text" id="targetname" class="inputEdit" name="targetname" placeholder="Nom de famille de l\'utilisateur" required autofocus><!-- NAME -->
+                                </div>
+                            </div>
+
+                            <div class="fieldEdit">
+                                <label for="targetemail" class="labelEdit">E-mail :</label>
+                                <div>
+                                    <input type="email" id="targetemail" class="inputEdit" name="targetemail" placeholder="Adresse email de l\'utilisateur" required> <!-- MAIL -->
+                                </div>
+                            </div>
+
+                            <div class="fieldEdit">
+                                <label for="targetsurname" class="labelEdit">Réecrire :</label>
+                                <div>
+                                    <input type="text" id="targetsurname" class="inputEdit" name="targetsurname" placeholder="\'SUPPRIMER\'" required> <!-- Surname -->
+                                </div>
+                            </div>
+                            
+                            <div class="butonDivEdit">
+                                <button class="butonEdit" type="submit" name="validDeletion">
+                                    Supprimer
+                                </button>
+                            </div>
+                    </form></div>';
+}
+
+//check/confirm/delete account 
+function accountDeletion(){
+	if(isset($_POST['validDeletion']) ){
+		$dbconn = connectionDB();
+		$errorR="";
+
+		//name check
+		$query = "(SELECT nameu FROM users WHERE  nameu='".$_POST['targetname']."') UNION (SELECT nametut FROM tutors WHERE nametut='".$_POST['targetname']."')";
+		$result = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
+		if (pg_last_error() != NULL) {
+			$errorR.="Le nom n'existe pas";
+			return $errorR;
+		}
+
+
+		//Email check
+		$query = "(SELECT emailu FROM users WHERE  emailu='".$_POST['targetemail']."') UNION (SELECT emailtut FROM tutors WHERE emailtut='".$_POST['targetemail']."')";
+		$result = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
+		if (pg_last_error() != NULL) {
+			$errorR.="L'email n'existe pas";
+			return $errorR;
+		}
+ 		
+
+		/*
+		//request to create line in table.users or table.tutors(simple or vip)
+		if ($_POST['targettype'] == "tutor"){
+			$request = "INSERT INTO tutors VALUES(DEFAULT, '".$_POST['targetname']."', '".$_POST['targetsurname']."', '".$_POST['targetemail']."', '$password_hash', 'false')";
+
+		}elseif ($_POST['targettype'] == "tutorVip") {
+			$request = "INSERT INTO tutors VALUES(DEFAULT, '".$_POST['targetname']."', '".$_POST['targetsurname']."', '".$_POST['targetemail']."', '$password_hash', 'true')";
+		
+		}else{
+		$request = "INSERT INTO users VALUES(DEFAULT, '', '".$_POST['targetname']."', '".$_POST['targetsurname']."', ' ', '".$_POST['targetemail']."', ' ', ' ', '$password_hash', ' ', '".$_POST['targettype']."', 'allowed')";
+		}
+		$resultat = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
+
+		//We want to increment table.logs to save this action and keep an eye on registering requests
+		if (pg_last_error() == NULL) {
+			//Request to search id of account just created 
+			if (($_POST['targettype'] == "tutor") || ($_POST['targettype'] == "tutorVip")){
+				$requestUserId = "SELECT idtut FROM tutors WHERE emailtut='".$_POST['targetemail']."'";
+				$resultUserId = pg_query($requestUserId) or die('ERREUR SQL : '. $requestUserId . 	pg_last_error());
+				$tutorId = pg_fetch_result($resultUserId, 'idtut');
+
+				//Add a line in table.Logs with : action made/date/client ip/type of request(insert/delete/update)/and object concerned.
+				$request = "INSERT INTO logs VALUES(DEFAULT, 'manual supervisor registering', '".getTheDate()."', '".getIp()."', 'insert', null, null, '$tutorId', null, null, null, null, null)";
+			}else{
+				$requestUserId = "SELECT idU FROM users WHERE emailU='".$_POST['targetemail']."'";
+				$resultUserId = pg_query($requestUserId) or die('ERREUR SQL : '. $requestUserId . 	pg_last_error());
+				$userId = pg_fetch_result($resultUserId, 'idu');
+
+				//Add a line in table.Logs with : action made/date/client ip/type of request(insert/delete/update)/and object concerned.
+				$request = "INSERT INTO logs VALUES(DEFAULT, 'manual supervisor registering', '".getTheDate()."', '".getIp()."', 'insert', null, '$userId', null, null, null, null, null, null)";
+			}
+
+		
+			$resultat = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
+		}
+
+		return $errorR; */
+	}
+	//We don't use form, so no error can be spoted. This line inform it to manage manageError()
+	return $error = 'nothing yet';
+}
+
 
 function manageError($error){
 	if ($error == ''){
