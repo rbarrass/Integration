@@ -1,19 +1,16 @@
 <?php
-/*Barrasset Raphaël, Castelain Julien, Ducroux Guillaume, Saint-Amand Matthieu	L3i 2019
+/*Barrasset Raphaël, Castelain Julien, Ducroux Guillaume, Saint-Amand Matthieu  L3i 2019
 raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
-
 require('main.func.php');
 require('connectDatabase.php');
-
 function register(){
-	if(isset($_POST['validRegister']) ){
-		$dbconn = connectionDB();
-		$errorR="";
-
-		//Password check
-		//Size check
-		if (strlen($_POST['mypwd']) > 50){
-			$errorR.='    <div class="row justify-content-center">
+  if(isset($_POST['validRegister']) ){
+    $dbconn = connectionDB();
+    $errorR="";
+    //Password check
+    //Size check
+    if (strlen($_POST['mypwd']) > 50){
+      $errorR.='    <div class="row justify-content-center">
           <div class="col-md-8">
               <div class="card-body">
                   <div class="alert alert-danger" role="alert">
@@ -22,9 +19,9 @@ function register(){
               </div>
           </div>
     </div>';
-			return $errorR;
-		}elseif (strlen($_POST['mypwd']) < 8){
-			$errorR.='    <div class="row justify-content-center">
+      return $errorR;
+    }elseif (strlen($_POST['mypwd']) < 8){
+      $errorR.='    <div class="row justify-content-center">
           <div class="col-md-8">
               <div class="card-body">
                   <div class="alert alert-danger" role="alert">
@@ -33,14 +30,14 @@ function register(){
               </div>
           </div>
     </div>';
-			return $errorR;
-		}else{
-			//Check if two fields matches
-			if ($_POST['mypwd1'] == $_POST['mypwd']){
-				//Crypting password
-				$password_hash = crypt($_POST['mypwd'], 'rl');
-			}else{
-				$errorR.= '   <div class="row justify-content-center">
+      return $errorR;
+    }else{
+      //Check if two fields matches
+      if ($_POST['mypwd1'] == $_POST['mypwd']){
+        //Crypting password
+        $password_hash = crypt($_POST['mypwd'], 'rl');
+      }else{
+        $errorR.= '   <div class="row justify-content-center">
           <div class="col-md-8">
               <div class="card-body">
                   <div class="alert alert-danger" role="alert">
@@ -49,14 +46,13 @@ function register(){
               </div>
           </div>
     </div>';
-				return $errorR;
-			}
-		}
-
-		//name check
-		//Size check
-		if (strlen($_POST['myname']) > 30){
-			$errorR.='    <div class="row justify-content-center">
+        return $errorR;
+      }
+    }
+    //name check
+    //Size check
+    if (strlen($_POST['myname']) > 30){
+      $errorR.='    <div class="row justify-content-center">
           <div class="col-md-8">
               <div class="card-body">
                   <div class="alert alert-danger" role="alert">
@@ -65,14 +61,14 @@ function register(){
               </div>
           </div>
     </div>';
-			return $errorR;
-		}else{
-			//Insure typing is accepted
-			if (autorizedChar($_POST['myname'], 0) == 1){
-				//Format text
-				$name = ucfirst(strtolower($_POST['myname']));
-			}else{
-				$errorR.='    <div class="row justify-content-center">
+      return $errorR;
+    }else{
+      //Insure typing is accepted
+      if (autorizedChar($_POST['myname'], 0) == 1){
+        //Format text
+        $name = ucfirst(strtolower($_POST['myname']));
+      }else{
+        $errorR.='    <div class="row justify-content-center">
           <div class="col-md-8">
               <div class="card-body">
                   <div class="alert alert-danger" role="alert">
@@ -81,14 +77,13 @@ function register(){
               </div>
           </div>
     </div>';
-				return $errorR;
-			}
-		}
-
-		//surname check
-		//Size check
-		if (strlen($_POST['mysurname']) > 30){
-			$errorR.='    <div class="row justify-content-center">
+        return $errorR;
+      }
+    }
+    //surname check
+    //Size check
+    if (strlen($_POST['mysurname']) > 30){
+      $errorR.='    <div class="row justify-content-center">
           <div class="col-md-8">
               <div class="card-body">
                   <div class="alert alert-danger" role="alert">
@@ -97,14 +92,14 @@ function register(){
               </div>
           </div>
     </div>';
-			return $errorR;
-		}else{
-			//Insure typing is accepted
-			if (autorizedChar($_POST['mysurname'], 0) == 1){
-				//Format text
-				$surname = ucfirst(strtolower($_POST['mysurname']));
-			}else{
-				$errorR.='    <div class="row justify-content-center">
+      return $errorR;
+    }else{
+      //Insure typing is accepted
+      if (autorizedChar($_POST['mysurname'], 0) == 1){
+        //Format text
+        $surname = ucfirst(strtolower($_POST['mysurname']));
+      }else{
+        $errorR.='    <div class="row justify-content-center">
           <div class="col-md-8">
               <div class="card-body">
                   <div class="alert alert-danger" role="alert">
@@ -113,14 +108,13 @@ function register(){
               </div>
           </div>
     </div>';
-				return $errorR;
-			}	
-		}
-
-		//Email check
-		//Size check
-		if (strlen($_POST['myemail']) > 60){
-			$errorR.='    <div class="row justify-content-center">
+        return $errorR;
+      } 
+    }
+    //Email check
+    //Size check
+    if (strlen($_POST['myemail']) > 60){
+      $errorR.='    <div class="row justify-content-center">
           <div class="col-md-8">
               <div class="card-body">
                   <div class="alert alert-danger" role="alert">
@@ -129,27 +123,27 @@ function register(){
               </div>
           </div>
     </div>';
-			return $errorR;
-		}//Pas fini, verif typing + unicité dans la bd!
-		// we take all the emails that are in the database and we ckeck if the email that the client put in the form already exist in the database
-		$query = 'SELECT emailU FROM users';
-		$result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
-		$tab = array();
-		$i=0;
-		$j=0;
-		$k=0;
-		while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
-    		foreach ($line as $col_value) {
-    			$tab[$i]=$col_value;
-    			$i++;
-    		}
+      return $errorR;
+    }//Pas fini, verif typing + unicité dans la bd!
+    // we take all the emails that are in the database and we ckeck if the email that the client put in the form already exist in the database
+    $query = 'SELECT emailU FROM users';
+    $result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
+    $tab = array();
+    $i=0;
+    $j=0;
+    $k=0;
+    while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        foreach ($line as $col_value) {
+          $tab[$i]=$col_value;
+          $i++;
+        }
  
-		}
-		//if the email existing in the database a popup alert the client the email exist
-		while(($k==0) && ($j<$i)){
-			if (strcmp($_POST['myemail'], $tab[$j])==0) {
-				$k=2;
-				$errorR.='    <div class="row justify-content-center">
+    }
+    //if the email existing in the database a popup alert the client the email exist
+    while(($k==0) && ($j<$i)){
+      if (strcmp($_POST['myemail'], $tab[$j])==0) {
+        $k=2;
+        $errorR.='    <div class="row justify-content-center">
           <div class="col-md-8">
               <div class="card-body">
                   <div class="alert alert-danger" role="alert">
@@ -158,17 +152,16 @@ function register(){
               </div>
           </div>
     </div>';
-				return $errorR;
-			}
-			else {
-				$j++;
-			}
-		}
-
-		//student no check
-		//Size check
-		if (strlen($_POST['myno']) != 8){
-			$errorR.='    <div class="row justify-content-center">
+        return $errorR;
+      }
+      else {
+        $j++;
+      }
+    }
+    //student no check
+    //Size check
+    if (strlen($_POST['myno']) != 8){
+      $errorR.='    <div class="row justify-content-center">
           <div class="col-md-8">
               <div class="card-body">
                   <div class="alert alert-danger" role="alert">
@@ -177,11 +170,11 @@ function register(){
               </div>
           </div>
     </div>';
-			return $errorR;
-		}else{
-			//Insure typing id accepted
-			if (autorizedChar($_POST['myno'], 1) != 1){
-				$errorR.='    <div class="row justify-content-center">
+      return $errorR;
+    }else{
+      //Insure typing id accepted
+      if (autorizedChar($_POST['myno'], 1) != 1){
+        $errorR.='    <div class="row justify-content-center">
           <div class="col-md-8">
               <div class="card-body">
                   <div class="alert alert-danger" role="alert">
@@ -190,26 +183,25 @@ function register(){
               </div>
           </div>
     </div>';
-				return $errorR;
-			}
-		}
-
-		$query = 'SELECT student_idU FROM users';
-		$result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
-		$tab = array();
-		$i=0;$j=0;$k=0;
-		while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
-    		foreach ($line as $col_value) {
-    			$tab[$i]=$col_value;
-    			$i++;
-    		}
+        return $errorR;
+      }
+    }
+    $query = 'SELECT student_idU FROM users';
+    $result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
+    $tab = array();
+    $i=0;$j=0;$k=0;
+    while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+        foreach ($line as $col_value) {
+          $tab[$i]=$col_value;
+          $i++;
+        }
  
-		}
-		//if the student no existing in the database a popup alert the client student number does already exist
-		while(($k==0) && ($j<$i)){
-			if (strcmp($_POST['myno'], $tab[$j])==0) {
-				$k=2;
-				$errorR.='    <div class="row justify-content-center">
+    }
+    //if the student no existing in the database a popup alert the client student number does already exist
+    while(($k==0) && ($j<$i)){
+      if (strcmp($_POST['myno'], $tab[$j])==0) {
+        $k=2;
+        $errorR.='    <div class="row justify-content-center">
           <div class="col-md-8">
               <div class="card-body">
                   <div class="alert alert-danger" role="alert">
@@ -218,38 +210,32 @@ function register(){
               </div>
           </div>
     </div>';
-				return $errorR;
-			}
-			else {
-				$j++;
-			}
-		}
-
-		//request to create line in table.users
-		$request = "INSERT INTO users VALUES(DEFAULT, '".$_POST['myno']."', '".$_POST['myname']."', '".$_POST['mysurname']."', ' ', '".$_POST['myemail']."', ' ', ' ', '$password_hash', ' ', 'student', 'pending', '', '2018-2020','1', ' ', '1', '1', '1')";
-		$resultat = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
-
-
-		//We want to increment table.logs to save this action and keep an eye on registering requests
-		if (pg_last_error() == NULL) {
-			//Request to search id of account just created 
-			$requestUserId = "SELECT idU FROM users WHERE emailU='".$_POST['myemail']."'";
-			$resultUserId = pg_query($requestUserId) or die('ERREUR SQL : '. $requestUserId . 	pg_last_error());
-			$userId = pg_fetch_result($resultUserId, 'idu');
-
-			//Add a line in table.Logs with : action made/date/client ip/type of request(insert/delete/update)/and object concerned.
-			$request = "INSERT INTO logs VALUES(DEFAULT, 'student registering', '".getTheDate()."', '".getIp()."', 'insert', null, '$userId', null, null, null, null, null)";
-			$resultat = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
-		}
-		$errorR = "null";
+        return $errorR;
+      }
+      else {
+        $j++;
+      }
+    }
+    //request to create line in table.users
+    $request = "INSERT INTO users VALUES(DEFAULT, '".$_POST['myno']."', '".$_POST['myname']."', '".$_POST['mysurname']."', ' ', '".$_POST['myemail']."', ' ', ' ', '$password_hash', ' ', 'student', 'pending', '', '2018-2020','1', ' ', '1', '1', '1')";
+    $resultat = pg_query($request) or die('ERREUR SQL : '. $request .   pg_last_error());
+    //We want to increment table.logs to save this action and keep an eye on registering requests
+    if (pg_last_error() == NULL) {
+      //Request to search id of account just created 
+      $requestUserId = "SELECT idU FROM users WHERE emailU='".$_POST['myemail']."'";
+      $resultUserId = pg_query($requestUserId) or die('ERREUR SQL : '. $requestUserId .   pg_last_error());
+      $userId = pg_fetch_result($resultUserId, 'idu');
+      //Add a line in table.Logs with : action made/date/client ip/type of request(insert/delete/update)/and object concerned.
+      $request = "INSERT INTO logs VALUES(DEFAULT, 'student registering', '".getTheDate()."', '".getIp()."', 'insert', null, '$userId', null, null, null, null, null)";
+      $resultat = pg_query($request) or die('ERREUR SQL : '. $request .   pg_last_error());
+    }
+    $errorR = "null";
    // send(1);
-		return $errorR;
-	}
+    return $errorR;
+  }
 }
-
-
 function registerForm(){
-	echo '<main class="register-form"> <!-- ICI LA PARTIE REGISTER -->
+  echo '<main class="register-form"> <!-- ICI LA PARTIE REGISTER -->
     <div> <!-- NE PAS UTILISER CONTAINER -->
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -263,7 +249,6 @@ function registerForm(){
                                     <input type="text" id="myname" class="form-control" name="myname" placeholder="Votre nom de famille" required autofocus><!-- NOM -->
                                 </div>
                             </div>
-
                             <div class="form-group row">
                                 <label for="mysurname" class="col-md-4 col-form-label text-md-right">Prénom :</label>
                                 <div class="col-md-6">
@@ -317,9 +302,8 @@ function registerForm(){
     </div>
 </main>';
 }
-
 function registerOk(){
-	echo '    <div class="row justify-content-center">
+  echo '    <div class="row justify-content-center">
           <div class="col-md-8">
               <div class="card-body">
                   <div class="alert alert-primary" role="alert">
@@ -329,5 +313,4 @@ function registerOk(){
           </div>
     </div>';
 }
-
 ?>

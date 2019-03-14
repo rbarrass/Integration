@@ -30,7 +30,7 @@
       </form>
     </div>
 
-    <?php
+    <?php /*
           $dbconnexion = connectionDB();
   $result='<div class="reportdiv">
         <ul>
@@ -61,9 +61,19 @@
         $result.='<li><input type="submit" name="submit2" value="Envoyer" /></li>';
         $result.='</form>
               </div>';
-        echo $result;
+        echo $result; */
     ?>    
-
+      <div class="reportdiv">
+        <div class="choiceStudent">
+          
+        </div>
+        <div class="choiceOne">
+          
+        </div>
+        <div class="choiceTwo">
+          
+        </div>
+      </div>
     <?php
       
       $histbord = dispBordReport();

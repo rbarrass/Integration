@@ -3,19 +3,18 @@
 
 	function displayBordTable(){
 		$dbconnexion = connectionDB();
-		$result ='<div class="container">
-		      <ul class="responsive-table">
-		        <li class="table-header">
-		          <div class="col col-1">ID</div>
-		          <div class="col col-2">Nom</div>
-		          <div class="col col-3">Prénom</div>
-		          <div class="col col-4">Mail</div>
-		          <div class="col col-5">Statut</div>
-		          <div class="col col-6">Employeur</div>
-		          <div class="col col-7">Maître Apprentissage</div>
-		          <div class="col col-8">Tuteur UCP</div>
-
-		        </li>';
+		$result =' <div class="table-users">
+      				 <div class="header">Users</div>
+       				<table cellspacing="0">
+				        <tr >
+		            	 <th>Profil</th>
+		            	 <th>N°Étudiant</th>
+		            	 <th>Nom</th>
+		            	 <th>Prénom</th>
+		            	 <th>Email</th>
+		            	 <th>Statut</th>
+		            	 <th>Entreprise</th>
+		         		</tr>';
 		if(!empty($_GET['psd'])){
 			$branch = $_GET['psd'];
 
@@ -30,17 +29,15 @@
 					$query2 = "SELECT student_idu, nameu, surnameu, emailu, validationu, nametut, namei FROM tuteur INNER JOIN users ON tuteur.idtut=users.idtut INNER JOIN institutions ON users.idi=institutions.idi WHERE typeu='student' AND validationu='allowed' ORDER BY nameu";
 					$res2 = pg_query($query2) or die('Echec de la requête : ' .pg_last_error());
 					while ($line2 = pg_fetch_array($res2, null, PGSQL_ASSOC)) {
-							$result.='<li  class="table-row">';
-				    		$result.='
-									          <div class="col col-1" data-label="ID">'.$line2["student_idu"].'</div>
-									          <div class="col col-2" data-label="Name">'.$line2["nameu"].'</div>
-									          <div class="col col-3" data-label="Surname">'.$line2["surnameu"].'</div>
-									          <div class="col col-4" data-label="Mail">'.$line2["emailu"].'</div>
-									          <div class="col col-5" data-label="Statut">'.$line2["validationu"].'</div>
-									          <div class="col col-6" data-label="Employeur">'.$line2["namei"].'</div>
-									          <div class="col col-7" data-label="Maître Apprentissage">Deadline soon</div>
-									          <div class="col col-8" data-label="Tuteur UCP">'.$line2["nametut"].'</div>
-									      </li>';
+				    		$result.='		<tr>
+									             <td><img class="ppStudent" src="http://lorempixel.com/100/100/people/1" alt="" /></td>
+									             <td>'.$line2["student_idu"].'</td>
+									             <td>'.$line2["nameu"].'</td>
+									             <td>'.$line2["surnameu"].'</td>
+									             <td>'.$line2["emailu"].'</td>
+									             <td>'.$line2["validationu"].'</td>
+									             <td>'.$line2["namei"].'</td>
+								      		</tr>';
 		
 				
 					}
@@ -67,11 +64,8 @@
 			 
 					}
 				}
-				$result.='<li class="table-header">
-				          <div class="end">2018-2019</div>
-				        </li>
-				      </ul>
-				    </div>
+				$result.='</table>
+   					 </div>
 				     <!-- The Modal (contains the Sign Up form) -->
 			          <div class="modal2" id="choiceTutor">
 			            <div class="modal2-sandbox" id="around2"></div>

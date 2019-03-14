@@ -31,17 +31,6 @@
         </ul>
       </form>
     </div>
-    <div id="adminPart">
-              <div id="statistic">
-                <?php 
-                  //echo '<img src="graphStudentPerClass.php" />';
-                ?>
-              </div>
-              <div id="statistic2">
- 
-              </div>
-
-    </div>
 
 	</html>
   <div id="container" style="width: 75%; margin-left: 20%;">
