@@ -10,6 +10,46 @@
   <title>Document</title>
   <link rel="stylesheet" type="text/css" href="style.less" media="screen">
   <script type="text/javascript" src="script.js"></script>
+  <style>
+    textarea {
+      -webkit-transition: all 0.30s ease-in-out;
+      -moz-transition: all 0.30s ease-in-out;
+      -ms-transition: all 0.30s ease-in-out;
+      -o-transition: all 0.30s ease-in-out;
+      outline: none;
+      padding: 3px 0px 3px 3px;
+      margin: 5px 1px 3px 0px;
+      border: 1px solid #DDDDDD;
+      width: 80%;
+      margin-left: 5%;
+      height: 50px;
+    }
+    textarea:focus {
+      box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+      padding: 3px 0px 3px 3px;
+      margin-left: 5%;
+      height: 300px;
+      border: 1px solid rgba(81, 203, 238, 1);
+    }
+    input[type=submit], input[type=file]{
+      background-color: #0198E1;
+      border-color: #0198E1;
+      color: white;
+      margin: 8px 0;
+      border-radius:4px;
+      cursor: pointer;
+      width: 100%;
+      box-shadow: 0 0 20px 0 rgba(0,0,0,0.2), 0 5px 5px rgba(0,0,0,0.24);
+      transition: 1s;
+      height:33px;
+    }
+    input[type=submit]:hover, input[type=file]:hover{
+      background-color: white;
+      color: #0198E1;
+      border: 1px solid #0198E1;
+      border-radius:4px;
+    }
+  </style>
 </head>
 <body>
   <html>
@@ -30,7 +70,7 @@
       </form>
     </div>
 
-    <?php /*
+    <?php  /* A SUPPRIMER 
           $dbconnexion = connectionDB();
   $result='<div class="reportdiv">
         <ul>
@@ -61,19 +101,50 @@
         $result.='<li><input type="submit" name="submit2" value="Envoyer" /></li>';
         $result.='</form>
               </div>';
-        echo $result; */
+        echo $result;  */
     ?>    
-      <div class="reportdiv">
+    <?php 
+        $dbconnexion = connectionDB();
+
+        $nametuteur=$_GET['name'];
+        $surnametuteur=$_GET['surname'];
+        $query = "SELECT nameu, surnameu, emailu FROM users INNER JOIN tuteur ON users.idtut=tuteur.idtut WHERE nametut='$nametuteur' AND surnametut='$surnametuteur'";
+        $res = pg_query($query) or die('ERREUR SQL : '. $request .  pg_last_error());
+        $result= '
         <div class="choiceStudent">
-          
-        </div>
-        <div class="choiceOne">
-          
-        </div>
-        <div class="choiceTwo">
-          
-        </div>
-      </div>
+          <form action="reportTutor.php?name=Lemaire&surname=Marc" method="post">
+              <p>Pour quel(le) élève voulez-vous écrite un compte-rendu ?</p>
+              <table cellspacing="0">
+              ';
+              while ($line = pg_fetch_array($res, null, PGSQL_ASSOC)) {
+                $result.='
+                               <tr>
+                                    <td><img class="ppStudent" src="http://lorempixel.com/100/100/people/1" alt="" /></td>
+                                    <td>'.$line["nameu"].'</td>
+                                    <td>'.$line["surnameu"].'</td>
+                                    <td><input type="radio" value="'.$line["emailu"].'" name="student" /></td>
+                                </tr>
+                           ';
+              }
+              $result.='
+            </table>
+            </div>
+            <div class="choices">
+              <div class="choiceOne">
+                <p>Choix numéro 1 : Téléchargez le docx ci-dessous, remplissez le puis re-déposez le dans le formulaire ci-contre</p>
+                <p><a href="pdf_files/fiche_compterendu.docx">Fiche de Compte-rendu</a></p>
+                <input type="file" name="report_file" />
+                <li><input type="submit" name="submit1" value="Envoyer" /></li>
+              </div>
+              <div class="choiceTwo">
+                <p>Choix numéro 2 : Faites votre compte-rendu en quelques lignes. </p>
+                <textarea name="report" id="report"></textarea>
+                <li><input type="submit" name="submit2" value="Envoyer" /></li>
+              </div>
+          </form>
+        </div>';
+        echo $result;
+    ?>
     <?php
       
       $histbord = dispBordReport();

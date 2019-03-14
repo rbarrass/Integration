@@ -653,7 +653,7 @@ h2 small {
   border-color: black;
   border-radius: 3px;
   background-color: #ffffff;
-  box-shadow: 0px 0px 9px 0px rgba(0,130,255, 0.075);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
   transition: 1s;
 }
 
@@ -692,6 +692,39 @@ h2 small {
     margin-bottom: 0.5cm;
     margin-left: 2cm;
 }
+.choiceStudent{
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  width: 70%;
+  min-width: 500px;
+  margin: 2em;
+  margin-left: 22%;
+  min-height: 100px;
+  background-color: #ffffff;
+}
+.choices{
+  width: 70%;
+  min-width: 500px;
+  overflow: hidden;
+  margin-left:22%;
+  display: flex;
+  justify-content: space-between;
+  z-index: 1;
+}
+.choiceOne, .choiceTwo{
+  z-index: 999;
+  background-color: #ffffff;
+  min-width: 250px;
+  min-height: 420px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+.choiceOne{
+  width:45%;
+  float:left; /* add this */
+}
+.choiceTwo{
+  width: 45%;
+  overflow: hidden;
+}
 /*----------------------------------------------------New student table----------------------------------------------------------*/
 .header {
   background-color: #0198E1;
@@ -721,7 +754,7 @@ h2 small {
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);}
 th,td{
   max-width: 230px;
-  min-width: 350px;
+  min-width: 200px;
   white-space: pre-line;
 }
 table {
