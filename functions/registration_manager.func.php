@@ -69,7 +69,10 @@ function pendingList(){
 		$display.= '</li>';
 	}
 	if ($display == ''){
-		$display.= '<h2>Il n\'y a pas de comptes en attente d\'approbation</h2>';
+		$display.= ' <div class="alert">
+					  <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>
+					  Il n\'y a pas d\'étudiant en attente d\'approbation pour le moment.
+					</div> ';
 	}
 	echo $display;
 }
@@ -77,7 +80,7 @@ function pendingList(){
 function pendingtutorList(){
 	$dbconn = connectionDB();
 	$display = '';
-	$query = "SELECT student_idU,nameU,surnameU,emailU,idU,nametut FROM users INNER JOIN tuteur ON users.idtut=tuteur.idtut WHERE validationtutU='pending';";
+	$query = "SELECT student_idU,nameU,surnameU,emailU,idU,nametut FROM users INNER JOIN tutors ON users.idtut=tutors.idtut WHERE validationtutU='pending';";
 	$result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
 	$i=0;
 	while ($line = pg_fetch_array($result,null,PGSQL_ASSOC)) {
@@ -143,7 +146,10 @@ function pendingtutorList(){
 		$display.= '</li>';
 	}
 	if ($display == ''){
-		$display.= '<h2>Il n\'y a pas de tuteur en attente d\'approbation pour leurs élèves</h2>';
+		$display.= '<div class="alert">
+					  <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>
+					  Il n\'y a pas de tuteur en attente d\'approbation pour leurs élèves.
+					</div> ';
 	}
 	echo $display;
 }

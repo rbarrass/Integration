@@ -17,6 +17,11 @@
     <script type="text/javascript" src="script.js"></script>
 
     <style>
+      .alert{
+        margin-left: 20%;
+        width: 70%;
+        margin-top: 10px;
+      }
       label{
         text-align: right;
         clear: both;
@@ -30,7 +35,7 @@
 
     <!-- Bootstrap CSS -->
 
-   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+   <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
 
     <title>Edition des comptes</title>
 </head>
@@ -38,10 +43,13 @@
     <?php
       echo displayMenu();
       editRegisteringForm();
+      editDeleteForm();
     ?>
 
     <?php
       $possibleError = accountCreation();
+      manageError($possibleError);
+      $possibleError = accountDeletion();
       manageError($possibleError);
     ?>
 </body>

@@ -18,7 +18,7 @@
 
 		        </li>';
 		
-		$query1 = "SELECT student_idu, nameu, surnameu, emailu, namei FROM users INNER JOIN institutions ON users.idi=institutions.idi WHERE idtut=(SELECT idtut FROM tuteur WHERE nametut='$name' AND surnametut='$surname' LIMIT 1) AND validationtutU='validate' ORDER BY nameu";
+		$query1 = "SELECT student_idu, nameu, surnameu, emailu, namei FROM users INNER JOIN institutions ON users.idi=institutions.idi WHERE idtut=(SELECT idtut FROM tutors WHERE nametut='$name' AND surnametut='$surname' LIMIT 1) AND validationtutU='validate' ORDER BY nameu";
 		$res1 = pg_query($query1) or die('Echec de la requête : ' .pg_last_error());
 		while ($line1 = pg_fetch_array($res1, null, PGSQL_ASSOC)) {
 			$result.='<li onclick="location.href=\'\';" class="table-row">';
@@ -119,7 +119,7 @@
 		$dbconn = connectionDB();
 		$nametuteur=$_GET['name'];
 		$surnametuteur=$_GET['surname'];
-		$requete = "SELECT idtut FROM tuteur WHERE nametut='$nametuteur' AND surnametut='$surnametuteur' LIMIT 1";
+		$requete = "SELECT idtut FROM tutors WHERE nametut='$nametuteur' AND surnametut='$surnametuteur' LIMIT 1";
 		$res1 = pg_query($requete) or die('Échec de la requête : ' . pg_last_error());
 		$idtuteur = pg_fetch_result($res1, 'idtut');
 		$query = "UPDATE users SET idtut='$idtuteur', validationtutU='pending' WHERE idU='".$_POST['myid']."'";
@@ -172,7 +172,7 @@
 
 		        </li>';
 		
-		$query1 = "SELECT nameu, dater, namei  FROM reports INNER JOIN users ON reports.idu=users.idu INNER JOIN institutions ON users.idi=institutions.idi WHERE reports.idtut=(SELECT idtut FROM tuteur WHERE nametut='$name' AND surnametut='$surname' LIMIT 1) ORDER BY dater";
+		$query1 = "SELECT nameu, dater, namei  FROM reports INNER JOIN users ON reports.idu=users.idu INNER JOIN institutions ON users.idi=institutions.idi WHERE reports.idtut=(SELECT idtut FROM tutors WHERE nametut='$name' AND surnametut='$surname' LIMIT 1) ORDER BY dater";
 		$res1 = pg_query($query1) or die('Echec de la requête : ' .pg_last_error());
 		while ($line1 = pg_fetch_array($res1, null, PGSQL_ASSOC)) {
 			$result.='<li onclick="location.href=\'\';" class="table-row">';
@@ -200,7 +200,7 @@
 		$dbconnexion = connectionDB();
 		$nametuteur=$_GET['name'];
 		$surnametuteur=$_GET['surname'];
-		$requete = "SELECT idtut FROM tuteur WHERE nametut='$nametuteur' AND surnametut='$surnametuteur' LIMIT 1";
+		$requete = "SELECT idtut FROM tutors WHERE nametut='$nametuteur' AND surnametut='$surnametuteur' LIMIT 1";
 		$res1 = pg_query($requete) or die('Échec de la requête : ' . pg_last_error());
 		$idtuteur = pg_fetch_result($res1, 'idtut');
 		$namestud = $_POST['students'];

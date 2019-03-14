@@ -14,6 +14,11 @@
 		            	 <th>Email</th>
 		            	 <th>Statut</th>
 		            	 <th>Entreprise</th>
+		            	 <th>Téléphone</th>
+		            	 <th>Adresse</th>
+		            	 <th>Nationnalité</th>
+		            	 <th>Fonction occupée</th>
+		            	 <th>Mission</th>
 		         		</tr>';
 		if(!empty($_GET['psd'])){
 			$branch = $_GET['psd'];
@@ -26,10 +31,16 @@
 			$date = explode("-", $row);
 			if (((int)$date[0]<=$currentdate) && ($currentdate<=(int)$date[1])) {*/
 				if ($branch=="Alternants") {
-					$query2 = "SELECT student_idu, nameu, surnameu, emailu, validationu, nametut, namei FROM tuteur INNER JOIN users ON tuteur.idtut=users.idtut INNER JOIN institutions ON users.idi=institutions.idi WHERE typeu='student' AND validationu='allowed' ORDER BY nameu";
+					$i=0;
+					$query2 = "SELECT student_idu, nameu, surnameu, emailu, validationu, nametut, namei, phoneu,adru,nationality,job,typejob FROM tutors INNER JOIN users ON tutors.idtut=users.idtut INNER JOIN institutions ON users.idi=institutions.idi WHERE typeu='student' AND validationu='allowed' ORDER BY nameu";
 					$res2 = pg_query($query2) or die('Echec de la requête : ' .pg_last_error());
 					while ($line2 = pg_fetch_array($res2, null, PGSQL_ASSOC)) {
-				    		$result.='		<tr>
+							$i++;
+							if($i==4)
+								$result.='<tr style="background-color:rgb(180,40,0,0.2);">';
+							else
+								$result.='<tr>';
+				    		$result.='
 									             <td><img class="ppStudent" src="http://lorempixel.com/100/100/people/1" alt="" /></td>
 									             <td>'.$line2["student_idu"].'</td>
 									             <td>'.$line2["nameu"].'</td>
@@ -37,6 +48,11 @@
 									             <td>'.$line2["emailu"].'</td>
 									             <td>'.$line2["validationu"].'</td>
 									             <td>'.$line2["namei"].'</td>
+									             <td>'.$line2["phoneu"].'</td>
+									             <td>'.$line2["adru"].'</td>
+									             <td>'.$line2["nationality"].'</td>
+									             <td>'.$line2["job"].'</td>
+									             <td>'.$line2["typejob"].'</td>
 								      		</tr>';
 		
 				
@@ -47,20 +63,18 @@
 					$res1 = pg_query($query1) or die('Échec de la requête : ' . pg_last_error());
 					$line1 = pg_fetch_array($res1, null, PGSQL_ASSOC);
 					$id = $line1["idcl"];
-					$query = "SELECT student_idu, nameu, surnameu, emailu, validationu, nametut, namei FROM tuteur INNER JOIN users ON tuteur.idtut=users.idtut INNER JOIN institutions ON users.idi=institutions.idi WHERE idcl='$id' AND typeu='student' AND validationu='allowed' ORDER BY nameu";
+					$query = "SELECT student_idu, nameu, surnameu, emailu, validationu, nametut, namei FROM tutors INNER JOIN users ON tutors.idtut=users.idtut INNER JOIN institutions ON users.idi=institutions.idi WHERE idcl='$id' AND typeu='student' AND validationu='allowed' ORDER BY nameu";
 					$res = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
 					while ($line = pg_fetch_array($res, null, PGSQL_ASSOC)) {
-						$result.='<li onclick="document.getElementById(\'choiceTutor\').style.display=\'block\'" class="table-row">';
-			    		$result.='
-								          <div class="col col-1" data-label="ID">'.$line["student_idu"].'</div>
-								          <div class="col col-2" data-label="Name">'.$line["nameu"].'</div>
-								          <div class="col col-3" data-label="Surname">'.$line["surnameu"].'</div>
-								          <div class="col col-4" data-label="Mail">'.$line["emailu"].'</div>
-								          <div class="col col-5" data-label="Statut">'.$line["validationu"].'</div>
-								          <div class="col col-6" data-label="Employeur">'.$line["namei"].'</div>
-								          <div class="col col-7" data-label="Maître Apprentissage">Deadline soon</div>
-								          <div class="col col-8" data-label="Tuteur UCP">'.$line["nametut"].'</div>
-								      </li>';
+						$result.='		<tr>
+									             <td><img class="ppStudent" src="http://lorempixel.com/100/100/people/1" alt="" /></td>
+									             <td>'.$line["student_idu"].'</td>
+									             <td>'.$line["nameu"].'</td>
+									             <td>'.$line["surnameu"].'</td>
+									             <td>'.$line["emailu"].'</td>
+									             <td>'.$line["validationu"].'</td>
+									             <td>'.$line["namei"].'</td>
+								      		</tr>';
 			 
 					}
 				}
@@ -79,25 +93,21 @@
 			}
 			if (!empty($_GET['promo'])) {
 					$promo = $_GET['promo'];
-					$query3 = "SELECT student_idu, nameu, surnameu, emailu, validationu, nametut, namei FROM tuteur INNER JOIN users ON tuteur.idtut=users.idtut INNER JOIN institutions ON users.idi=institutions.idi WHERE promotionu='$promo' AND typeu='student' AND validationu='allowed' ORDER BY nameu";
+					$query3 = "SELECT student_idu, nameu, surnameu, emailu, validationu, nametut, namei FROM tutors INNER JOIN users ON tutors.idtut=users.idtut INNER JOIN institutions ON users.idi=institutions.idi WHERE promotionu='$promo' AND typeu='student' AND validationu='allowed' ORDER BY nameu";
 					$res3 = pg_query($query3) or die('Echec de la requête : ' .pg_last_error());
 					while ($line3 = pg_fetch_array($res3, null, PGSQL_ASSOC)) {
-							$result.='<li onclick="location.href=\'stat.php\';" class="table-row">';
-				    		$result.='
-									          <div class="col col-1" data-label="ID">'.$line3["student_idu"].'</div>
-									          <div class="col col-2" data-label="Name">'.$line3["nameu"].'</div>
-									          <div class="col col-3" data-label="Surname">'.$line3["surnameu"].'</div>
-									          <div class="col col-4" data-label="Mail">'.$line3["emailu"].'</div>
-									          <div class="col col-5" data-label="Statut">'.$line3["validationu"].'</div>
-									          <div class="col col-6" data-label="Employeur">'.$line3["namei"].'</div>
-									          <div class="col col-7" data-label="Maître Apprentissage">Deadline soon</div>
-									          <div class="col col-8" data-label="Tuteur UCP">'.$line3["nametut"].'</div>
-									      </li>';
+							$result.='
+									      <tr>
+									             <td><img class="ppStudent" src="http://lorempixel.com/100/100/people/1" alt="" /></td>
+									             <td>'.$line3["student_idu"].'</td>
+									             <td>'.$line3["nameu"].'</td>
+									             <td>'.$line3["surnameu"].'</td>
+									             <td>'.$line3["emailu"].'</td>
+									             <td>'.$line3["validationu"].'</td>
+									             <td>'.$line3["namei"].'</td>
+								      	</tr>';
 					}
-					$result.='<li class="table-header">
-				          <div class="end">'.$promo.'</div>
-				        </li>
-				      </ul>
+					$result.='<tr>'.$promo.'</tr></table></div>
 				    </div>';
 			}
 

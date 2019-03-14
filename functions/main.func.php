@@ -1,6 +1,5 @@
 <?php
-session_start();
-//to retrieve SUPERGLOBAL SESSION
+
 function autorizedChar($strchain, $index){
     //name/surname
     if($index==0) return preg_match('/^[a-zA-Z-ëéèàù]{1,}$/', $strchain);
@@ -33,7 +32,7 @@ function displayMenu(){
             <ul class="hidden">
 
       <li onclick="location.href=\'index.php?psd=Alternants\';">Alternants</li>';
-            $query = 'SELECT branchcl FROM classrooms';
+            $query = 'SELECT DISTINCT branchcl FROM classrooms';
       $res = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
       while ($line = pg_fetch_array($res, null, PGSQL_ASSOC)) {
           $result.='
@@ -183,18 +182,10 @@ function verifyIfConnected($who){
 /* EDIT PROFIL PART */
 
 //this function serves to modify/complete the profile's informations
- if(isset($_POST['editvalid'])){
-                          $sizeError = moreInformations($_SESSION['idu']);
-                        
-                          if($sizeError == "ok"){
-                            //send($_SESSION['idu']);
-                            header('Location: profil.php');
-                            exit();
-                          }
-                        }
+
 function moreInformations($idu){
 
-  //connection to the database
+  //connexion to the database
   include_once("connectDatabase.php");
 
   $dbconn =connectionDB();
@@ -207,108 +198,256 @@ function moreInformations($idu){
 
   if(isset($_POST['editvalid'])){
 
-      //if the longer of the new name is composed more than 30 caracters do:
-
-    /* if (strlen($_POST['newname']) > 30){
+    if (isset($_POST['newname']) && $_POST['newname']!==''){
+      //if the length of the new name is composed more than 30 characters do:
+         if (strlen($_POST['newname']) > 30){
         $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille du nom est limitée à 30 caractères</p>";
       }else{
-        $_POST['newname'] = ucfirst(strtolower($_POST['newname']));
         pg_query("UPDATE users SET nameu='".$_POST['newname']."' WHERE idu='".$idu."' ") or die('Erreur dans la table users');
       }
+    }
 
-      //if the longer of the new surname is composed more than 30 caracters do:
-
+    if ( isset($_POST['newsur']) && $_POST['newsur']!==''){
+      //if the length of the new surname is composed more than 30 characters do:
       if (strlen($_POST['newsur']) > 30){
         $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille du prénom est limitée à 30 caractères</p>";
       }else{
-        $_POST['newsur'] = ucfirst(strtolower($_POST['newsur']));
         pg_query("UPDATE users SET surnameu='".$_POST['newsur']."' WHERE idu='".$idu."' ") or die('Erreur dans la table users');
-      }*/
+      }
+    }
 
-      //if the longer of the new student's id is composed more than 30 caracters do:
-
-    /*  if (strlen($_POST['newid']) > 30){
-        $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille de l'id est limitée à 30 caractères</p>";
-      }else{
-        $_POST['newid'] = ucfirst(strtolower($_POST['newid']));
-        pg_query("UPDATE users SET student_idu='".$_POST['newid']."' WHERE idu='".$idu."' ") or die('Erreur dans la table users');
-      }*/
-
-      //if the longer of the new email's address is composed more than 30 caracters do:
-
-    /*  if (strlen($_POST['new@']) > 30){
+    if (isset($_POST['new@']) && $_POST['new@']!==''){
+      //if the length of the new email's address is composed more than 30 characters do:
+      if (strlen($_POST['new@']) > 30){
         $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille de l'adresse email est limitée à 30 caractères</p>";
       }else{
-        $_POST['new@'] = ucfirst(strtolower($_POST['new@']));
         pg_query("UPDATE users SET emailu='".$_POST['new@']."' WHERE idu='".$idu."' ") or die('Erreur dans la table users');
-      }*/
-
-      //if the longer of the new stdent's address is composed more than 100 caracters do:
-
-      if (strlen($_POST['newadr']) > 100){
-        $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille de votre adresse est limitée à 100 caractères</p>";
-      }else{
-        $_POST['newadr'] = ucfirst(strtolower($_POST['newadr']));
-        pg_query("UPDATE users SET adru='".$_POST['newadr']."' WHERE idu='".$idu."' ") or die('Erreur dans la table users');
       }
+    }
 
+    if ( isset($_POST['newadr']) && $_POST['newadr']!=='' ){
+        //if the length of the new stdent's address is composed more than 100 characters do:
+        if (strlen($_POST['newadr']) > 100){
+          $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille de votre adresse est limitée à 100 caractères</p>";
+        }else{
+          pg_query("UPDATE users SET adru='".$_POST['newadr']."' WHERE idu='".$idu."' ") or die('Erreur dans la table users');
+        }
+      
+    }
+
+    if ($_POST['newgender']!==''){
       //update of the student's gender
-
-        $_POST['newgender'] = ucfirst(strtolower($_POST['newgender']));
         pg_query("UPDATE users SET genderu='".$_POST['newgender']."' WHERE idu='".$idu."' ") or die('Erreur dans la table users');
+    }
 
-      //if the longer of the new phone number is composed more than 10 caracters do:
-
+    if ( isset($_POST['newtel']) && $_POST['newtel']!==''){
+      //if the length of the new phone number is composed more than 10 characters do:
       if (strlen($_POST['newtel']) > 10){
         $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille du numero de telephone est limitée à 10 caractères</p>";
       }else{
-        $_POST['newtel'] = ucfirst(strtolower($_POST['newtel']));
         pg_query("UPDATE users SET phoneu='".$_POST['newtel']."' WHERE idu='".$idu."' ") or die('Erreur dans la table users');
       }
+    }
 
-      //if the longer of the new password and the confirmation of the new password are composed more than 30 caracters do:
-
+    if ( isset($_POST['newpwd']) && $_POST['newpwd']!==''){
+      //if the length of the new password and the confirmation of the new password are composed more than 30 characters do:
       if (strlen($_POST['newpwd']) > 30 && strlen($_POST['newpwd']) < 8){
         $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille du MDP est limitée à 30 caractères</p>";
       }else{
+        //if passwords matches do:
         if($_POST['newpwd'] == $_POST['newpwd1']){
-          $_POST['newpwd'] = ucfirst(strtolower($_POST['newpwd']));
+          $_POST['newpwd'] = crypt($_POST['newpwd'], 'rl');
           pg_query("UPDATE users SET passwordu='".$_POST['newpwd']."' WHERE idu='".$idu."' ") or die('Erreur dans la table users');
         }else{
           $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: les deux mots de passes ne sont pas identiques</p>";
         }
       }
+    }
 
-        $_POST['newPromo'] = ucfirst(strtolower($_POST['newPromo']));
-        pg_query("UPDATE users SET promotionu='".$_POST['newPromo']."' WHERE idu='".$idu."' ") or die('Erreur dans la table users');
+     if ($_POST['newPromo']!=='' && $_POST['newGroup']!==''){
+       $req=pg_query("SELECT idcl FROM classrooms WHERE branchcl='".$_POST['newPromo']."' AND groupcl='".$_POST['newGroup']."' ") or die('Erreur dans la table users');
+       $array[0] = pg_fetch_array($req, null, PGSQL_ASSOC);
 
-        $_POST['newGroup'] = ucfirst(strtolower($_POST['newGroup']));
-        pg_query("UPDATE users SET groupu='".$_POST['newGroup']."' WHERE idu='".$idu."' ") or die('Erreur dans la table users');
+       pg_query("UPDATE users SET idcl='".$array[0]['idcl']."' WHERE idu='".$idu."' ") or die('Erreur dans la table users');
+    }
 
-        //if the longer of the new entreprise's name is composed more than 30 caracters do:
-
+    if ( isset($_POST['newent']) && $_POST['newent']!==''){
+        //if the length of the new entreprise's name is composed more than 30 characters do:
       if ( strlen($_POST['newent']) > 30 ){
         $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille du nom de l'entreprise est limitée à 30 caractères</p>";
       }else{
-        $_POST['newent'] = ucfirst(strtolower($_POST['newent']));
-        pg_query("UPDATE institutions SET namei='".$_POST['newent']."' FROM users WHERE institutions.idu=users.idu AND users.idu='".$idu."'") or die('Erreur dans la table users');
+        pg_query("UPDATE institutions SET namei='".$_POST['newent']."' FROM users WHERE users.idi=institutions.idi AND users.idu='".$idu."'") or die('Erreur dans la table users');
       }
+    }
 
-        //if the longer of the new entreprise's address is composed more than 100 caracters do:
-
+    if ( isset($_POST['newadre']) && $_POST['newadre']!==''){
+        //if the length of the new entreprise's address is composed more than 100 characters do:
       if ( strlen($_POST['newadre']) > 100 ){
          $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille de l'adresse de l'entreprise est limitée à 100 caractères</p>";
       }else{
-        $_POST['newadre'] = ucfirst(strtolower($_POST['newadre']));
-        pg_query("UPDATE institutions SET adri='".$_POST['newadre']."'FROM users WHERE institutions.idu=users.idu AND users.idu='".$idu."'") or die('Erreur dans la table users');
+        pg_query("UPDATE institutions SET adri='".$_POST['newadre']."'FROM users WHERE users.idi=institutions.idi AND users.idu='".$idu."'") or die('Erreur dans la table users');
+      }
+    }
+
+    if ( isset($_POST['newnat']) && $_POST['newnat']!==''){
+      // if the length of the nationality's name is composed more than 30 characters do:
+      if ( strlen($_POST['newnat']) > 30 ){
+         $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille du nom de votre nationalité est limitée à 30 caractères</p>";
+      }else{
+        pg_query("UPDATE users SET nationality='".$_POST['newnat']."' WHERE users.idu='".$idu."'") or die('Erreur dans la table users');
+      }
+    }
+
+      if (isset($_POST['newdbir']) && $_POST['newdbir']!==''){
+        pg_query("UPDATE users SET dateofbirth='".$_POST['newdbir']."' WHERE users.idu='".$idu."'") or die('Erreur dans la table users');
       }
 
-      if ( strlen($_POST['newtut']) > 30 ){
-         $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille du nom de votre tuteur est limitée à 30 caractères</p>";
-      }else{
-        $_POST['newtut'] = ucfirst(strtolower($_POST['newtut']));
-        pg_query("UPDATE tuteur SET nametut='".$_POST['newtut']."'FROM users WHERE tuteur.idtut=users.idu AND users.idu='".$idu."'") or die('Erreur dans la table users');
+      if ( isset($_POST['newpbir']) && $_POST['newpbir']!==''){
+        //if the length of the new place of birth is composed more than 100 characters do:
+        if ( strlen($_POST['newpbir']) > 100 ){
+         $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille du nom du lieu de naissance est limitée à 100 caractères</p>";
+        }else{
+        pg_query("UPDATE users SET placeofbirth='".$_POST['newpbir']."' WHERE users.idu='".$idu."'") or die('Erreur dans la table users');
+        }
       }
+
+    if ( isset($_POST['newpostent']) && $_POST['newpostent']!==''){
+        //if the length of the new postal code is composed more than 5 characters do:
+      if ( strlen($_POST['newpostent']) > 5 ){
+         $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille du code postal est limitée à 5 caractères</p>";
+      }else{
+        pg_query("UPDATE institutions SET postalcode='".$_POST['newpostent']."'FROM users WHERE users.idi=institutions.idi AND users.idu='".$idu."'") or die('Erreur dans la table users');
+      }
+    }
+
+    if ( isset($_POST['newcity']) && $_POST['newcity']!==''){
+        //if the length of the new city's name is composed more than 50 characters do:
+      if ( strlen($_POST['newcity']) > 50 ){
+         $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille du nom de la ville est limitée à 50 caractères</p>";
+      }else{
+        pg_query("UPDATE institutions SET city='".$_POST['newcity']."'FROM users WHERE users.idi=institutions.idi AND users.idu='".$idu."'") or die('Erreur dans la table users');
+      }
+    }
+
+    if (isset($_POST['newnbsal']) && $_POST['newnbsal']!==''){
+        //if the worker's number is more than 1 000 000 do:
+      if ( strlen($_POST['newnbsal']) > 1000000 ){
+         $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille du nombre de salariés ne peut pas être supérieur à 1 000 000</p>";
+      }else{
+        pg_query("UPDATE institutions SET nbworkers='".$_POST['newnbsal']."'FROM users WHERE users.idi=institutions.idi AND users.idu='".$idu."'") or die('Erreur dans la table users');
+      }
+    }
+
+    if ( isset($_POST['newnumsir']) && $_POST['newnumsir']!==''){
+        //if the siret's number is more than 14 do:
+      if ( strlen($_POST['newnumsir']) > 14 ){
+         $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille du numéro de siret ne peut pas être supérieur à 14</p>";
+      }else{
+        pg_query("UPDATE institutions SET siret='".$_POST['newnumsir']."'FROM users WHERE users.idi=institutions.idi AND users.idu='".$idu."'") or die('Erreur dans la table users');
+      }
+    }
+
+    if ( isset($_POST['newcdenaf']) && $_POST['newcdenaf']!==''){
+        //if the naf's code is more than 10 do:
+      if ( strlen($_POST['newcdenaf']) > 10 ){
+         $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille du code naf ne peut pas être supérieur à 10</p>";
+      }else{
+        pg_query("UPDATE institutions SET naf='".$_POST['newcdenaf']."'FROM users WHERE users.idi=institutions.idi AND users.idu='".$idu."'") or die('Erreur dans la table users');
+      }
+    }
+
+    if ( isset($_POST['newnumconvco']) && $_POST['newnumconvco']!==''){
+        //if the length of the collective agreement's number is composed more than 50 characters do:
+      if ( strlen($_POST['newnumconvco']) > 50 ){
+         $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille du numéro de convention collective ne peut pas être supérieur à 10</p>";
+      }else{
+        pg_query("UPDATE institutions SET collectiveAgreement = '".$_POST['newnumconvco']."' FROM users WHERE users.idi=institutions.idi AND users.idu='".$idu."'") or die('Erreur dans la table users');
+      }
+    }
+
+    if ( isset($_POST['newconvco']) && $_POST['newconvco']!==''){
+        //if the length of the collective agreement is composed more than 50 characters do:
+      if ( strlen($_POST['newconvco']) > 50 ){
+         $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille de l'intitulé de la convention collective ne peut pas être supérieur à 50</p>";
+      }else{
+        pg_query("UPDATE institutions SET intcollectiveAgreement='".$_POST['newconvco']."'FROM users WHERE users.idi=institutions.idi AND users.idu='".$idu."'") or die('Erreur dans la table users');
+      }
+    }
+
+    if ( isset($_POST['newnumtva']) && $_POST['newnumtva']!==''){
+        //if the length of the tva's number is composed more than 30 characters do:
+      if ( strlen($_POST['newnumtva']) > 30 ){
+         $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille du numéro de tva ne peut pas être supérieur à 30</p>";
+      }else{
+        pg_query("UPDATE institutions SET tva='".$_POST['newnumtva']."'FROM users WHERE users.idi=institutions.idi AND users.idu='".$idu."'") or die('Erreur dans la table users');
+      }
+    }
+
+    if ( isset($_POST['newrtrt']) && $_POST['newrtrt']!==''){
+        //if the length of the retirement's name is composed more than 30 characters do:
+      if ( strlen($_POST['newrtrt']) > 30 ){
+         $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille du nom de la Caisse de retraite complémentaire non cadre ne peut pas être supérieur à 30</p>";
+      }else{
+        pg_query("UPDATE institutions SET retirement='".$_POST['newrtrt']."'FROM users WHERE users.idi=institutions.idi AND users.idu='".$idu."'") or die('Erreur dans la table users');
+      }
+    }
+
+    if ($_POST['newAff']!==''){
+        pg_query("UPDATE institutions SET affiliation='".$_POST['newAff']."'FROM users WHERE users.idi=institutions.idi AND users.idu='".$idu."'") or die('Erreur dans la table users');
+    }
+
+    if ( isset($_POST['newweb']) && $_POST['newweb']!==''){
+        //if the length of the webSite's name is composed more than 30 characters do:
+      if ( strlen($_POST['newweb']) > 30 ){
+         $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La taille du nom du site web ne peut pas être supérieur à 30</p>";
+      }else{
+        pg_query("UPDATE institutions SET webSite='".$_POST['newweb']."'FROM users WHERE users.idi=institutions.idi AND users.idu='".$idu."'") or die('Erreur dans la table users');
+      }
+    }
+
+    if ( isset($_POST['newdfirst']) && $_POST['newdfirst']!==''){
+        pg_query("UPDATE users SET enddate='".$_POST['newdfirst']."' WHERE users.idu='".$idu."'") or die('Erreur dans la table users');
+    }
+
+    if ( isset($_POST['newdend']) && $_POST['newdend']!==''){
+        pg_query("UPDATE users SET begindate='".$_POST['newdend']."' WHERE users.idu='".$idu."'") or die('Erreur dans la table users');
+    }
+
+    if ( isset($_POST['newjapp']) && $_POST['newjapp']!==''){
+        //if the job's description is composed more than 100 characters do:
+      if ( strlen($_POST['newjapp']) > 100 ){
+         $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La description du job ne peut pas être supérieur à 100 caractères</p>";
+      }else{
+        pg_query("UPDATE users SET job='".$_POST['newjapp']."' WHERE users.idu='".$idu."'") or die('Erreur dans la table users');
+      }
+    }
+
+    if ( isset($_POST['newmiss']) && $_POST['newmiss']!==''){
+        //if the mission's description is composed more than 500 characters do:
+      if ( strlen($_POST['newmiss']) > 500 ){
+         $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La description de la mission ne peut pas être supérieur à 500 caractères</p>";
+      }else{
+        pg_query("UPDATE users SET typejob='".$_POST['newmiss']."' WHERE users.idu='".$idu."'") or die('Erreur dans la table users');
+      }
+    }
+
+    if ( isset($_POST['newtech']) && $_POST['newtech']!==''){
+        //if the mission's description is composed more than 500 characters do:
+      if ( strlen($_POST['newtech']) > 500 ){
+         $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La description des outils et technologies mises en oeuvre ne peut pas être supérieur à 500 caractères</p>";
+      }else{
+        pg_query("UPDATE users SET technologies='".$_POST['newtech']."' WHERE users.idu='".$idu."'") or die('Erreur dans la table users');
+      }
+    }
+
+    if ( isset($_POST['newenttel']) && $_POST['newenttel']!==''){
+        //if the mission's description is composed more than 500 characters do:
+      if ( strlen($_POST['newenttel']) > 500 ){
+         $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La description des outils et technologies mises en oeuvre ne peut pas être supérieur à 500 caractères</p>";
+      }else{
+        pg_query("UPDATE institutions SET phonei='".$_POST['newenttel']."'FROM users WHERE users.idi=institutions.idi AND users.idu='".$idu."'") or die('Erreur dans la table users');
+      }
+    }
 
       closeDB($dbconn);
       $sizeError="ok";
@@ -320,37 +459,37 @@ function moreInformations($idu){
 
 function send($idu){
 
-  $boundary = "-----=" . md5( uniqid ( rand() ) );
-  $headers = "Reply-to: \"noReplyUCP\" <noReplyUCP@u-cergy.net>\n"; 
-  $headers .= "From: \"noReplyUCP\"<noReplyUCP@u-cergy.net>\n";
-  //NOTE: l'adresse email indiquée dans le header From doit etre l'adresse absolue du serveur qui envoie les messages, et peut etre differente de votre adresse de contact si vous etes par exemple sur un serveur dedié partagé. dans mon cas l'adresse specifiee ici est <webusers@mail.nomduserveur.com>
-  $headers .= "MIME-Version: 1.0\n";
-  $headers .= "Content-Type: text/html; boundary=\"$boundary\"";
-  //g.ducroux@outlook.fr
-  //throwaraccoon@gmail.com
-  //julom78@gmail.com
+$boundary = "-----=" . md5( uniqid ( rand() ) );
+$headers = "Reply-to: \"noReplyUCP\" <noReplyUCP@u-cergy.net>\n"; 
+$headers .= "From: \"noReplyUCP\"<noReplyUCP@u-cergy.net>\n";
+//NOTE: l'adresse email indiquée dans le header From doit etre l'adresse absolue du serveur qui envoie les messages, et peut etre differente de votre adresse de contact si vous etes par exemple sur un serveur dedié partagé. dans mon cas l'adresse specifiee ici est <webusers@mail.nomduserveur.com>
+$headers .= "MIME-Version: 1.0\n";
+$headers .= "Content-Type: text/html; boundary=\"$boundary\"";
+//g.ducroux@outlook.fr
+//throwaraccoon@gmail.com
+//julom78@gmail.com
 
-  $link="http://localhost/profil.php?idu=".$idu.""; // à modifier
+$link="http://localhost/profil.php?idu=".$idu.""; // à modifier
 
-  $destinataire = "throwaraccoon@gmail.com";
+$destinataire = "throwaraccoon@gmail.com";
 
-  $subject = "Validation de votre inscription";
+$subject = "Validation de votre inscription";
 
-  $message_txt  = "Finissez votre inscription en cliquant sur ce lien : ".$link."\n\n";
+$message_txt  = "Finissez votre inscription en cliquant sur ce lien : ".$link."\n\n";
 
-  $message_html  = "<html>\n";
-  $message_html .= "<body>\n";
-  $message_html .= "<p>Finissez votre inscription en cliquant sur ce lien : ".$link."\n\n</p><br><br>";
+$message_html  = "<html>\n";
+$message_html .= "<body>\n";
+$message_html .= "<p>Finissez votre inscription en cliquant sur ce lien : ".$link."\n\n</p><br><br>";
 
 
-  $message = $message_html;
-  $message .= "\n\n";
-  $message .= "<p style='display:none;'>".$boundary."</p>\n";
-  $message .= "</body>\n";
-  $message .= "</html>\n";
-  $mail_from="noReplyUCP@u-cergy.net";
+$message = $message_html;
+$message .= "\n\n";
+$message .= "<p style='display:none;'>".$boundary."</p>\n";
+$message .= "</body>\n";
+$message .= "</html>\n";
+$mail_from="noReplyUCP@u-cergy.net";
 
-  mail($destinataire,$subject,$message,$headers);
+mail($destinataire,$subject,$message,$headers);
 
 }
 
@@ -402,7 +541,7 @@ function validProfile($idu){
   pg_query("UPDATE users SET validationu='OK'") or die('Erreur dans la table users');
   closeDB($dbconn);
 
-  //sendToSecretary($idu); /******************************A REMETTRE POUR ENVOYER MAIL **************************/
+  sendToSecretary($idu);
 }
 /* Allow to redirect the supervisor when this one looking for a student using the searchBar */
 if(isset($_POST['search'])){

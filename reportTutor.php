@@ -38,16 +38,20 @@
       margin: 8px 0;
       border-radius:4px;
       cursor: pointer;
-      width: 100%;
+      width: 70%;
       box-shadow: 0 0 20px 0 rgba(0,0,0,0.2), 0 5px 5px rgba(0,0,0,0.24);
       transition: 1s;
       height:33px;
+      margin-left: 10%;
     }
     input[type=submit]:hover, input[type=file]:hover{
       background-color: white;
       color: #0198E1;
       border: 1px solid #0198E1;
       border-radius:4px;
+    }
+    p{
+      margin: 5%;
     }
   </style>
 </head>
@@ -108,12 +112,12 @@
 
         $nametuteur=$_GET['name'];
         $surnametuteur=$_GET['surname'];
-        $query = "SELECT nameu, surnameu, emailu FROM users INNER JOIN tuteur ON users.idtut=tuteur.idtut WHERE nametut='$nametuteur' AND surnametut='$surnametuteur'";
+        $query = "SELECT nameu, surnameu, emailu FROM users INNER JOIN tutors ON users.idtut=tutors.idtut WHERE nametut='$nametuteur' AND surnametut='$surnametuteur'";
         $res = pg_query($query) or die('ERREUR SQL : '. $request .  pg_last_error());
         $result= '
         <div class="choiceStudent">
           <form action="reportTutor.php?name=Lemaire&surname=Marc" method="post">
-              <p>Pour quel(le) élève voulez-vous écrite un compte-rendu ?</p>
+              <p><br/>Pour quel(le) élève voulez-vous écrite un compte-rendu ?</p>
               <table cellspacing="0">
               ';
               while ($line = pg_fetch_array($res, null, PGSQL_ASSOC)) {
@@ -122,7 +126,12 @@
                                     <td><img class="ppStudent" src="http://lorempixel.com/100/100/people/1" alt="" /></td>
                                     <td>'.$line["nameu"].'</td>
                                     <td>'.$line["surnameu"].'</td>
-                                    <td><input type="radio" value="'.$line["emailu"].'" name="student" /></td>
+                                    <td>
+                                      <label class="radio">
+                                      <input type="radio" value="'.$line["emailu"].'" name="student" />
+                                      <span>Choix</span>
+                                      </label>
+                                    </td>
                                 </tr>
                            ';
               }
@@ -131,13 +140,13 @@
             </div>
             <div class="choices">
               <div class="choiceOne">
-                <p>Choix numéro 1 : Téléchargez le docx ci-dessous, remplissez le puis re-déposez le dans le formulaire ci-contre</p>
+                <p><b>Choix numéro 1 :</b> Téléchargez le docx ci-dessous, remplissez le puis re-déposez le dans le formulaire ci-contre</p>
                 <p><a href="pdf_files/fiche_compterendu.docx">Fiche de Compte-rendu</a></p>
                 <input type="file" name="report_file" />
                 <li><input type="submit" name="submit1" value="Envoyer" /></li>
               </div>
               <div class="choiceTwo">
-                <p>Choix numéro 2 : Faites votre compte-rendu en quelques lignes. </p>
+                <p><b>Choix numéro 2 :</b> Faites votre compte-rendu en quelques lignes. </p>
                 <textarea name="report" id="report"></textarea>
                 <li><input type="submit" name="submit2" value="Envoyer" /></li>
               </div>

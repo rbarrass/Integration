@@ -703,7 +703,7 @@ h2 small {
 }
 .choices{
   width: 70%;
-  min-width: 500px;
+  min-width: 580px;
   overflow: hidden;
   margin-left:22%;
   display: flex;
@@ -714,7 +714,7 @@ h2 small {
   z-index: 999;
   background-color: #ffffff;
   min-width: 250px;
-  min-height: 420px;
+  min-height: 500px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 .choiceOne{
@@ -725,6 +725,71 @@ h2 small {
   width: 45%;
   overflow: hidden;
 }
+.radio {
+  display: block;
+  cursor: pointer;
+}
+.radio input {
+  display: none;
+}
+.radio input + span {
+  line-height: 22px;
+  padding-left: 22px;
+  display: block;
+  position: relative;
+}
+.radio input + span:not(:empty) {
+  padding-left: 30px;
+}
+.radio input + span:before, .radio input + span:after {
+  content: '';
+  width: 22px;
+  height: 22px;
+  display: block;
+  border-radius: 50%;
+  left: 0;
+  top: 0;
+  position: absolute;
+}
+.radio input + span:before {
+  background: #D1D7E3;
+  transition: background 0.2s ease, -webkit-transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 2);
+  transition: background 0.2s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 2);
+  transition: background 0.2s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 2), -webkit-transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 2);
+}
+.radio input + span:after {
+  background: #fff;
+  -webkit-transform: scale(0.78);
+          transform: scale(0.78);
+  transition: -webkit-transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.4);
+  transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.4);
+  transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.4), -webkit-transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.4);
+}
+.radio input:checked + span:before {
+  -webkit-transform: scale(1.04);
+          transform: scale(1.04);
+  background: #5D9BFB;
+}
+.radio input:checked + span:after {
+  -webkit-transform: scale(0.4);
+          transform: scale(0.4);
+  transition: -webkit-transform .3s ease;
+  transition: transform .3s ease;
+  transition: transform .3s ease, -webkit-transform .3s ease;
+}
+.radio:hover input + span:before {
+  -webkit-transform: scale(0.92);
+          transform: scale(0.92);
+}
+.radio:hover input + span:after {
+  -webkit-transform: scale(0.74);
+          transform: scale(0.74);
+}
+.radio:hover input:checked + span:after {
+  -webkit-transform: scale(0.4);
+          transform: scale(0.4);
+}
+
 /*----------------------------------------------------New student table----------------------------------------------------------*/
 .header {
   background-color: #0198E1;
@@ -732,7 +797,7 @@ h2 small {
   font-size: 1.5em;
   padding: 1rem;
   text-transform: uppercase;
-  width: 100%;
+  width: 2600px;
 }
 
 .ppStudent {
@@ -889,3 +954,130 @@ table tr:nth-child(2n+1) {
   }
 }
 
+
+/*----------------------------------------------------EDITION-MANAGER PAGE----------------------------------------------------------*/
+
+.titleEdit{
+  font-family: "Open Sans", sans-serif;
+  font-size: 17px;
+  color: #404041;
+  width: 810px;
+  margin-left: 35%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  background: #EEEEEF;
+  border:1px solid #D1D2D2;
+  border-radius: 10px 10px 0px 0px;
+
+}
+
+.formEdit {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  color: #404041;
+
+  border:1px solid #D1D2D2;
+  border-radius: 0px 0px 10px 10px;
+  width: 670px;
+  margin-left: 35%;
+  padding-left: 160px;
+}
+
+.labelEdit{
+  padding-right: 12px;
+}
+
+.fieldEdit {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 20px;
+
+}
+
+.inputEdit{
+  width: 300px;
+  height: 20px;
+  border-radius: 5px 5px 5px 5px;
+
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid #DDDDDD;
+}
+ 
+.inputEdit:focus {
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid rgba(81, 203, 238, 1);
+}
+
+.butonDivEdit {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 129px;
+}
+
+.butonEdit {
+  background-color: #00BFFF;
+  border: 1px solid #00BFFF;
+  text-align: center;
+  font-size: 15px;
+  color: white;
+  padding: 7px 21px;
+  border-radius:4px;
+  cursor: pointer;
+  box-shadow: 0 0 20px 0 rgba(0,0,0,0.2), 0 5px 5px rgba(0,0,0,0.24);
+  transition: 1s;
+  margin-bottom: 10px;
+
+}
+
+.butonEdit:hover{
+  background-color: white;
+  color: #00BFFF;
+  border: 1px solid #00BFFA;
+  border-radius:4px;
+}
+
+.listEdit {
+  background-color: white;
+  color: #404041;
+  border-radius: 5px 5px 5px 5px;
+   padding: 5px;
+  font-size: 14.2px;
+  border: none;
+  cursor: pointer;
+
+
+
+}
+
+.listEdit:focus{
+
+}
+/*----------------------------------------------------ALERT BOX STYLE----------------------------------------------------------*/
+.alert {
+  padding: 20px;
+  background-color: #f44336; /* Red */
+  color: white;
+  margin-bottom: 15px;
+}
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.closebtn:hover {
+  color: black;
+}
