@@ -52,6 +52,9 @@ session_start();
         font-style: bold;
         margin-bottom: 20px;
       }
+      *{
+        font-size: 20px;
+      }
     </style>
 </head>
 <body>
