@@ -16,7 +16,7 @@
 		            	 <th>Entreprise</th>
 		            	 <th>Téléphone</th>
 		            	 <th>Adresse</th>
-		            	 <th>Nationnalité</th>
+		            	 <th>Nationalité</th>
 		            	 <th>Fonction occupée</th>
 		            	 <th>Mission</th>
 		         		</tr>';
