@@ -45,7 +45,7 @@
 				        header('location: test.php');//tuteur
 				        break;
 				    case 'intershipsupervisor':
-				        header('location: test.php'); //maître de sstage 
+				        header('location: test.php'); //maître de stage 
 				        break;
 				    case 'supervisor':
 				    	header('location: index.php'); //gestionnaire

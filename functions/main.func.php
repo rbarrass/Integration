@@ -21,8 +21,6 @@ function displayMenu(){
             PROFIL 
             <ul class="hidden">
               <li onclick="location.href=\'profil.php\';">Profil</li>
-              <li>Éditer</li>
-              <li>Rechercher</li>
             </ul>
           </li>
           <li>
