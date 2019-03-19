@@ -24,17 +24,16 @@ function connectSession(){
 		$state[0] = pg_fetch_array($req, null, PGSQL_ASSOC);
 		if($state[0]['validationu'] == 'pending'){
 			$info = 'Connexion indisponnible, le compte '.$_POST['email-address'].' n\'a pas encore été validé par l\'administration';
-			displayBoxInfo($info);
 			displayPage();
 			displayBoxInfo($info);
 		} elseif ($state[0]['validationu'] == 'banned') {
 			$info = 'Connexion impossible, le compte '.$_POST['email-address'].' a été cloturé. Pour toute réclamation, veuillez contacter l\'administration';
-			displayBoxInfo($info);
 			displayPage();
+			displayBoxInfo($info);
 		} elseif ($state[0]['validationu'] == 'waiting') {
 			$info = 'Connexion impossible, vous n\'avez pas encore validé votre adresse mail '.$_POST['email-address'].', veuillez vous rendre dans votre boite de récepetion pour procéder';
-			displayBoxInfo($info);
 			displayPage();
+			displayBoxInfo($info);
 		} else{
 
 	  		$req=pg_query("SELECT passwordu FROM users WHERE emailu='".$_POST['email-address']."';") or die('Erreur de connection.');
