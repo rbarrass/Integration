@@ -164,16 +164,89 @@ function logout(){
     session_destroy ();
     header ('location: index.php?id=login');
 }
-function verifyIfConnected($who){
+
+//We have two tables in db (tutor and users), this fonction look if connected visitor is an user ok tutor
+function isTutor($email){
+  $dbconn = connectionDB();
+  $reqIdu=pg_query("SELECT idu FROM users WHERE emailu='".$email."';") or die('ERREUR SQL : '. $requestUserId .   pg_last_error()); 
+  $idu = pg_fetch_array($reqIdu,null,PGSQL_ASSOC); 
+  if ($idu != NULL) {
+    //He is a simple user
+    return FALSE;
+  } else {
+    $reqIdtut=pg_query("SELECT idtut FROM tutors WHERE emailtut='".$email."';") or die('ERREUR SQL : '. $requestUserId .   pg_last_error()); 
+    $idtut = pg_fetch_array($reqIdtut,null,PGSQL_ASSOC);
+    if ($idtut != NULL) {
+      //He is a tutor
+      return TRUE; 
+    } else {
+      echo "Error : L'email n'apparait pas dant la base (isTutor())";
+      return FALSE;
+    }
+  }
+  closeDB($dbconn);
+
+}
+
+//This function return name and surname of user/tutor
+function getNameSurname($email){
+  if(isTutor($email)){
+    $req=pg_query("SELECT nametut,surnametut FROM tutors WHERE emailtut='".$email."';") or die('ERREUR SQL : '. $requestUserId .   pg_last_error()); 
+    $array = pg_fetch_array($req,null,PGSQL_ASSOC);
+    $surnameName = array($array['nametut'],$array['surnametut']);
+  } else {
+    $req=pg_query("SELECT nameu,surnameu FROM users WHERE emailu='".$email."';") or die('ERREUR SQL : '. $requestUserId .   pg_last_error()); 
+    $array = pg_fetch_array($req,null,PGSQL_ASSOC);
+    $surnameName = array($array['nameu'],$array['surnameu']);
+  }
+
+  //$name
+  return $surnameName;
+}
+
+//This function check if this type of user is autorized to visit the web page
+function verifyIfConnected($page){
     session_start();
-    if($_SESSION['typeu']==$who){
-      //do nothing just verify, you cannot verify if != because typeu doesn't exists when a session isn't started
+    //Check user is connected
+    if (isset($_SESSION['typeu'])) {
+      //Get surname and name of visitor because we need it for some pages
+      $tabSurnameName = getNameSurname($_SESSION['email-address']);
+
+      $typeU = $_SESSION['typeu'];
+      echo $typeU;
+      //This switch case define pages availables for each type of user
+      switch ($typeU) {
+        case 'student':
+            if ($page == 'profil.php'){
+              //So it's available, we do nothing
+            }else {
+              //Redirect to a default page
+              header('location: profil.php');
+            }
+            break;
+        case 'tutor':
+            if (($page == 'profil.php') || $page == 'tuteur.php?name='.$tabSurnameName(0).'&surname='.$tabSurnameName(1)){
+              //So it's available, we do nothing
+            }else {
+              //Redirect to a default page page
+              echo '<script>document.location.href="profil.php;</script>';
+            }
+            break;
+        case 'intershipsupervisor':
+            break;
+        case 'supervisor':
+            break;
+        case 'administrator':
+            break;  
+        default :
+          echo '<script>document.location.href="profil.php;</script>';
+      }
+    
+    //Else he is not, so he can only visit cennect.php
     }else{// if the user know the URL but is not connected, he's redirected to another page
       //header('location:connect.php?id=login');
-  //  echo '<meta http-equiv="refresh" content="5; URL=http://www.connect.php">';
-    echo '<script>
-  document.location.href="connect.php?id=login"; 
-</script>';
+      //  echo '<meta http-equiv="refresh" content="5; URL=http://www.connect.php">';
+      echo '<script>document.location.href="connect.php?id=login";</script>';
     }
 }
 
