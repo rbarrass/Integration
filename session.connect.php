@@ -2,6 +2,7 @@
   /*Barrasset Raphaël, Castelain Julien, Ducroux Guillaume, Saint-Amand Matthieu  L3i 2019
   raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
 
+function connectSession(){
  /* ALL of this file has been created for the connection part */
 	/*Allows to set the "remember me" with cookie*/
 	if(isset($_POST['remember'])){
@@ -11,12 +12,31 @@
 		setcookie('log[login]', NULL, -1);//delete the cookie
 		setcookie('log[password]', NULL, -1);//delete the second cookie
 	}
-		require ('functions/connectDatabase.php');
+	
+
 
 	/*Allows to open a new session and direct the user to another page*/
-	if (isset($_POST['email-address']) && isset($_POST['password'])) {
-			
-			$dbconn = connectionDB();
+	if (isset($_POST['email-address']) && isset($_POST['password'])) {	
+		$dbconn = connectionDB();
+
+		//Check if account is allowed to connect 
+		$req=pg_query("SELECT validationu FROM users WHERE emailu='".$_POST['email-address']."';") or die('Erreur de connection.');
+		$state[0] = pg_fetch_array($req, null, PGSQL_ASSOC);
+		if($state[0]['validationu'] == 'pending'){
+			$info = 'Connexion indisponnible, le compte '.$_POST['email-address'].' n\'a pas encore été validé par l\'administration';
+			displayBoxInfo($info);
+			displayPage();
+			displayBoxInfo($info);
+		} elseif ($state[0]['validationu'] == 'banned') {
+			$info = 'Connexion impossible, le compte '.$_POST['email-address'].' a été cloturé. Pour toute réclamation, veuillez contacter l\'administration';
+			displayBoxInfo($info);
+			displayPage();
+		} elseif ($state[0]['validationu'] == 'waiting') {
+			$info = 'Connexion impossible, vous n\'avez pas encore validé votre adresse mail '.$_POST['email-address'].', veuillez vous rendre dans votre boite de récepetion pour procéder';
+			displayBoxInfo($info);
+			displayPage();
+		} else{
+
 	  		$req=pg_query("SELECT passwordu FROM users WHERE emailu='".$_POST['email-address']."';") or die('Erreur de connection.');
 	  		$cryppassword=crypt($_POST['password'], 'rl');
 	  		$arr=array();
@@ -25,8 +45,8 @@
 					$arr[0]=$val;
 				}
 			}
-		//Verify the user's state, and redirect him to the correct page
-	  	if($arr[0]==$cryppassword){
+			//Verify the user's state, and redirect him to the correct page
+		  	if($arr[0]==$cryppassword){
 		   		session_start();
 		    	//initialize superglobal $_SESSION
 			   	$_SESSION['email-address'] = $_POST['email-address']; 
@@ -55,14 +75,16 @@
 				   		break;
 				}
 	     	} 
-	    else {
+		    else {
 	    		header('location: connect.php?id=login');
 	    	}
+	    }
 
 	}
     else {
-    	echo 'Les variables du formulaire ne sont pas déclarées.';
+    	displayPage();
 	}
+}
 /* FOR LOGOUT PART
     session_start ();
 

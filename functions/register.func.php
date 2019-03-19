@@ -244,7 +244,7 @@ function registerForm(){
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Register</div>
+                    <div class="card-header">Enregistrement</div>
                     <div class="card-body">
                         <form action="connect.php" method="post">         <!-- ***************A DEFINIR ***************-->
                             <div class="form-group row">
@@ -285,7 +285,7 @@ function registerForm(){
                             </div>
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary" name="validRegister">
-                                    Register
+                                    Enregistrement
                                 </button>
                             </div>
                     </div>

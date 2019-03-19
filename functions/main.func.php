@@ -536,7 +536,7 @@ function sendToSecretary($idu){
 function validProfile($idu){
   include_once("connectDatabase.php");
   $dbconn = connectionDB();
-  pg_query("UPDATE users SET validationu='OK'") or die('Erreur dans la table users');
+  pg_query("UPDATE users SET validationu='OK' WHERE idu='".$idu."'") or die('Erreur dans la table users');
   closeDB($dbconn);
 
   sendToSecretary($idu);
