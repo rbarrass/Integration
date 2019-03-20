@@ -52,6 +52,9 @@ session_start();
         font-style: bold;
         margin-bottom: 20px;
       }
+      input[type=radio]{
+        display: inline-block;
+      }
     </style>
 </head>
 <body>
@@ -102,15 +105,15 @@ session_start();
                       </tr>
                       <tr>
                         <th><strong>Adresse</strong></th>
-                        <td><input type="text" name="newadr" ></td>
+                        <td><input type="text" name="newadr" size="60" style="width: 425px;"></td>
                       </tr>
                       <tr>
                         <th><strong>Sexe</strong></th>
-                        <td><select name="newgender" >
-                                <option value=""></option>
-                                <option value="Homme">Homme</option>
-                                <option value="Femme">Femme</option>
-                              </select> </td>
+                        <td><div class="radioB"><input type="radio" id="mygender1" name="newgender" value="Femme">
+                          <label for="mygender1">Femme</label>
+                          <input type="radio" id="mygender2" name="newgender" value="Homme">
+                          <label for="mygender2">Homme</label></div>
+                        </td>
                       </tr>
                       <tr>
                         <th><strong>Nationalité</strong></th>
