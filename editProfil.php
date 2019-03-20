@@ -181,16 +181,16 @@
                         <td><input type="text" name="newadre" ></td>
                       </tr>
                       <tr>
-                        <th><strong>Numéro de téléphone pour contacter l'entreprise </strong></th>
-                        <td><input type="text" name="newenttel" ></td>
-                      </tr>
-                      <tr>
                         <th><strong>Code postal de l'entreprise</strong></th>
                         <td><input type="number" name="newpostent" ></td>
                       </tr>
                       <tr>
                         <th><strong>Ville de l'entreprise</strong></th>
                         <td><input type="text" name="newcity" ></td>
+                      </tr>
+                      <tr>
+                        <th><strong>Numéro de téléphone pour contacter l'entreprise </strong></th>
+                        <td><input type="text" name="newenttel" ></td>
                       </tr>
                       <tr>
                         <th><strong>Nombre de salariés</strong></th>
