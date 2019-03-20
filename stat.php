@@ -1,7 +1,7 @@
 <?php
     require('functions/main.func.php');
     require('functions/bordtable.func.php');
-    //verifyIfConnected('supervisor');
+    verifyIfConnected('stat.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,6 +20,7 @@
   </html>
 
     <?php
+      echo displayIconLogout();
       echo displayMenu();
     ?>
         <!-- Barre de recherch dynamique gérée par script.js et style avec style.less -->

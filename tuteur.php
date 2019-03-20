@@ -3,6 +3,7 @@
   raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
     require('functions/main.func.php');
     require('functions/tuteur.func.php');
+    verifyIfConnected('tuteur.php');
 ?>
 
 <!DOCTYPE html>
@@ -16,11 +17,8 @@
 <body>
   <html>
     <?php
-      
-      $menu = displayMenu();
-      echo $menu;
-      
-
+      echo displayIconLogout();
+      echo displayMenu();      
     ?>
     <!-- Barre de recherch dynamique gérée par script.js et style avec style.less -->
     <div class="search__container">

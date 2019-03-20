@@ -3,7 +3,7 @@
   raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
   require('functions/main.func.php');
   require('functions/logs.func.php');
-  //verifyIfConnected('supervisor');
+  verifyIfConnected('logs.php');
 ?>
 
 <!DOCTYPE html>
@@ -25,8 +25,10 @@
 </head>
 <body>
     <?php
+      echo displayIconLogout();
       echo displayMenu();
-      echo logsFilter();
+
+      //echo logsFilter();
     ?>
     
     <!-- Barre de recherch dynamique gérée par script.js et style avec style.less -->

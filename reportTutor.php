@@ -1,6 +1,7 @@
 <?php
     require('functions/main.func.php');
     require('functions/tuteur.func.php');
+    verifyIfConnected('reportTutor.php');
 ?>
 
 <!DOCTYPE html>
@@ -58,11 +59,8 @@
 <body>
   <html>
     <?php
-      
-      $menu = displayMenu();
-      echo $menu;
-      
-
+      echo displayIconLogout();
+      echo displayMenu();
     ?>
     <!-- Barre de recherch dynamique gérée par script.js et style avec style.less -->
     <div class="search__container">

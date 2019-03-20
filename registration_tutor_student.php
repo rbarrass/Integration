@@ -3,6 +3,7 @@
   raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
   require('functions/main.func.php');
   require('functions/registration_manager.func.php');
+  verifyIfConnected('registration_tutor_student.php');
 ?>
 
 <!DOCTYPE html>
@@ -27,6 +28,7 @@
 </head>
 <body>
     <?php
+    echo displayIconLogout();
       echo displayMenu();
     ?>
     
