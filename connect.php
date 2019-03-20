@@ -93,6 +93,13 @@ if($_GET['id']=='login'){
                                         </label>
                                     </div>
                                 </div>
+                                <div class="col-md-4 offset-md-4">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="checkTutor" id="checkTutor"> Se connecter en tant que tuteur.
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="col-md-6 offset-md-4">
