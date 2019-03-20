@@ -1,7 +1,8 @@
 <?php 
   /*Barrasset Raphaël, Castelain Julien, Ducroux Guillaume, Saint-Amand Matthieu  L3i 2019
   raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
-
+  require('functions/connect.func.php');
+  require('./session.connect.php');
   require('functions/register.func.php');
 ?>
 <!DOCTYPE html>
@@ -43,10 +44,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="?id=login" style="color: #00BFFF;">Login</a>
+                    <a class="nav-link" href="?id=login" style="color: #00BFFF;">Connexion</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="?id=register" style="color: #00BFFF;">Register</a>
+                    <a class="nav-link" href="?id=register" style="color: #00BFFF;">Enregistrement</a>
                 </li>
             </ul>
 
@@ -170,6 +171,7 @@ if($_GET['id']=='login'){
     //registerOk();
   }
   }
+  connectSession();
 ?>
 </body>
 </html> 

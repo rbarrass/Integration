@@ -3,14 +3,15 @@
   raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
     require('functions/main.func.php');
     require('functions/bordtable.func.php');
-    //verifyIfConnected('supervisor');
+    verifyIfConnected('index.php');
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>UCP Alter Master</title>
   <link rel="stylesheet" type="text/css" href="style.less" media="screen">
   <script type="text/javascript" src="script.js"></script>
 

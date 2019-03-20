@@ -6,7 +6,14 @@
 		$dbconnexion = connectionDB();
 		$name=$_GET['name'];
 		$surname=$_GET['surname'];
-		$result ='<div class="container">
+		$result = '<div class="container2"><ul class="responsive-table">
+						<li class="table-header">
+				          <div class="end">Elève étant sous votre tutorat</div>
+				        </li>
+				      </ul>
+				    </div>';
+		
+		$result.='<div class="container">
 		      <ul class="responsive-table">
 		        <li class="table-header">
 		          <div class="col col-1">ID</div>
@@ -34,12 +41,14 @@
 		
 				
 		}
-		$result.='<li class="table-header">
-				          <div class="end">Elève étant sous votre tutorat</div>
+		$result.=' </ul>
+				    </div>';
+		$result.= '<div class="container2"><ul class="responsive-table">
+						<li class="table-header">
+				          <div class="end">Elève sans tuteur</div>
 				        </li>
 				      </ul>
 				    </div>';
-		
 		$result.='<div class="container">
 		      <ul class="responsive-table">
 		        <li class="table-header">
@@ -53,7 +62,7 @@
 
 		        </li>';
 		$i=0;
-		$query2 = "SELECT student_idu, nameu, surnameu, emailu, idu, namei FROM users INNER JOIN institutions ON users.idi=institutions.idi WHERE idtut='1' AND validationU='allowed' ORDER BY nameu";
+		$query2 = "SELECT student_idu, nameu, surnameu, emailu, idu, namei FROM users INNER JOIN institutions ON users.idi=institutions.idi WHERE idtut='1' AND validationU='allowed' AND typeu='student' ORDER BY nameu";
 		$res2 = pg_query($query2) or die('Echec de la requête : ' .pg_last_error());
 		while ($line2 = pg_fetch_array($res2, null, PGSQL_ASSOC)) {
 			$result.='<li class="table-row">';
@@ -102,9 +111,7 @@
 		
 				
 		}
-		$result.='<li class="table-header">
-				          <div class="end">Elève sans tuteur</div>
-				        </li>
+		$result.='
 				      </ul>
 				    </div>';
 
@@ -162,7 +169,11 @@
 		$dbconnexion = connectionDB();
 		$name=$_GET['name'];
 		$surname=$_GET['surname'];
-		$result ='<div class="container">
+		$result = '<div class="container2"><ul class="responsive-table"><li class="table-header">
+				          <div class="end">Historique de vos compte-rendus</div>
+				        </li>
+				      </ul></div>';
+		$result.='<div class="container">
 		      <ul class="responsive-table">
 		        <li class="table-header">
 		          <div class="col col-1">Nom elève</div>
@@ -186,11 +197,7 @@
 		
 				
 		}
-		$result.='<li class="table-header">
-				          <div class="end">Historique de vos compte-rendus</div>
-				        </li>
-				      </ul>
-				    </div>';
+		$result.='</div>';
 
 		return $result;
 	}
@@ -198,23 +205,40 @@
 
 	if(isset($_POST['submit2'])){
 		$dbconnexion = connectionDB();
-		$nametuteur=$_GET['name'];
-		$surnametuteur=$_GET['surname'];
-		$requete = "SELECT idtut FROM tutors WHERE nametut='$nametuteur' AND surnametut='$surnametuteur' LIMIT 1";
+		$nametutor=$_GET['name'];
+		$surnametutor=$_GET['surname'];
+		$requete = "SELECT idtut FROM tutors WHERE nametut='$nametutor' AND surnametut='$surnametutor' LIMIT 1";
 		$res1 = pg_query($requete) or die('Échec de la requête : ' . pg_last_error());
-		$idtuteur = pg_fetch_result($res1, 'idtut');
-		$namestud = $_POST['students'];
-		$exp = explode(" ", $namestud);
-		$name = $exp[0];
-		$surname = $exp[1];
+		$idtutor = pg_fetch_result($res1, 'idtut');
+		$emailstud = $_POST['student'];
 		$report_text = $_POST['report'];
-		$query4 = "SELECT idU FROM users WHERE nameu='$name' AND surnameu='$surname' LIMIT 1";
+		$query4 = "SELECT idU FROM users WHERE emailu='$emailstud' LIMIT 1";
 		$res0 = pg_query($query4) or die('ERREUR SQL : '. $query3 . 	pg_last_error());
 		$numeroidu = pg_fetch_result($res0, 'idu');
-		$query3="INSERT INTO reports VALUES (DEFAULT, '".getTheDate()."', '$report_text', '', '$idtuteur', '$numeroidu')";
+		$query3="INSERT INTO reports VALUES (DEFAULT, '".getTheDate()."', '$report_text', '', '$idtutor', '$numeroidu')";
 		$res = pg_query($query3) or die('ERREUR SQL : '. $query3 . 	pg_last_error());
 
 	}
 
+
+	if (isset($_POST['submit1'])) {
+		$dbconnexion = connectionDB();
+		$nametutor=$_GET['name'];
+		$surnametutor=$_GET['surname'];
+		$requete = "SELECT idtut FROM tutors WHERE nametut='$nametutor' AND surnametut='$surnametutor' LIMIT 1";
+		$res1 = pg_query($requete) or die('Échec de la requête : ' . pg_last_error());
+		$idtutor = pg_fetch_result($res1, 'idtut');
+		$path = 'pdf_files/reports/';
+		$tmp_file = $_FILES['tutfile']['tmp_name'];
+		$name_file = $_FILES['tutfile']['name'];
+		$finalpath = $path.$name_file;
+		move_uploaded_file($tmp_file, $finalpath);
+		$emailstud1 = $_POST['student'];
+		$query4 = "SELECT idU FROM users WHERE emailu='$emailstud1' LIMIT 1";
+		$res0 = pg_query($query4) or die('ERREUR SQL : '. $query3 . 	pg_last_error());
+		$numeroidu = pg_fetch_result($res0, 'idu');
+		$query3="INSERT INTO reports VALUES (DEFAULT, '".getTheDate()."', '', '$finalpath', '$idtutor', '$numeroidu')";
+		$res = pg_query($query3) or die('ERREUR SQL : '. $query3 . 	pg_last_error());
+	}
 
 ?>

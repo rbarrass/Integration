@@ -218,9 +218,8 @@ function register(){
 		}
 
 		//request to create line in table.users
-		$request = "INSERT INTO users VALUES(DEFAULT, '".$_POST['myno']."', '".$_POST['myname']."', '".$_POST['mysurname']."', ' ', '".$_POST['myemail']."', ' ', ' ', '$password_hash', ' ', 'student', 'pending', ' ', '2018-2020','1', '',DEFAULT,' ',DEFAULT,DEFAULT,' ',' ',' ','1', '1', '1')";
+		$request = "INSERT INTO users VALUES(DEFAULT, '".$_POST['myno']."', '".$_POST['myname']."', '".$_POST['mysurname']."', ' ', '".$_POST['myemail']."', ' ', ' ', '$password_hash', ' ', 'student', 'pending', ' ', '2018-2020','1', '',DEFAULT,' ',DEFAULT,DEFAULT,' ',' ',' ','1', '1', '1','')";
 		$resultat = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
-
 
 		//We want to increment table.logs to save this action and keep an eye on registering requests
 		if (pg_last_error() == NULL) {
@@ -229,12 +228,16 @@ function register(){
 			$resultUserId = pg_query($requestUserId) or die('ERREUR SQL : '. $requestUserId . 	pg_last_error());
 			$userId = pg_fetch_result($resultUserId, 'idu');
 
+      send($userId);
+
+      pg_query("UPDATE users SET validationu = 'waiting' WHERE users.idu='".$userId."'") or die('Erreur dans la table users');
+
 			//Add a line in table.Logs with : action made/date/client ip/type of request(insert/delete/update)/and object concerned.
 			$request = "INSERT INTO logs VALUES(DEFAULT, 'student registering', '".getTheDate()."', '".getIp()."', 'insert', null, '$userId', null, null, null, null, null)";
 			$resultat = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
 		}
 		$errorR = "null";
-   // send(1);
+
     return $errorR;
   }
 }
@@ -244,7 +247,7 @@ function registerForm(){
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Register</div>
+                    <div class="card-header">Enregistrement</div>
                     <div class="card-body">
                         <form action="connect.php" method="post">         <!-- ***************A DEFINIR ***************-->
                             <div class="form-group row">
@@ -285,7 +288,7 @@ function registerForm(){
                             </div>
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary" name="validRegister">
-                                    Register
+                                    Enregistrement
                                 </button>
                             </div>
                     </div>

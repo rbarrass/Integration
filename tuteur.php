@@ -3,24 +3,22 @@
   raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
     require('functions/main.func.php');
     require('functions/tuteur.func.php');
+    verifyIfConnected('tuteur.php');
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>UCP Alter Master</title>
   <link rel="stylesheet" type="text/css" href="style.less" media="screen">
   <script type="text/javascript" src="script.js"></script>
 </head>
 <body>
   <html>
     <?php
-      
-      $menu = displayMenu();
-      echo $menu;
-      
-
+      echo displayIconLogout();
+      echo displayMenu();      
     ?>
     <!-- Barre de recherch dynamique gérée par script.js et style avec style.less -->
     <div class="search__container">

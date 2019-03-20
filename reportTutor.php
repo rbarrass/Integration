@@ -1,13 +1,14 @@
 <?php
     require('functions/main.func.php');
     require('functions/tuteur.func.php');
+    verifyIfConnected('reportTutor.php');
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>UCP Alter Master</title>
   <link rel="stylesheet" type="text/css" href="style.less" media="screen">
   <script type="text/javascript" src="script.js"></script>
   <style>
@@ -58,11 +59,8 @@
 <body>
   <html>
     <?php
-      
-      $menu = displayMenu();
-      echo $menu;
-      
-
+      echo displayIconLogout();
+      echo displayMenu();
     ?>
     <!-- Barre de recherch dynamique gérée par script.js et style avec style.less -->
     <div class="search__container">
@@ -74,39 +72,7 @@
       </form>
     </div>
 
-    <?php  /* A SUPPRIMER 
-          $dbconnexion = connectionDB();
-  $result='<div class="reportdiv">
-        <ul>
-          <li>
-            <h2>Rédiger un Compte-rendu</h2>
-          </li>
-        </ul>';
-        $nametuteur=$_GET['name'];
-        $surnametuteur=$_GET['surname'];
-        $query = "SELECT nameu, surnameu FROM users INNER JOIN tuteur ON users.idtut=tuteur.idtut WHERE nametut='$nametuteur' AND surnametut='$surnametuteur'";
-        $res = pg_query($query) or die('ERREUR SQL : '. $request .  pg_last_error());
-        $result.='<form method="post" action="reportTutor.php?name=Lemaire&surname=Marc"> 
-              <li><label for="students">Pour quel élève voulez-vous écrire un Compte-rendu ?</label></li>
-              <select name="students" id="students" required><br />';
-        while ($line = pg_fetch_array($res, null, PGSQL_ASSOC)) {
-          $result.='
-                         <option value="'.$line["nameu"].' '.$line["surnameu"].'">'.$line["nameu"].' '.$line["surnameu"].'</option>
-                     ';
-        }
-
-        $result.='</select><br />';
-        $result.= '<li>Choix numéro 1 : Téléchargez le docx ci-dessous, remplissez le puis re-déposez le dans le formulaire ci-contre</li>
-              <li><a href="pdf_files/fiche_compterendu.docx">Fiche de Compte-rendu</a></li>';
-
-        $result.='<li><input type="file" name="report_file" /></li>';
-        $result.= '<li>Choix numéro 2 : Faites votre compte-rendu en quelques lignes </li>';
-        $result.='<textarea name="report" id="report"></textarea>';
-        $result.='<li><input type="submit" name="submit2" value="Envoyer" /></li>';
-        $result.='</form>
-              </div>';
-        echo $result;  */
-    ?>    
+       
     <?php 
         $dbconnexion = connectionDB();
 
@@ -116,8 +82,8 @@
         $res = pg_query($query) or die('ERREUR SQL : '. $request .  pg_last_error());
         $result= '
         <div class="choiceStudent">
-          <form action="reportTutor.php?name=Lemaire&surname=Marc" method="post">
-              <p><br/>Pour quel(le) élève voulez-vous écrite un compte-rendu ?</p>
+          <form action="reportTutor.php?name='.$nametuteur.'&surname='.$surnametuteur.'" method="post" enctype="multipart/form-data">
+              <p><br/>Pour quel(le) élève voulez-vous écrire un compte-rendu ?</p>
               <table cellspacing="0">
               ';
               while ($line = pg_fetch_array($res, null, PGSQL_ASSOC)) {
@@ -142,7 +108,7 @@
               <div class="choiceOne">
                 <p><b>Choix numéro 1 :</b> Téléchargez le docx ci-dessous, remplissez le puis re-déposez le dans le formulaire ci-contre</p>
                 <p><a href="pdf_files/fiche_compterendu.docx">Fiche de Compte-rendu</a></p>
-                <input type="file" name="report_file" />
+                <input type="file" name="tutfile" id="tutfile" onchange="loadFile(event)" />
                 <li><input type="submit" name="submit1" value="Envoyer" /></li>
               </div>
               <div class="choiceTwo">

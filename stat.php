@@ -1,13 +1,13 @@
 <?php
     require('functions/main.func.php');
     require('functions/bordtable.func.php');
-    //verifyIfConnected('supervisor');
+    verifyIfConnected('stat.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>Statistiques</title>
   <link rel="stylesheet" type="text/css" href="style.less" media="screen">
   <script type="text/javascript" src="script.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
@@ -20,6 +20,7 @@
   </html>
 
     <?php
+      echo displayIconLogout();
       echo displayMenu();
     ?>
         <!-- Barre de recherch dynamique gérée par script.js et style avec style.less -->

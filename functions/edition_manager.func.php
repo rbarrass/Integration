@@ -154,6 +154,8 @@ function accountCreation(){
 
 		//Creation of a randompassword 10 char long
 		$pwd = bin2hex(openssl_random_pseudo_bytes(5));
+		//$pwd = 'qsdqsdqsd';
+		
 		//Crypting it
       	$password_hash = crypt($pwd, 'rl');
 		

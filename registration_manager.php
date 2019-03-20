@@ -3,14 +3,14 @@
   raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
   require('functions/main.func.php');
   require('functions/registration_manager.func.php');
-  //verifyIfConnected('supervisor');
+  verifyIfConnected('registration_manager.php');
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>UCP Alter Master</title>
   <link rel="stylesheet" type="text/css" href="style.less" media="screen">
   <script type="text/javascript" src="script.js"></script>
   <style>
@@ -28,6 +28,7 @@
 </head>
 <body>
     <?php
+      echo displayIconLogout();
       echo displayMenu();
     ?>
     
