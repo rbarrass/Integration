@@ -37,7 +37,7 @@ function logout(){
 //Look if email exist in tutors table and users table.
 function emailExist($email){
   $dbconn = connectionDB();
-  $reqIdu=pg_query("SELECT idu FROM users WHERE emailu='".$email."';") or die('ERREUR SQL : '. $requestUserId .   pg_last_error()); 
+  $reqIdu=pg_query("SELECT idu FROM users WHERE emailu='".$email."';") or die('ERREUR SQL : '. $reqIdu .   pg_last_error()); 
   $idu = pg_fetch_array($reqIdu,null,PGSQL_ASSOC); 
   if ($idu != NULL) {
     //Exist in table user
@@ -449,7 +449,12 @@ $headers .= "Content-Type: text/html; boundary=\"$boundary\"";
 
 $link="http://localhost/profil.php?idu=".$idu.""; // à modifier
 
-$destinataire = "throwaraccoon@gmail.com";
+$dbconn=connectionDB();
+$req = pg_query("SELECT  emailu FROM users WHERE idu='".$idu."'")or die('Echec de la requête :'.pg_last_error());
+$array[0] = pg_fetch_array($req, null, PGSQL_ASSOC);
+closeDB($dbconn);
+
+$destinataire = $array[0]['emailu'];
 
 $subject = "Validation de votre inscription";
 
