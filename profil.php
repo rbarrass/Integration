@@ -52,12 +52,21 @@
 <body>
 	<?php 
 	//
-	/*if(isset($_GET['idu'])){
-		if($_GET['idu'] == $_SESSION['idu']){
-			validProfile($_GET['idu']);
-			echo "<p style='color: green;'> Votre inscription a bien été validée !</p>";
-		}
-	}*/
+	if(isset($_GET['rand'])){
+
+        $dbconn =connectionDB();
+        $req = pg_query("SELECT aleatu FROM users WHERE idu='".$_SESSION['idu']."'") or die('Échec de la requête : ' . pg_last_error());
+        $array[0] = pg_fetch_array($req, null, PGSQL_ASSOC);
+        
+
+        if($_GET['rand'] == $array[0]['aleatu']){
+            validProfile($_GET['idu']);
+            echo "<p style='color: green;'> Votre inscription a bien été validée !</p>";
+            pg_query("UPDATE users SET validationu = 'pending' WHERE users.idu='".$_SESSION['idu']."'") or die('Erreur dans la table users');
+        }
+
+        closeDB($dbconn);
+    }
 
 	if(!empty($_GET['idu'])){
 		$tmp="'";
@@ -131,7 +140,7 @@
 			                </tr>
 			                <tr>
 			                  <th><strong>Filière et groupe</strong></th>
-			                  <td>Master '.$array_profil[34]['branchcl'].' groupe '.$array_profil[35]['groupcl'].'</td>	
+			                  <td>'.$array_profil[34]['branchcl'].' groupe '.$array_profil[35]['groupcl'].'</td>	
 			                </tr>
 			                <tr>
 			                  <th><strong>Nationalité</strong></th>

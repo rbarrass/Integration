@@ -34,6 +34,8 @@ function logout(){
     header ('location: index.php?id=login');
 }
 
+
+
 //Look if email exist in tutors table and users table.
 function emailExist($email){
   $dbconn = connectionDB();
@@ -437,42 +439,46 @@ function moreInformations($idu){
 
 function send($idu){
 
-$boundary = "-----=" . md5( uniqid ( rand() ) );
-$headers = "Reply-to: \"noReplyUCP\" <noReplyUCP@u-cergy.net>\n"; 
-$headers .= "From: \"noReplyUCP\"<noReplyUCP@u-cergy.net>\n";
-//NOTE: l'adresse email indiquée dans le header From doit etre l'adresse absolue du serveur qui envoie les messages, et peut etre differente de votre adresse de contact si vous etes par exemple sur un serveur dedié partagé. dans mon cas l'adresse specifiee ici est <webusers@mail.nomduserveur.com>
-$headers .= "MIME-Version: 1.0\n";
-$headers .= "Content-Type: text/html; boundary=\"$boundary\"";
-//g.ducroux@outlook.fr
-//throwaraccoon@gmail.com
-//julom78@gmail.com
+  $boundary = "-----=" . md5( uniqid ( rand() ) );
+  $headers = "Reply-to: \"noReplyUCP\" <noReplyUCP@u-cergy.net>\n"; 
+  $headers .= "From: \"noReplyUCP\"<noReplyUCP@u-cergy.net>\n";
+  //NOTE: l'adresse email indiquée dans le header From doit etre l'adresse absolue du serveur qui envoie les messages, et peut etre differente de votre adresse de contact si vous etes par exemple sur un serveur dedié partagé. dans mon cas l'adresse specifiee ici est <webusers@mail.nomduserveur.com>
+  $headers .= "MIME-Version: 1.0\n";
+  $headers .= "Content-Type: text/html; boundary=\"$boundary\"";
 
-$link="http://localhost/profil.php?idu=".$idu.""; // à modifier
+  $rand=uniqid('',true);
+  $dbconn =connectionDB();
 
-$dbconn=connectionDB();
-$req = pg_query("SELECT  emailu FROM users WHERE idu='".$idu."'")or die('Echec de la requête :'.pg_last_error());
-$array[0] = pg_fetch_array($req, null, PGSQL_ASSOC);
-closeDB($dbconn);
+  $req = pg_query("UPDATE users SET aleatu='".$rand."' WHERE idu='".$idu."'") or die('Échec de la requête : ' . pg_last_error());
 
-$destinataire = $array[0]['emailu'];
-
-$subject = "Validation de votre inscription";
-
-$message_txt  = "Finissez votre inscription en cliquant sur ce lien : ".$link."\n\n";
-
-$message_html  = "<html>\n";
-$message_html .= "<body>\n";
-$message_html .= "<p>Finissez votre inscription en cliquant sur ce lien : ".$link."\n\n</p><br><br>";
+  $link="http://750753e8aec6466a9f63a2d1c3637885.yatu.ws/profil.php?rand=%22.$rand."; // à modifier
 
 
-$message = $message_html;
-$message .= "\n\n";
-$message .= "<p style='display:none;'>".$boundary."</p>\n";
-$message .= "</body>\n";
-$message .= "</html>\n";
-$mail_from="noReplyUCP@u-cergy.net";
 
-mail($destinataire,$subject,$message,$headers);
+  $req = pg_query("SELECT emailu FROM users WHERE idu='".$idu."'") or die('Échec de la requête : ' . pg_last_error());
+  $array[0] = pg_fetch_array($req, null, PGSQL_ASSOC);
+
+  closeDB($dbconn);
+
+  $destinataire = $array[0]['emailu'];
+
+  $subject = "Validation de votre inscription";
+
+  $message_txt  = "Finissez votre inscription en cliquant sur ce lien : ".$link."\n\n";
+
+  $message_html  = "<html>\n";
+  $message_html .= "<body>\n";
+  $message_html .= "<p>Finissez votre inscription en cliquant sur ce lien : ".$link."\n\n</p><br><br>";
+
+
+  $message = $message_html;
+  $message .= "\n\n";
+  $message .= "<p style='display:none;'>".$boundary."</p>\n";
+  $message .= "</body>\n";
+  $message .= "</html>\n";
+  $mail_from="noReplyUCP@u-cergy.net";
+
+  mail($destinataire,$subject,$message,$headers);
 
 }
 
