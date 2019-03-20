@@ -92,7 +92,7 @@ function connectSession(){
 					        header('location: profil.php'); //maître de stage 
 					        break;
 					    case 'supervisor':
-					    	header('location: index.php'); //gestionnaire
+					    	header('location: index.php?psd=Alternants'); //gestionnaire
 					    	break;
 					   	case 'administrator':
 					   		header('location: logs.php');//administrateur
