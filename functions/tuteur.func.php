@@ -62,7 +62,7 @@
 
 		        </li>';
 		$i=0;
-		$query2 = "SELECT student_idu, nameu, surnameu, emailu, idu, namei FROM users INNER JOIN institutions ON users.idi=institutions.idi WHERE idtut='1' AND validationU='allowed' ORDER BY nameu";
+		$query2 = "SELECT student_idu, nameu, surnameu, emailu, idu, namei FROM users INNER JOIN institutions ON users.idi=institutions.idi WHERE idtut='1' AND validationU='allowed' AND typeu='student' ORDER BY nameu";
 		$res2 = pg_query($query2) or die('Echec de la requête : ' .pg_last_error());
 		while ($line2 = pg_fetch_array($res2, null, PGSQL_ASSOC)) {
 			$result.='<li class="table-row">';

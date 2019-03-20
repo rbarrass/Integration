@@ -6,6 +6,8 @@ function displayMenu(){
 	
 
 	$typeu = $_SESSION['typeu'];
+  $nameSurname =array();
+  $nameSurname = getNameSurname($_SESSION['email-address']);
 
 	
 	$result = '<nav class="sidenav">
@@ -54,8 +56,8 @@ function displayMenu(){
             <i class="fa fa-circle fa-2x"><img src="data:image/pngpng;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAACKgAAAioBtyI5mwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAADzSURBVEiJ7dZBSsNAFIfxttiFIB5M3HmBbkQvIsVdD9Cdd+gtFMGViCK13XgFKb9uUgwxY59jkoXmW4Xh8f/Cy5uZDAY9AXCKFzzjpEvx0ievORmjTPco8dwuRavXWHXa6r9D09MazotMK44wx1vxjc9wkJu3K1yVCpeJmpmvXOfm7Qr3Tisea8RPuXlh8FAjvv9pTs7m/6hZ23QhvgmuNQvGuCu1+Rbj1sWFfFIST7qSHmJREi9w/NvQ5EmDIS6L7VHlHRcYRvOq4uRJg2mNsMpVNK861d/ds+fJN07XxO5tDd+zTef9Q8LT2oK4/8vs2csWu6cNcVnHhkkAAAAASUVORK5CYII=" alt="" style="width: 33px;"></i>
              Tutorat
              <ul class="hidden">
-              <li onclick="location.href=\'tuteur.php?name=Lemaire&surname=Marc\';">Assignation</li>
-              <li onclick="location.href=\'reportTutor.php?name=Lemaire&surname=Marc\';">Compte-Rendu</li>';
+              <li onclick="location.href=\'tuteur.php?name='.$nameSurname[0].'&surname='.$nameSurname[1].'\';">Assignation</li>
+              <li onclick="location.href=\'reportTutor.php?name='.$nameSurname[0].'&surname='.$nameSurname[1].'\';">Compte-Rendu</li>';
               if(($typeu == 'administrator') || ($typeu == 'supervisor')) $result.= '<li onclick="location.href=\'registration_tutor_student.php\';">Validation tutorat</li>';
             $result.= '</ul></li>';
     }

@@ -8,7 +8,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>UCP Alter Master</title>
   <link rel="stylesheet" type="text/css" href="style.less" media="screen">
   <script type="text/javascript" src="script.js"></script>
   <style>
@@ -82,7 +82,7 @@
         $res = pg_query($query) or die('ERREUR SQL : '. $request .  pg_last_error());
         $result= '
         <div class="choiceStudent">
-          <form action="reportTutor.php?name=Lemaire&surname=Marc" method="post" enctype="multipart/form-data">
+          <form action="reportTutor.php?name='.$nametuteur.'&surname='.$surnametuteur.'" method="post" enctype="multipart/form-data">
               <p><br/>Pour quel(le) élève voulez-vous écrire un compte-rendu ?</p>
               <table cellspacing="0">
               ';

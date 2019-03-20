@@ -84,8 +84,9 @@ function connectSession(){
 					        header('location: profil.php'); 
 					        break;
 					    case 'tutor':
-					        //header('location: tuteur.php?name='.$tabSurnameName(0).'&surname='.$tabSurnameName(1));//tuteur
-					    	header('location: stat.php');
+					        $nameSurname =array();
+  							$nameSurname = getNameSurname($_SESSION['email-address']);
+					    	header('location: tuteur.php?name='.$nameSurname[0].'&surname='.$nameSurname[1].'');
 					        break;
 					    case 'intershipsupervisor':
 					        header('location: profil.php'); //maître de stage 
