@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-  require("functions/connectDatabase.php");
-  require("functions/main.func.php");
-  verifyIfConnected('editProfil.php');
+session_start();
 ?>
 <head>
     <!-- Required meta tags -->
@@ -54,13 +52,11 @@
         font-style: bold;
         margin-bottom: 20px;
       }
-      *{
-        font-size: 20px;
-      }
     </style>
 </head>
 <body>
  <?php
+                        require('functions/main.func.php'); 
                         $sizeError = moreInformations($_SESSION['idu']);
                         if($sizeError == "ok"){
                           send($_SESSION['idu']);
@@ -75,6 +71,18 @@
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
           </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                      <a class="nav-link" href="connect.php?id=login" style="color: #00BFFF;">Login</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="connect.php?id=register" style="color: #00BFFF;">Register</a>
+                  </li>
+              </ul>
+
+          </div>
       </div>
   </nav>
   <div class="container">
@@ -84,10 +92,14 @@
             <div class="panel-heading">
               </div>
               <div class="panel-body">
-                <form action="editProfil.php" method="POST" onsubmit="return moreInformations($_SESSION['idu'])">
+                <form action="editProfil.php" method="POST" onsubmit="return moreInformations($_SESSION['idu'])" enctype="multipart/form-data">
                   <table class="table profile__table">
                     <tbody>
                       <h5>L'étudiant</h5>
+                      <tr>
+                        <th><strong>Changer de photo de profil</strong></th>
+                        <td><input type="file" name="profilimg" id="profilimg"></td>
+                      </tr>
                       <tr>
                         <th><strong>Adresse</strong></th>
                         <td><input type="text" name="newadr" ></td>
@@ -181,16 +193,16 @@
                         <td><input type="text" name="newadre" ></td>
                       </tr>
                       <tr>
+                        <th><strong>Numéro de téléphone pour contacter l'entreprise </strong></th>
+                        <td><input type="text" name="newenttel" ></td>
+                      </tr>
+                      <tr>
                         <th><strong>Code postal de l'entreprise</strong></th>
                         <td><input type="number" name="newpostent" ></td>
                       </tr>
                       <tr>
                         <th><strong>Ville de l'entreprise</strong></th>
                         <td><input type="text" name="newcity" ></td>
-                      </tr>
-                      <tr>
-                        <th><strong>Numéro de téléphone pour contacter l'entreprise </strong></th>
-                        <td><input type="text" name="newenttel" ></td>
                       </tr>
                       <tr>
                         <th><strong>Nombre de salariés</strong></th>
@@ -251,4 +263,4 @@
 
 
 </body>
-</html>
+</html> 
