@@ -257,7 +257,7 @@ table tr:nth-child(2n+1) {
                                     <td>'.$line["surnameu"].'</td>
                                     <td>
                                       <label class="radio">
-                                      <input type="radio" value="'.$line["emailu"].'" name="student" />
+                                      <input type="radio" value="'.$line["emailu"].'" name="student" required/>
                                       <span>Choix</span>
                                       </label>
                                     </td>

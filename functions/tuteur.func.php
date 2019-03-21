@@ -75,7 +75,7 @@
 									          <div class="col col-7" data-label="Maître Apprentissage">Deadline soon</div>';
 			$idUser = $line2["idu"];
 			$result.= '<div class="col col-8" data-label="Etre son tuteur ?"><div class="dropdown">
-						  <button onclick="myFunction'.$i.'()" class="dropbtn">Faites votre choix</button>
+						  <button onclick="myFunction'.$i.'()" class="dropbtn">Choisir cet étudiant(e)</button>
 						  <div id="myDropdown'.$i.'" class="dropdown-content">
 						  <form enctype="multipart/form-data" action="tuteur.php?name='.$name.'&surname='.$surname.'" method="POST">
 						        <input type="hidden" name="myid" value="'.$idUser.'">
@@ -177,21 +177,24 @@
 		      <ul class="responsive-table">
 		        <li class="table-header">
 		          <div class="col col-1">Nom elève</div>
-		          <div class="col col-2">Date</div>
-		          <div class="col col-3">Employeur</div>
-		          <div class="col col-4">Maître Apprentissage</div>
+		          <div class="col col-2">Prénom elève</div>
+		          <div class="col col-3">Filière</div>
+		          <div class="col col-4">Date du C-R</div>
+		          <div class="col col-5">Employeur</div>
 
 		        </li>';
 		
-		$query1 = "SELECT nameu, dater, namei  FROM reports INNER JOIN users ON reports.idu=users.idu INNER JOIN institutions ON users.idi=institutions.idi WHERE reports.idtut=(SELECT idtut FROM tutors WHERE nametut='$name' AND surnametut='$surname' LIMIT 1) ORDER BY dater";
+		$query1 = "SELECT nameu, surnameu, branchcl, dater, namei  FROM reports INNER JOIN users ON reports.idu=users.idu INNER JOIN institutions ON users.idi=institutions.idi INNER JOIN classrooms ON users.idcl=classrooms.idcl WHERE reports.idtut=(SELECT idtut FROM tutors WHERE nametut='$name' AND surnametut='$surname' LIMIT 1) ORDER BY dater";
 		$res1 = pg_query($query1) or die('Echec de la requête : ' .pg_last_error());
 		while ($line1 = pg_fetch_array($res1, null, PGSQL_ASSOC)) {
 			$result.='<li onclick="location.href=\'\';" class="table-row">';
 			$result.='
 									          <div class="col col-1" data-label="Name">'.$line1["nameu"].'</div>
-									          <div class="col col-2" data-label="Date">'.$line1["dater"].'</div>
-									          <div class="col col-3" data-label="Employeur">'.$line1["namei"].'</div>
-									          <div class="col col-4" data-label="Maître Apprentissage">Deadline soon</div>
+									          <div class="col col-2" data-label="Surname">'.$line1["surnameu"].'</div>
+									          <div class="col col-3" data-label="filière">'.$line1["branchcl"].'</div>
+									          <div class="col col-4" data-label="Date">'.$line1["dater"].'</div>
+									          <div class="col col-5" data-label="Employeur">'.$line1["namei"].'</div>
+									          
 									          
 									      </li>';
 		

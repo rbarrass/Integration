@@ -58,7 +58,9 @@ function displayMenu(){
              Tutorat
              <ul class="hidden">
               <li onclick="location.href=\'tuteur.php?name='.$nameSurname[0].'&surname='.$nameSurname[1].'\';">Assignation</li>
-              <li onclick="location.href=\'reportTutor.php?name='.$nameSurname[0].'&surname='.$nameSurname[1].'\';">Compte-Rendu</li>';
+              <li onclick="location.href=\'reportTutor.php?name='.$nameSurname[0].'&surname='.$nameSurname[1].'\';">Compte-Rendu</li>
+              <li onclick="location.href=\'reportViewTutor.php?name='.$nameSurname[0].'&surname='.$nameSurname[1].'\';">View</li>';
+
               if(($typeu == 'administrator') || ($typeu == 'supervisor')) $result.= '<li onclick="location.href=\'registration_tutor_student.php\';">Validation <br>tutorat</li>';
             $result.= '</ul></li>';
     }
