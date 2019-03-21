@@ -215,9 +215,9 @@ function moreInformations($idu){
       
     }
 
-    if ($_POST['newgender']!==''){
+    if (isset($_POST['newgender']) && $_POST['newgender']!==''){
       //update of the student's gender
-        pg_query("UPDATE users SET genderu='".$_POST['newgender']."' WHERE idu='".$idu."' ") or die('Erreur dans la table users');
+        pg_query("UPDATE users SET genderu='".$_POST['newgender']."' WHERE idu='".$idu."' ") or die('ERREUR SQL : '.    pg_last_error().'');
     }
 
     if ( isset($_POST['newtel']) && $_POST['newtel']!==''){

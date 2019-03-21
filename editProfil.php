@@ -143,9 +143,9 @@ session_start();
                         <th><strong>Filière</strong></th>
                         <td>   <select name="newPromo" >
                                 <option value=""></option>
-                                <option value="SID">SID</option>
-                                <option value="RS">RS</option>
-                                <option value="STRC">STRC</option>
+                                <option value="Master SID">SID</option>
+                                <option value="Master RS">RS</option>
+                                <option value="Master STRC">STRC</option>
                               </select> </td>
                       </tr>
                       <tr>
