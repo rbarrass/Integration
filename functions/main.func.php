@@ -129,13 +129,13 @@ function verifyIfConnected($page){
               //So it's available, we do nothing
             }else {
               //Redirect to a default page
-              header('location: profil.php');
+              header('location: profil.php?idu='.$_SESSION['idu'].'');
             }
             break;
         case 'supervisor':
             if ($page == 'logs.php'){
               //Redirect to a default page
-              header('location: index.php');
+              header('location: index.php?psd=Alternants');
             }else {
               //So it's available, we do nothing
             }

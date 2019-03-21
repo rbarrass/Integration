@@ -224,7 +224,7 @@ function editDeleteForm(){
                             <div class="fieldEdit">
                                 <label for="targetsurname" class="labelEdit">Réecrire :</label>
                                 <div>
-                                    <input type="text" id="targetsurname" class="inputEdit" name="targetsurname" placeholder="\'SUPPRIMER\'" required> <!-- Surname -->
+                                    <input type="text" id="conf" class="inputEdit" name="conf" placeholder="\'SUPPRIMER\'" required> <!-- Surname -->
                                 </div>
                             </div>
                             
@@ -243,7 +243,7 @@ function accountDeletion(){
 		$errorR="";
 
 		//name check
-		$query = "(SELECT nameu FROM users WHERE  nameu='".$_POST['targetname']."') UNION (SELECT nametut FROM tutors WHERE nametut='".$_POST['targetname']."')";
+		/*$query = "(SELECT nameu FROM users WHERE  nameu='".$_POST['targetname']."') UNION (SELECT nametut FROM tutors WHERE nametut='".$_POST['targetname']."')";
 		$result = pg_query($query) or die('ERREUR SQL : '. $query . 	pg_last_error());
 		if (pg_last_error() != NULL) {
 			$errorR.='<div class="alert">
@@ -251,19 +251,21 @@ function accountDeletion(){
 					  Le nom n\'existe pas.
 					</div> ';
 			return $errorR;
-		}
+		}*/
 
 
 		//Email check
-		$query = "(SELECT emailu FROM users WHERE  emailu='".$_POST['targetemail']."') UNION (SELECT emailtut FROM tutors WHERE emailtut='".$_POST['targetemail']."')";
+		$query = "SELECT idu FROM users WHERE  emailu='".$_POST['targetemail']."'";
 		$result = pg_query($query) or die('ERREUR SQL : '. $query . 	pg_last_error());
-		if (pg_last_error() != NULL) {
+		if ($result == '') {
 			$errorR.='<div class="alert">
 					  <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>
-					  L\'email n\'existe pas.
+					  Cet utilisateur n\'existe pas.
 					</div> ';
 			return $errorR;
 		}
+
+
  		
 
 		/*
@@ -313,7 +315,7 @@ function manageError($error){
 	if ($error == ''){
 		echo '<div class="alert" style="background-color:#00BFFF;">
 					  <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>
-					  Le compte a bien été créé, un mail sera envoyé.
+					  Le compte a bien été créé, un mail communiquant le mot de passe a été envoyé.
 					</div> ';
 	}else if ($error == 'nothing yet'){
 			//We don't want do do anything
