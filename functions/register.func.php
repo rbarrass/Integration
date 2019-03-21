@@ -210,33 +210,31 @@ function register(){
               </div>
           </div>
     </div>';
-				return $errorR;
-			}
-			else {
-				$j++;
-			}
-		}
+        return $errorR;
+      }
+      else {
+        $j++;
+      }
+    }
 
-		//request to create line in table.users
-		$request = "INSERT INTO users VALUES(DEFAULT, '".$_POST['myno']."', '".$_POST['myname']."', '".$_POST['mysurname']."', ' ', '".$_POST['myemail']."', ' ', ' ', '$password_hash', ' ', 'student', 'pending', ' ', '2018-2020','1', '',DEFAULT,' ',DEFAULT,DEFAULT,' ',' ',' ','1', '1', '1','')";
-		$resultat = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
+    //request to create line in table.users
+    $request = "INSERT INTO users VALUES(DEFAULT, '".$_POST['myno']."', '".$_POST['myname']."', '".$_POST['mysurname']."','".$_POST['mygender']."', '".$_POST['myemail']."', ' ', ' ', '$password_hash', ' ', 'student', 'waiting', ' ', '2018-2020','1', '',DEFAULT,' ',DEFAULT,DEFAULT,' ',' ',' ','1', '1', '1', '')";
+    $resultat = pg_query($request) or die('ERREUR SQL : '. $request .   pg_last_error());
 
-		//We want to increment table.logs to save this action and keep an eye on registering requests
-		if (pg_last_error() == NULL) {
-			//Request to search id of account just created 
-			$requestUserId = "SELECT idU FROM users WHERE emailU='".$_POST['myemail']."'";
-			$resultUserId = pg_query($requestUserId) or die('ERREUR SQL : '. $requestUserId . 	pg_last_error());
-			$userId = pg_fetch_result($resultUserId, 'idu');
+    //We want to increment table.logs to save this action and keep an eye on registering requests
+    if (pg_last_error() == NULL) {
+      //Request to search id of account just created 
+      $requestUserId = "SELECT idU FROM users WHERE emailU='".$_POST['myemail']."'";
+      $resultUserId = pg_query($requestUserId) or die('ERREUR SQL : '. $requestUserId .   pg_last_error());
+      $userId = pg_fetch_result($resultUserId, 'idu');
 
       send($userId);
 
-      pg_query("UPDATE users SET validationu = 'waiting' WHERE users.idu='".$userId."'") or die('Erreur dans la table users');
-
-			//Add a line in table.Logs with : action made/date/client ip/type of request(insert/delete/update)/and object concerned.
-			$request = "INSERT INTO logs VALUES(DEFAULT, 'student registering', '".getTheDate()."', '".getIp()."', 'insert', null, '$userId', null, null, null, null, null)";
-			$resultat = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
-		}
-		$errorR = "null";
+      //Add a line in table.Logs with : action made/date/client ip/type of request(insert/delete/update)/and object concerned.
+        $request = "INSERT INTO logs VALUES(DEFAULT, 'manual supervisor registering', '".getTheDate()."', '".getIp()."', 'insert', null, '$userId', null, null, null, null, null, null)";
+      $resultat = pg_query($request) or die('ERREUR SQL : '. $request .   pg_last_error());
+    }
+    $errorR = "null";
 
     return $errorR;
   }
@@ -263,15 +261,24 @@ function registerForm(){
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label for="mygender" class="col-md-4 col-form-label text-md-right">Genre :</label>
+                                <div class="col-md-6">
+                                    <input type="radio" id="mygender1" name="mygender" value="Femme" style="display: inline-block; margin-left: 1.5cm; margin-top: 0.2cm;" required>
+                                    <label for="mygender1">Femme</label>
+                                    <input type="radio" id="mygender2" name="mygender" value="Homme" style="display: inline-block; margin-left: 1.5cm; margin-top: 0.2cm;" required>
+                                    <label for="mygender2">Homme</label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="myemail" class="col-md-4 col-form-label text-md-right">E-mail :</label>
                                 <div class="col-md-6">
-                                    <input type="email" id="myemail" class="form-control" name="myemail" placeholder="Votre mail ( Attention, il sera utilisé )" required> <!-- MAIL -->
+                                    <input type="email" id="myemail" class="form-control" name="myemail" placeholder="Votre mail ( Attention, il vous servira de login )" required> <!-- MAIL -->
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="myno" class="col-md-4 col-form-label text-md-right">N°- Étudiant :</label>
                                 <div class="col-md-6">
-                                    <input type="number" id="myno" class="form-control" name="myno" placeholder="Votre numéro étudiant (8 caractères)" required> <!-- N° ETU -->
+                                    <input type="number" id="myno" class="form-control" name="myno" placeholder="Votre numéro étudiant (8 chiffres)" required> <!-- N° ETU -->
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -302,7 +309,7 @@ function registerForm(){
           <div class="col-md-8">
               <div class="card-body">
                   <div class="alert alert-primary" role="alert">
-                      Toutes les informations rentrées sur le formulaire ci-dessus seront utilisées par le service de l\'université. Vous pourrez les remodifier après avoir vérifier votre e-mail. 
+                      Toutes les informations rentrées sur le formulaire ci-dessus seront utilisées par le service de l\'université. Vous pourrez les remodifier après avoir validé votre e-mail. 
                   </div>
               </div>
           </div>

@@ -81,7 +81,7 @@ function connectSession(){
 					$tabSurnameName = getNameSurname($_SESSION['email-address']);
 					switch ($_SESSION['typeu']) {
 					    case 'student':
-					        header('location: profil.php'); 
+					        header('location: profil.php?idu='.$_SESSION['idu'].''); 
 					        break;
 					    case 'tutor':
 					        $nameSurname =array();
