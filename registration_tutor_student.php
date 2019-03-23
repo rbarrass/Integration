@@ -44,11 +44,12 @@
     <div class="container">
       <ul class="responsive-table">
         <li class="table-header">
-          <div class="col col-1">N° Etudiant</div>
+          <div class="col col-2">N° Etudiant</div>
           <div class="col col-2">Nom</div>
           <div class="col col-3">Prénom</div>
-          <div class="col col-4">Email</div>
-          <div class="col col-5">En attente</div>
+          <div class="col col-6">Email</div>
+          <div class="col col-7">Nom Tuteur</div>
+          <div class="col col-8">En attente</div>
         </li>
         
         <?php

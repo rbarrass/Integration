@@ -161,6 +161,10 @@
 			               <h5>Le poste</h5>
 			               <table class="table profile__table">
 			               <tbody>
+			               <tr>
+			                  <th><strong>Nom et prénom du tuteur</strong></th>
+			                  <td>'.$array_profil[36]['nametut'].' '.$array_profil[37]['surnametut'].'</td>	
+			                </tr>
 			                <tr>
 			                  <th><strong>Date de début de contrat</strong></th>
 			                  <td>'.$array_profil[15]['begindate'].'</td>	

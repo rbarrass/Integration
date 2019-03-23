@@ -238,9 +238,10 @@ table tr:nth-child(2n+1) {
        
     <?php 
         $dbconnexion = connectionDB();
-
+        //On récuprère les informations concernant le tuteur connecté.
         $nametuteur=$_GET['name'];
         $surnametuteur=$_GET['surname'];
+        //On effectue une requête pour récupérer les noms et prénoms des étudiants sous le tutorat du professeur dans le but de faire des radio buttons pour faire un choix de l'élève dont on veut écrire le rapport
         $query = "SELECT nameu, surnameu, emailu FROM users INNER JOIN tutors ON users.idtut=tutors.idtut WHERE nametut='$nametuteur' AND surnametut='$surnametuteur'";
         $res = pg_query($query) or die('ERREUR SQL : '. $request .  pg_last_error());
         $result= '
@@ -257,13 +258,15 @@ table tr:nth-child(2n+1) {
                                     <td>'.$line["surnameu"].'</td>
                                     <td>
                                       <label class="radio">
-                                      <input type="radio" value="'.$line["emailu"].'" name="student" />
+                                      <input type="radio" value="'.$line["emailu"].'" name="student" required/>
                                       <span>Choix</span>
                                       </label>
                                     </td>
                                 </tr>
                            ';
               }
+
+              //Ensuite on propose les deux formulaires suivant au tuteur. Celui-ci a donc la possibilité soit d'écrire sont compte rendu en quelques lignes dans une textarea soit il télécharge le fichier de compte rendu, il le remplit puis le re-dépose sur la plateforme
               $result.='
             </table>
             </div>
