@@ -1,7 +1,7 @@
 <?php
   require("functions/displayFunc.php");
   require("functions/main.func.php");
-  verifyIfConnected('profil.php');
+  //verifyIfConnected('profil.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">

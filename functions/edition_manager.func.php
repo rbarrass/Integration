@@ -65,7 +65,7 @@ function accountCreation(){
 		//name check
 		//Size check
 		if (strlen($_POST['targetname']) > 30){
-			$errorR.='<div class="alert">
+			$errorR.='<div class="alert" style="background : red;>
 					  <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>
 					   <strong>Erreur</strong> : la taille du nom est limitée à 30 caractères.
 					</div> ';
@@ -76,7 +76,7 @@ function accountCreation(){
 				//Format text
 				$name = ucfirst(strtolower($_POST['targetname']));
 			}else{
-				$errorR.='<div class="alert">
+				$errorR.='<div class="alert" style="background : red;>
 					  <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>
 					   <strong>Erreur</strong> : format nom incorrect : a-z àéèù- acceptés.
 					</div> ';
@@ -87,7 +87,7 @@ function accountCreation(){
 		//surname check
 		//Size check
 		if (strlen($_POST['targetsurname']) > 30){
-			$errorR.='<div class="alert">
+			$errorR.='<div class="alert" style="background : red;>
 					  <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>
 					   <strong>Erreur</strong> : la taille du prénom est limitée à 30 caractères.
 					</div> ';
@@ -98,7 +98,7 @@ function accountCreation(){
 				//Format text
 				$surname = ucfirst(strtolower($_POST['targetsurname']));
 			}else{
-				$errorR.='<div class="alert">
+				$errorR.='<div class="alert" style="background : red;>
 					  <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>
 					  <strong>Erreur</strong> : format prénom incorrect : a-z àéèù- acceptés.
 					</div> ';
@@ -109,7 +109,7 @@ function accountCreation(){
 		//Email check
 		//Size check
 		if (strlen($_POST['targetemail']) > 60){
-			$errorR.='<div class="alert">
+			$errorR.='<div class="alert" style="background : red;>
 					  <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>
 					  <strong>Erreur</strong> : la taille du mail est limitée à 30 caractères.
 					</div> ';
@@ -140,7 +140,7 @@ function accountCreation(){
 		while(($k==0) && ($j<$i)){
 			if (strcmp($_POST['targetemail'], $tab[$j])==0) {
 				$k=2;
-				$errorR.='<div class="alert">
+				$errorR.='<div class="alert" style="background : red;>
 					  <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>
 					  Email déjà utilisé.
 					</div> ';
@@ -223,9 +223,9 @@ function editDeleteForm(){
                             </div>
 
                             <div class="fieldEdit">
-                                <label for="targetsurname" class="labelEdit">Réecrire :</label>
+                                <label for="targetsurname"  class="labelEdit">Réecrire :</label>
                                 <div>
-                                    <input type="text" id="conf" class="inputEdit" name="conf" placeholder="\'SUPPRIMER\'" required> <!-- confirmation -->
+                                    <input type="text" id="conf" class="inputEdit" name="conf" placeholder="SUPPRIMER" required><!-- confirmation -->
                                 </div>
                             </div>
                             
@@ -243,11 +243,9 @@ function accountDeletion(){
 		$dbconn = connectionDB();
 		$errorR="";
 
-		//Email check
-		$query = "SELECT idu FROM users WHERE  emailu='".$_POST['targetemail']."'";
-		$idU = pg_query($query) or die('ERREUR SQL : '. $query . 	pg_last_error());
-		if ($idU == '') {
-			$errorR.='<div class="alert">
+		//Email check		
+		if (!emailExist($_POST['targetemail'])) {
+			$errorR.='<div class="alert" style="background : red;>
 					  <span  onclick="this.parentElement.style.display=\'none\';">&times;</span>
 					  Cet étudiant n\'existe pas.
 					</div> ';
@@ -256,21 +254,24 @@ function accountDeletion(){
 
 		//Check if th security word is correctly typed
 		$validation = strtoupper($_POST['conf']);
-		echo $validation;
-		if (($validation != 'SUPPRIMER') || ($validation != '\'SUPPRIMER\'') || ($validation != "\"SUPPRIMER\"")){
-			$errorR.='<div class="alert">
+		if (($validation != 'SUPPRIMER')){
+			$errorR.='<div class="alert" style="background : red;>
 					  <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>
-					  Il y a une erreur de frappe dans lors de la réecriture de "SUPPRIMER" :::: .
+					  Il y a une erreur de frappe dans lors de la réecriture de "SUPPRIMER".
 					</div> ';
-			$errorR.= $_POST['conf'];
 			return $errorR;
 		}
 
 		//Check if user is a student
-		$query = "SELECT typeu FROM users WHERE  emailu='".$_POST['targetemail']."'";
-		$typeSupp = pg_query($query) or die('ERREUR SQL : '. $query . 	pg_last_error());
-		if ($typeSupp != 'student'){
-			$errorR.='<div class="alert">
+		$dbconn = connectionDB();
+		$req = pg_query("SELECT idu FROM users WHERE emailu='".$_POST['targetemail']."'") or die('Échec de la requête : ' . pg_last_error());
+      	$idU = pg_fetch_result($req, 'idu');
+		$req = pg_query("SELECT typeu FROM users WHERE emailu='".$_POST['targetemail']."'") or die('Échec de la requête : ' . pg_last_error());
+      	$stud = pg_fetch_result($req, 'typeu');
+		
+
+		if ($stud != 'student'){
+			$errorR.='<div class="alert" style="background : red;">
 					  <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>
 					 L\'utilisateur que vous tentez de supprimer n\'est pas un étudiant.
 					</div> ';
@@ -278,12 +279,12 @@ function accountDeletion(){
 		}
 
 		//Delete logs linked to this user
-		$query = "DELETE FROM logs WHERE idU='$idu'";
+		$query = "DELETE FROM logs WHERE idU='$idU'";
 		$result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
 		//Delete user from db
 		$query = "DELETE FROM users WHERE idU='$idU'";
 		$result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
-
+		closeDB($dbconn);
 		$errorR="delete ok";
 		return $errorR;
 	}
