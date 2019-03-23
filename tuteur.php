@@ -15,7 +15,6 @@
   <script type="text/javascript" src="script.js"></script>
 </head>
 <body>
-  <html>
     <?php
       echo displayIconLogout();
       echo displayMenu();      
@@ -38,5 +37,5 @@
             echo '<meta http-equiv="refresh" content=0 >';
           }
     ?>    
+  </body>
   </html>
-</body>

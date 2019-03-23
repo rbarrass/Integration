@@ -61,7 +61,6 @@ table tr:nth-child(2n+1) {
   </style>
 </head>
 <body>
-  <html>
     <?php
       echo displayIconLogout();
       echo displayMenu();
@@ -92,7 +91,13 @@ table tr:nth-child(2n+1) {
                               <div class="panel-body">
                               <table class="table profile__table">
                               <tr class="tr1"><td>Nom Etudiant</td><td>Prénom Etudiant</td><td>Date de dépôt</td><td>Contenue du compte-rendu de la visite en entreprise</td></tr>';
-        $query = "SELECT nameu, surnameu, dater, containr, files_docx FROM users INNER JOIN tutors ON users.idtut=tutors.idtut INNER JOIN reports ON users.idu=reports.idu WHERE nametut='$nametuteur' AND surnametut='$surnametuteur' ORDER BY nameu, dater DESC";
+                              
+        if ($_SESSION["typeu"]=='supervisor') {
+          $query = "SELECT nameu, surnameu, dater, containr, files_docx FROM users INNER JOIN tutors ON users.idtut=tutors.idtut INNER JOIN reports ON users.idu=reports.idu ORDER BY nameu, dater DESC";
+        }
+        else {
+          $query = "SELECT nameu, surnameu, dater, containr, files_docx FROM users INNER JOIN tutors ON users.idtut=tutors.idtut INNER JOIN reports ON users.idu=reports.idu WHERE nametut='$nametuteur' AND surnametut='$surnametuteur' ORDER BY nameu, dater DESC";
+        }
         $res = pg_query($query) or die('ERREUR SQL : '. $request .  pg_last_error());   
         while ($line = pg_fetch_array($res, null, PGSQL_ASSOC)) {
               $result.='<tr>
@@ -123,8 +128,5 @@ table tr:nth-child(2n+1) {
 
     ?>
 
-
-
-
-    </html>
 </body>
+</html>

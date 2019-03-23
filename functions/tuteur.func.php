@@ -223,7 +223,7 @@
 		
 				
 		}
-		$result.='</div>';
+		$result.='</ul></div>';
 
 		return $result;
 	}
