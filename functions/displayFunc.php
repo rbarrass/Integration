@@ -80,7 +80,10 @@
       $array[34] = pg_fetch_array($req, null, PGSQL_ASSOC);
       $req = pg_query("SELECT groupcl FROM classrooms WHERE idcl='".$array[33]['idcl']."'") or die('Échec de la requête : ' . pg_last_error());
       $array[35] = pg_fetch_array($req, null, PGSQL_ASSOC);
-
+      $req = pg_query("SELECT nametut FROM tutors INNER JOIN users ON users.idtut=tutors.idtut WHERE idu='".$idu."'") or die('Échec de la requête : ' . pg_last_error());
+      $array[36] = pg_fetch_array($req, null, PGSQL_ASSOC);
+      $req = pg_query("SELECT surnametut FROM tutors INNER JOIN users ON users.idtut=tutors.idtut WHERE idu='".$idu."'") or die('Échec de la requête : ' . pg_last_error());
+      $array[37] = pg_fetch_array($req, null, PGSQL_ASSOC);
 
 
       if ($array[7]['profilimgu'] == "") $array[7]['profilimgu'] = "./pictures/profil_pic/default.png";
