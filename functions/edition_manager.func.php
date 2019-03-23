@@ -194,6 +194,7 @@ function accountCreation(){
 			$resultat = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
 		}
 
+		$errorR="inser ok";
 		return $errorR;
 	}
 	//We don't use form, so no error can be spoted. This line inform it to manage manageError()
@@ -204,7 +205,7 @@ function accountCreation(){
 //Display manual user deletion form
 function editDeleteForm(){
 	echo '
-		<div class="titleEdit" style="margin-top: 50px;">Supprimer un compte utilisateur</div>
+		<div class="titleEdit" style="margin-top: 50px;">Supprimer un étudiant</div>
 		 <div>
                         <form class="formEdit" action="edition_manager.php" method="post">
                             <div class="fieldEdit">
@@ -224,7 +225,7 @@ function editDeleteForm(){
                             <div class="fieldEdit">
                                 <label for="targetsurname" class="labelEdit">Réecrire :</label>
                                 <div>
-                                    <input type="text" id="conf" class="inputEdit" name="conf" placeholder="\'SUPPRIMER\'" required> <!-- Surname -->
+                                    <input type="text" id="conf" class="inputEdit" name="conf" placeholder="\'SUPPRIMER\'" required> <!-- confirmation -->
                                 </div>
                             </div>
                             
@@ -242,80 +243,64 @@ function accountDeletion(){
 		$dbconn = connectionDB();
 		$errorR="";
 
-		//name check
-		/*$query = "(SELECT nameu FROM users WHERE  nameu='".$_POST['targetname']."') UNION (SELECT nametut FROM tutors WHERE nametut='".$_POST['targetname']."')";
-		$result = pg_query($query) or die('ERREUR SQL : '. $query . 	pg_last_error());
-		if (pg_last_error() != NULL) {
-			$errorR.='<div class="alert">
-					  <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>
-					  Le nom n\'existe pas.
-					</div> ';
-			return $errorR;
-		}*/
-
-
 		//Email check
 		$query = "SELECT idu FROM users WHERE  emailu='".$_POST['targetemail']."'";
-		$result = pg_query($query) or die('ERREUR SQL : '. $query . 	pg_last_error());
-		if ($result == '') {
+		$idU = pg_query($query) or die('ERREUR SQL : '. $query . 	pg_last_error());
+		if ($idU == '') {
 			$errorR.='<div class="alert">
-					  <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>
-					  Cet utilisateur n\'existe pas.
+					  <span  onclick="this.parentElement.style.display=\'none\';">&times;</span>
+					  Cet étudiant n\'existe pas.
 					</div> ';
 			return $errorR;
 		}
 
-
- 		
-
-		/*
-		//request to create line in table.users or table.tutors(simple or vip)
-		if ($_POST['targettype'] == "tutor"){
-			$request = "INSERT INTO tutors VALUES(DEFAULT, '".$_POST['targetname']."', '".$_POST['targetsurname']."', '".$_POST['targetemail']."', '$password_hash', 'false')";
-
-		}elseif ($_POST['targettype'] == "tutorVip") {
-			$request = "INSERT INTO tutors VALUES(DEFAULT, '".$_POST['targetname']."', '".$_POST['targetsurname']."', '".$_POST['targetemail']."', '$password_hash', 'true')";
-		
-		}else{
-		$request = "INSERT INTO users VALUES(DEFAULT, '', '".$_POST['targetname']."', '".$_POST['targetsurname']."', ' ', '".$_POST['targetemail']."', ' ', ' ', '$password_hash', ' ', '".$_POST['targettype']."', 'allowed')";
-		}
-		$resultat = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
-
-		//We want to increment table.logs to save this action and keep an eye on registering requests
-		if (pg_last_error() == NULL) {
-			//Request to search id of account just created 
-			if (($_POST['targettype'] == "tutor") || ($_POST['targettype'] == "tutorVip")){
-				$requestUserId = "SELECT idtut FROM tutors WHERE emailtut='".$_POST['targetemail']."'";
-				$resultUserId = pg_query($requestUserId) or die('ERREUR SQL : '. $requestUserId . 	pg_last_error());
-				$tutorId = pg_fetch_result($resultUserId, 'idtut');
-
-				//Add a line in table.Logs with : action made/date/client ip/type of request(insert/delete/update)/and object concerned.
-				$request = "INSERT INTO logs VALUES(DEFAULT, 'manual supervisor registering', '".getTheDate()."', '".getIp()."', 'insert', null, null, '$tutorId', null, null, null, null, null)";
-			}else{
-				$requestUserId = "SELECT idU FROM users WHERE emailU='".$_POST['targetemail']."'";
-				$resultUserId = pg_query($requestUserId) or die('ERREUR SQL : '. $requestUserId . 	pg_last_error());
-				$userId = pg_fetch_result($resultUserId, 'idu');
-
-				//Add a line in table.Logs with : action made/date/client ip/type of request(insert/delete/update)/and object concerned.
-				$request = "INSERT INTO logs VALUES(DEFAULT, 'manual supervisor registering', '".getTheDate()."', '".getIp()."', 'insert', null, '$userId', null, null, null, null, null, null)";
-			}
-
-		
-			$resultat = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
+		//Check if th security word is correctly typed
+		$validation = strtoupper($_POST['conf']);
+		echo $validation;
+		if (($validation != 'SUPPRIMER') || ($validation != '\'SUPPRIMER\'') || ($validation != "\"SUPPRIMER\"")){
+			$errorR.='<div class="alert">
+					  <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>
+					  Il y a une erreur de frappe dans lors de la réecriture de "SUPPRIMER" :::: .
+					</div> ';
+			$errorR.= $_POST['conf'];
+			return $errorR;
 		}
 
-		return $errorR; */
+		//Check if user is a student
+		$query = "SELECT typeu FROM users WHERE  emailu='".$_POST['targetemail']."'";
+		$typeSupp = pg_query($query) or die('ERREUR SQL : '. $query . 	pg_last_error());
+		if ($typeSupp != 'student'){
+			$errorR.='<div class="alert">
+					  <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>
+					 L\'utilisateur que vous tentez de supprimer n\'est pas un étudiant.
+					</div> ';
+			return $errorR;
+		}
+
+		//Delete logs linked to this user
+		$query = "DELETE FROM logs WHERE idU='$idu'";
+		$result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
+		//Delete user from db
+		$query = "DELETE FROM users WHERE idU='$idU'";
+		$result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
+
+		$errorR="delete ok";
+		return $errorR;
 	}
 	//We don't use form, so no error can be spoted. This line inform it to manage manageError()
 	return $error = 'nothing yet';
 }
 
-
 function manageError($error){
-	if ($error == ''){
+	if ($error == 'inser ok'){
 		echo '<div class="alert" style="background-color:#00BFFF;">
 					  <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>
 					  Le compte a bien été créé, un mail communiquant le mot de passe a été envoyé.
+					</div> ';
+	}else if ($error == 'delete ok'){
+		echo '<div class="alert" style="background-color:#00BFFF;">
+					  <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>
+					  Le compte a bien été définitivement supprimé.
 					</div> ';
 	}else if ($error == 'nothing yet'){
 			//We don't want do do anything

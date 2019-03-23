@@ -53,7 +53,7 @@
 	<?php 
 	//
 	if(isset($_GET['rand'])){
-
+		 session_start();
         $dbconn =connectionDB();
         $req = pg_query("SELECT aleatu FROM users WHERE idu='".$_SESSION['idu']."'") or die('Échec de la requête : ' . pg_last_error());
         $array[0] = pg_fetch_array($req, null, PGSQL_ASSOC);
@@ -67,6 +67,8 @@
 
         closeDB($dbconn);
     }
+
+    verifyIfConnected('profil.php');
 
 	if(!empty($_GET['idu'])){
 		$tmp="'";
