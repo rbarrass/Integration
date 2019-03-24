@@ -224,7 +224,7 @@ function register(){
     $escaped = pg_escape_bytea($data);
 
     //request to create line in table.users
-    $request = "INSERT INTO users VALUES(DEFAULT, '".$_POST['myno']."', '".$_POST['myname']."', '".$_POST['mysurname']."','".$_POST['mygender']."', '".$_POST['myemail']."', ' ', ' ', '$password_hash', 'student', 'waiting', ' ', '2018-2020','1', '',DEFAULT,' ',DEFAULT,DEFAULT,' ',' ',' ','1', '1', '1', '', '$escaped')";
+    $request = "INSERT INTO users VALUES(DEFAULT, '".$_POST['myno']."', '".$_POST['myname']."', '".$_POST['mysurname']."','".$_POST['mygender']."', '".$_POST['myemail']."', ' ', ' ', '$password_hash', 'student', 'waiting', ' ', '2018-2020','1', '',DEFAULT,' ',DEFAULT,DEFAULT,' ',' ',' ','1', '1', '1', '', '".$escaped."')";
     $resultat = pg_query($request) or die('ERREUR SQL : '. $request .   pg_last_error());
 
     //We want to increment table.logs to save this action and keep an eye on registering requests
