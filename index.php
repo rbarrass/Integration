@@ -13,7 +13,7 @@
   <meta charset="UTF-8">
   <title>UCP Alter Master</title>
   <link rel="stylesheet" type="text/css" href="style.less" media="screen">
-  <script type="text/javascript" src="script.js"></script>
+  <script src="script.js"></script>
   <style>
     .header {
   background-color: #0198E1;
@@ -48,6 +48,7 @@ th,td{
 }
 table {
   width: 100%;
+  border-spacing: 0;
 }
 table td, table th {
   color: #2b686e;
@@ -181,7 +182,6 @@ table tr:nth-child(2n+1) {
   </style>
 </head>
 <body>
-  </html>
     <?php
       echo displayIcons();
       echo displayMenu();
@@ -200,5 +200,5 @@ table tr:nth-child(2n+1) {
     <?php
         echo displayBordTable();
     ?>    
-  </html>
 </body>
+</html>

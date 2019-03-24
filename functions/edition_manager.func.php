@@ -227,23 +227,23 @@ function editDeleteForm(){
 		 <div>
                         <form class="formEdit" action="edition_manager.php" method="post">
                             <div class="fieldEdit">
-                                <label for="targetname" class="labelEdit">Nom :</label>
+                                <label for="targetname1" class="labelEdit">Nom :</label>
                                 <div>
-                                    <input type="text" id="targetname" class="inputEdit" name="targetname" placeholder="Nom de famille de l\'utilisateur" required autofocus><!-- NAME -->
+                                    <input type="text" id="targetname1" class="inputEdit" name="targetname" placeholder="Nom de famille de l\'utilisateur" required><!-- NAME -->
                                 </div>
                             </div>
 
                             <div class="fieldEdit">
-                                <label for="targetemail" class="labelEdit">E-mail :</label>
+                                <label for="targetemail1" class="labelEdit">E-mail :</label>
                                 <div>
-                                    <input type="email" id="targetemail" class="inputEdit" name="targetemail" placeholder="Adresse email de l\'utilisateur" required> <!-- MAIL -->
+                                    <input type="email" id="targetemail1" class="inputEdit" name="targetemail" placeholder="Adresse email de l\'utilisateur" required> <!-- MAIL -->
                                 </div>
                             </div>
 
                             <div class="fieldEdit">
                                 <label for="targetsurname"  class="labelEdit">Réecrire :</label>
                                 <div>
-                                    <input type="text" id="conf" class="inputEdit" name="conf" placeholder="SUPPRIMER" required><!-- confirmation -->
+                                    <input type="text" id="conf1" class="inputEdit" name="conf" placeholder="SUPPRIMER" required><!-- confirmation -->
                                 </div>
                             </div>
                             

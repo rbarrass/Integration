@@ -69,10 +69,10 @@ function pendingList(){
 		$display.= '</li>';
 	}
 	if ($display == ''){
-		$display.= ' <div class="alert">
+		$display.= ' <li><div class="alert">
 					  <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>
 					  Il n\'y a pas d\'étudiant en attente d\'approbation pour le moment.
-					</div> ';
+					</div></li> ';
 	}
 	echo $display;
 }

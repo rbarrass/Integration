@@ -43,7 +43,7 @@ function displayMenu(){
 
     if(($typeu == 'administrator') || ($typeu == 'supervisor')) {    
         $result.= '<li>
-            <i class="fa fa-circle fa-2x"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAACKgAAAioBtyI5mwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAHRSURBVEiJ7ZU9S11BEIZnVVBstBFEkdhoJwh+NFZa+EHS5BfYpQmCndfGf2DhD1ARGwXBTgQVm1QBQYQUSZEipFG8CfjBFfH6WDhX1+Oee2b1BFL4wuEsM7PzzCx75oi86X8U0AksAD+BP8BvYBPo/pfQj0CJsI6BaaA1b2gXcJkC9fXLCq8xsqdEpNEQ1yEin405swV8N3Rb0ZElpzOCSyLSYKzzzDnXlBVkPepzY5xZVvBBRM6veYLLEeCrPMG9EWBTrBW8HgFei4jNFrBj+JS2c4UqeMIAHs0drPD5KtC5mFymAZKAE0zkXFQu6+XKUqmyABqAPsABK8CyrvsB6/R7KmAj5Zg/eTETQBm48PwXahuLgdUCw8B6CvQbUAM0Au+BvSr3YBf4AKT/6YAhYAk4CSRYDMQPALfqvwYKwDt9CmpDOx8MATu1smq6AXoS+xxQVH8hkHdWfaeASzqbgR8Z0IomE3uXPF+b2vaBPV23e/7lukRhUyLSlXr+jyqLyFbC5ndxq+86bx38DCtVHxq7/RLY+6qj/msEzwQS9/P8crXok7xcfandxwqoB0aofjF3NaY+N7BXwLh2VfSARWIHyAvA/shc5X5sOrU9jMw7MJCohJJKrJkAAAAASUVORK5CYII="></i>
+            <i class="fa fa-circle fa-2x"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAACKgAAAioBtyI5mwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAHRSURBVEiJ7ZU9S11BEIZnVVBstBFEkdhoJwh+NFZa+EHS5BfYpQmCndfGf2DhD1ARGwXBTgQVm1QBQYQUSZEipFG8CfjBFfH6WDhX1+Oee2b1BFL4wuEsM7PzzCx75oi86X8U0AksAD+BP8BvYBPo/pfQj0CJsI6BaaA1b2gXcJkC9fXLCq8xsqdEpNEQ1yEin405swV8N3Rb0ZElpzOCSyLSYKzzzDnXlBVkPepzY5xZVvBBRM6veYLLEeCrPMG9EWBTrBW8HgFei4jNFrBj+JS2c4UqeMIAHs0drPD5KtC5mFymAZKAE0zkXFQu6+XKUqmyABqAPsABK8CyrvsB6/R7KmAj5Zg/eTETQBm48PwXahuLgdUCw8B6CvQbUAM0Au+BvSr3YBf4AKT/6YAhYAk4CSRYDMQPALfqvwYKwDt9CmpDOx8MATu1smq6AXoS+xxQVH8hkHdWfaeASzqbgR8Z0IomE3uXPF+b2vaBPV23e/7lukRhUyLSlXr+jyqLyFbC5ndxq+86bx38DCtVHxq7/RLY+6qj/msEzwQS9/P8crXok7xcfandxwqoB0aofjF3NaY+N7BXwLh2VfSARWIHyAvA/shc5X5sOrU9jMw7MJCohJJKrJkAAAAASUVORK5CYII=" alt=""></i>
              Enregistrements
              <ul class="hidden">
               <li onclick="location.href=\'registration_manager.php\';">Approbation</li>
@@ -94,7 +94,7 @@ function displayMenu(){
 
     if($typeu == 'administrator') {
         $result.= '<li>
-            <i class="fa fa-circle fa-2x"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAB2wAAAdsBV+WHHwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAGgSURBVEiJ7Za7SgNBFIb/8QYiFoIiFhJEBAsL0UqiFiKms7C1CIiInYWlhb6AL2DnKwgKgpVXEC2N4A0VC628IUhAP4tMYFw3m91kFYv8zbBz/jPf2ZmdmZUqqiiCgAZgBFgEtoAX4BqY9HpNmaBmSUlJQ5IGJfVLqvGxZiUljDH3+Q4/UyGIkdRnAUnbtoVMr5OUkrQaliegClgCbilPK6GhFjxfJjCvjDtuVQj2UKRKC6sbaPkBBsaBOaAXqHYSzmICG+W+i+8Cnp1peQJmnILi0rIfeN9jurD9TcBHTOCjH1Mtad9TSyfQaox5lJRRPOryA+/6GAcDYqXo2A+8J4kC4J0ygVlJ65LSvlHg1LMmh7a/vYT1XAcWgGGgPrAsYMWTvOHETgIgD8Cr83wTaT6AtJO8BjQ6sQHgzsYugVVgGui28TFy2xB8bqNi4CZgk9zZHOZU8+avWfBEMe+328lunVRUoKMr23YUM0Z+qyLKr23ir8Hntu2Jedxgkfv1eQM+gVmg9i/hUwHbLq4TsCB8FNgG3j3gg18FV/Sv9AVyf9LHA10BdQAAAABJRU5ErkJggg=="></i>
+            <i class="fa fa-circle fa-2x"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAB2wAAAdsBV+WHHwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAGgSURBVEiJ7Za7SgNBFIb/8QYiFoIiFhJEBAsL0UqiFiKms7C1CIiInYWlhb6AL2DnKwgKgpVXEC2N4A0VC628IUhAP4tMYFw3m91kFYv8zbBz/jPf2ZmdmZUqqiiCgAZgBFgEtoAX4BqY9HpNmaBmSUlJQ5IGJfVLqvGxZiUljDH3+Q4/UyGIkdRnAUnbtoVMr5OUkrQaliegClgCbilPK6GhFjxfJjCvjDtuVQj2UKRKC6sbaPkBBsaBOaAXqHYSzmICG+W+i+8Cnp1peQJmnILi0rIfeN9jurD9TcBHTOCjH1Mtad9TSyfQaox5lJRRPOryA+/6GAcDYqXo2A+8J4kC4J0ygVlJ65LSvlHg1LMmh7a/vYT1XAcWgGGgPrAsYMWTvOHETgIgD8Cr83wTaT6AtJO8BjQ6sQHgzsYugVVgGui28TFy2xB8bqNi4CZgk9zZHOZU8+avWfBEMe+328lunVRUoKMr23YUM0Z+qyLKr23ir8Hntu2Jedxgkfv1eQM+gVmg9i/hUwHbLq4TsCB8FNgG3j3gg18FV/Sv9AVyf9LHA10BdQAAAABJRU5ErkJggg==" alt=""></i>
              SURVEILLANCE
              <ul class="hidden">
               <li onclick="location.href=\'logs.php\';">Logs</li>
@@ -136,9 +136,9 @@ function displayIcons(){
                 <h1>Mail général</h1>
               </div>
               <div class="modal-body">
-                <form action="" method=""> <!-- Action to define -->
-                  <label for="mailTitle">Titre du mail :</label>
+                <form action="#" method="POST"> <!-- Action to define -->
                   <input type="text" name="mailTitle" class="mailTitle" placeholder="Insérer un titre..." required>
+                  <label>Titre du mail :</label>
                   <textarea class="mailContent" name="story">
                   </textarea>
                   <input type="submit" class="sendMail">

@@ -5,7 +5,7 @@
 		$dbconnexion = connectionDB();
 		$result =' <div class="table-users">
       				 <div class="header">Users</div>
-       				<table cellspacing="0">
+       				<table>
 				        <tr >
 		            	 <th>Profil</th>
 		            	 <th>N°Étudiant</th>
