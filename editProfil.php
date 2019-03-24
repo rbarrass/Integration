@@ -23,7 +23,7 @@ session_start();
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap1-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <title>Editer son profil</title>
@@ -46,10 +46,10 @@ session_start();
           box-shadow: 0 0 1px rgba(0,130,255, 0.075) inset, 0 0 4px rgba(0,130,255, 1);
           outline: 0 none;
       }
-      h5 {
+      p, h5 {
         text-align: center;
         font-size: 25px;
-        font-style: bold;
+        font-weight: bold;
         margin-bottom: 20px;
       }
       input[type=radio]{
@@ -86,9 +86,9 @@ session_start();
               </div>
               <div class="panel-body">
                 <form action="editProfil.php" method="POST" onsubmit="return moreInformations($_SESSION['idu'])" enctype="multipart/form-data">
+                  <h5>L'étudiant</h5>
                   <table class="table profile__table">
                     <tbody>
-                      <h5>L'étudiant</h5>
                       <tr>
                         <th><strong>Changer de photo de profil</strong></th>
                         <td><input type="file" name="profilimg" id="profilimg"></td>
@@ -132,7 +132,7 @@ session_start();
                       <tr>
                         <th><strong>Filière</strong></th>
                         <td>   <select name="newPromo" >
-                                <option value=""></option>
+                                <option value="">Pas de changement</option>
                                 <option value="Master SID">SID</option>
                                 <option value="Master RS">RS</option>
                                 <option value="Master STRC">STRC</option>
@@ -141,7 +141,7 @@ session_start();
                       <tr>
                         <th><strong>Groupe de TD</strong></th>
                         <td> <select name="newGroup" >
-                                <option value=""></option>
+                                <option value="">Pas de changement</option>
                                 <option value="A">A</option>
                                 <option value="B">B</option>
                                 <option value="C">C</option>
@@ -228,7 +228,7 @@ session_start();
                       <tr>
                         <th><strong>Affiliation</strong></th>
                         <td> <select name="newAff" >
-                                <option value=""></option>
+                                <option value="">Pas de changement</option>
                                 <option value="Chambre de commerce">Chambre de commerce</option>
                                 <option value="Chambre d'agriculture">Chambre d'agriculture</option>
                                 <option value="Chambre des métiers">Chambre des métiers</option>

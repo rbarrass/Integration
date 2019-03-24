@@ -9,15 +9,14 @@
   <meta charset="UTF-8">
   <title>Statistiques</title>
   <link rel="stylesheet" type="text/css" href="style.less" media="screen">
-  <script type="text/javascript" src="script.js"></script>
+  <script src="script.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
   <script src="https://www.chartjs.org/dist/2.7.3/Chart.bundle.js"></script>
   <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
-  <script type="text/javascript" src="barchart.studentJob.js"></script>
-  <script type="text/javascript" src="piechart.nbrUser.js"></script>
+  <script src="barchart.studentJob.js"></script>
+  <script src="piechart.nbrUser.js"></script>
 </head>
 <body>
-  </html>
 
     <?php
       echo displayIconLogout();
@@ -33,7 +32,6 @@
       </form>
     </div>
 
-	</html>
   <div id="container" style="width: 75%; margin-left: 20%;">
     <canvas id="canvas"></canvas>
   </div>
@@ -42,3 +40,4 @@
   </div>
 
 </body>
+</html>

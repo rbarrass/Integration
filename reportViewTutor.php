@@ -10,7 +10,7 @@
   <meta charset="UTF-8">
   <title>UCP Alter Master</title>
   <link rel="stylesheet" type="text/css" href="style.less" media="screen">
-  <script type="text/javascript" src="script.js"></script>
+  <script src="script.js"></script>
   <style>
 
 td {

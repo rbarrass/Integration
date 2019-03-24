@@ -42,8 +42,10 @@
       $array[16] = pg_fetch_array($req, null, PGSQL_ASSOC);
       $req = pg_query("SELECT typejob FROM users WHERE idu='".$idu."'") or die('Échec de la requête : ' . pg_last_error());
       $array[17] = pg_fetch_array($req, null, PGSQL_ASSOC);
+      $array[17]['typejob'] = str_replace("[/quote]", "'", $array[17]['typejob']);
       $req = pg_query("SELECT technologies FROM users WHERE idu='".$idu."'") or die('Échec de la requête : ' . pg_last_error());
       $array[18] = pg_fetch_array($req, null, PGSQL_ASSOC);
+      $array[18]['technologies'] = str_replace("[/quote]", "'", $array[18]['technologies']);
 
       $req = pg_query(" SELECT namei FROM institutions INNER JOIN users ON users.idi = institutions.idi WHERE idu='".$idu."'") or die('Échec de la requête : ' . pg_last_error());
       $array[19] = pg_fetch_array($req, null, PGSQL_ASSOC);

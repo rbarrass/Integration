@@ -21,7 +21,7 @@
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap1-css">
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -41,7 +41,7 @@
 		h5{
 			text-align: center;
         	font-size: 25px;
-        	font-style: bold;
+        	font-weight: bold;
         	margin-bottom: 20px;
 		}
 		*{
@@ -113,7 +113,7 @@
 		         	<h4 class="panel-title">User info</h4>
 		          	</div>
 		          	<div class="panel-body">
-		          		<h5>L'.$tmp.'étudiant</h4>
+		          		<h5>L'.$tmp.'étudiant</h5>
 		            	<table class="table profile__table">
 		              	<tbody>
 		              		<tr>

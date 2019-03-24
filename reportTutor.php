@@ -10,7 +10,7 @@
   <meta charset="UTF-8">
   <title>UCP Alter Master</title>
   <link rel="stylesheet" type="text/css" href="style.less" media="screen">
-  <script type="text/javascript" src="script.js"></script>
+  <script src="script.js"></script>
   <style>
     textarea {
       -webkit-transition: all 0.30s ease-in-out;
@@ -246,8 +246,9 @@ table tr:nth-child(2n+1) {
         $query = "SELECT nameu, surnameu, emailu FROM users INNER JOIN tutors ON users.idtut=tutors.idtut WHERE nametut='$nametuteur' AND surnametut='$surnametuteur'";
         $res = pg_query($query) or die('ERREUR SQL : '. $request .  pg_last_error());
         $result= '
-        <div class="choiceStudent">
+        
           <form action="reportTutor.php?name='.$nametuteur.'&surname='.$surnametuteur.'" method="post" enctype="multipart/form-data">
+          <div class="choiceStudent">
               <p><br/>Pour quel(le) élève voulez-vous écrire un compte-rendu ?</p>
               <table>
               ';
@@ -283,8 +284,8 @@ table tr:nth-child(2n+1) {
                 <textarea name="report" id="report"></textarea>
                 <input type="submit" name="submit2" value="Envoyer" />
               </div>
-          </form>
-        </div>';
+          
+        </div></form>';
         echo $result;
     ?>
     <?php

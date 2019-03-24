@@ -12,7 +12,7 @@
   <meta charset="UTF-8">
   <title>UCP Alter Master</title>
   <link rel="stylesheet" type="text/css" href="style.less" media="screen">
-  <script type="text/javascript" src="script.js"></script>
+  <script src="script.js"></script>
   <style>
     h2{
       color: green;
@@ -23,7 +23,6 @@
       background-color: #fffff1;
       cursor: default;
     }
-  </style>
   </style>
 </head>
 <body>

@@ -49,11 +49,14 @@ function displayPage(){
 	                                    Mot de passe oublié ?
 	                                </a>
 	                            </div>
-	                    </div>
+	                    
 	                    </form>
+	                    </div>
 	                </div>
 	            </div>
 	        </div>
+	        </div>
+	        </main>
 	            <!-- The Modal (contains the "forgot your password ?" from) -->
 	          <div class="modal" id="id01">
 	            <div class="modal-sandbox" id="around"></div>
@@ -72,8 +75,8 @@ function displayPage(){
 	                          </div>
 	                      </div>
 	                </div>
-	                <form action="" method=""> <!-- ACTION to define -->
-	                  <label for="mailToRetrieve">Votre mail utilisé sur votre compte :</label>
+	                <form action="#" method="POST"> <!-- ACTION to define -->
+	                  <label>Votre mail utilisé sur votre compte :</label>
 	                  <input type="text" name="mailToRetrieve" class="mailToRetrieve" placeholder="Mail du compte à récupérer..." required>
 	                  
 	                  <input type="submit" class="sendMail">
