@@ -99,7 +99,7 @@
 									             <td>'.$line3["namei"].'</td>
 								      	</tr>';
 					}
-					$result.='<tr>'.$promo.'</tr></table></div>
+					$result.='</table>
 				    </div>';
 			}
 
