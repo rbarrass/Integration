@@ -18,7 +18,7 @@ window.onload = function(){
             keyword=myObj;
             var color = Chart.helpers.color;
             var barChartData = {
-              labels: ['Master RS', 'Master SID', 'Master STRC'],
+              labels: ['Master RS', 'Master SID', 'Master STRC', 'Master 1'],
               datasets: [{
                 label: "Étudiant en recherche d'entreprise",
                 backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
@@ -26,8 +26,9 @@ window.onload = function(){
                 borderWidth: 1,
                 data: [
                   keyword[0], //Master RS
-                  keyword[1], // Master SID
-                  keyword[2], // Master STRC
+                  keyword[3], // Master SID
+                  keyword[6], // Master STRC
+                  keyword[9],
                   0 // for the origin
                 ]
               }, {
@@ -36,9 +37,10 @@ window.onload = function(){
                 borderColor: window.chartColors.blue,
                 borderWidth: 1,
                 data: [
-                  keyword[3],
+                  keyword[1],
                   keyword[4],
-                  keyword[5],
+                  keyword[7],
+                  keyword[10],
                   0
                 ]
               },{
@@ -47,12 +49,14 @@ window.onload = function(){
                 borderColor: window.chartColors.green,
                 borderWidth: 1,
                 data: [
-                  keyword[6],
-                  keyword[7],
+                  keyword[2],
+                  keyword[5],
                   keyword[8],
+                  keyword[11],
                   0
                 ]
-              }]
+              }
+              ]
 
             };
 
