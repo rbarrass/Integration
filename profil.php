@@ -1,7 +1,7 @@
 <?php
   require("functions/displayFunc.php");
   require("functions/main.func.php");
-  verifyIfConnected('profil.php');
+  //verifyIfConnected('profil.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,22 +51,21 @@
 </head>
 <body>
 	<?php 
-	//
 	if(isset($_GET['rand'])){
-
         $dbconn =connectionDB();
-        $req = pg_query("SELECT aleatu FROM users WHERE idu='".$_SESSION['idu']."'") or die('Échec de la requête : ' . pg_last_error());
-        $array[0] = pg_fetch_array($req, null, PGSQL_ASSOC);
-        
-
-        if($_GET['rand'] == $array[0]['aleatu']){
-            validProfile($_GET['idu']);
-            echo "<p style='color: green;'> Votre inscription a bien été validée !</p>";
-            pg_query("UPDATE users SET validationu = 'pending' WHERE users.idu='".$_SESSION['idu']."'") or die('Erreur dans la table users');
+        $req = pg_query("SELECT idu FROM users WHERE aleatu='".$_GET['rand']."'") or die('Échec de la requête : ' . pg_last_error());
+      	$idU = pg_fetch_result($req, 'idu');
+      	echo $_GET['rand'];	
+        echo $idU;
+        if($idU != NULL){
+            validProfile($idU);
+            echo "<p style='color: green;'> Votre inscription a bien été validée, un email sera envoyé à la gestionnaire qui va valider votre compte.</p>";            
         }
 
         closeDB($dbconn);
     }
+
+    verifyIfConnected('profil.php');
 
 	if(!empty($_GET['idu'])){
 		$tmp="'";
@@ -89,11 +88,18 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-offset-1 col-md-10">
-					<div class="col-md-offset-1 col-md-3">
-						<img src="pictures/profil_pic/default.png"
-	            		alt="" class="img-rounded img-responsive" id="profil_pic" />
-					</div>
-					<div class="col-md-offset-1 col-md-5">
+					<div class="col-md-offset-1 col-md-3">';
+					 // binary data unescaped
+                    $img = pg_unescape_bytea($array_profil[8]);
+
+                    // create the piture's name
+                    $fin = $_SESSION['idu'].".png";
+                    file_put_contents($fin, $img);
+
+                    // display the picture
+                    echo '<img src="'.$fin.'" alt="" class="img-rounded img-responsive" id="profil_pic"/>';
+                	echo '</div>
+                    	<div class="col-md-offset-1 col-md-5">
 						<blockquote id="info">
 		               		 <p>'.$array_profil[1]['nameu'].' '.$array_profil[2]['surnameu'].'</p> <small><cite title="Source Title">'.$array_profil[6]['adru'].'<i class="glyphicon glyphicon-map-marker"></i></cite></small>
 		           		 </blockquote>
@@ -128,7 +134,7 @@
 			                </tr>
 			                <tr>
 			                  <th><strong>Validation du compte</strong></th>
-			                  <td>'.$array_profil[8]['validationu'].'</td>	
+			                  <td>'.$array_profil[7]['validationu'].'</td>	
 			                </tr>
 			                <tr>
 			                  <th><strong>Validation du tuteur</strong></th>
@@ -159,6 +165,10 @@
 			               <h5>Le poste</h5>
 			               <table class="table profile__table">
 			               <tbody>
+			               <tr style="background-color: green;">
+			                  <th><strong>Nom et prénom du tuteur</strong></th>
+			                  <td>'.$array_profil[36]['nametut'].' '.$array_profil[37]['surnametut'].'</td>	
+			                </tr>
 			                <tr>
 			                  <th><strong>Date de début de contrat</strong></th>
 			                  <td>'.$array_profil[15]['begindate'].'</td>	

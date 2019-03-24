@@ -160,6 +160,9 @@ function approval(){
 		$dbconn = connectionDB();
 		$query = "UPDATE users SET validationU='allowed' WHERE idU='".$_POST['myid']."'";
 		$result = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
+
+		//Send an email to student
+		validStudent($_POST['myid']);
 		//We want to increment table.logs to save this action and keep an eye on registering requests
 		if (pg_last_error() == NULL) {
 			//Request to search id of account just created 
@@ -173,6 +176,7 @@ function approval(){
 			$result = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
 			$identity = pg_fetch_array($result,null,PGSQL_ASSOC);
 			$i=0;
+
 			//popup content
 			$display = '<p>Vous avez autorisé ';
 			foreach ($identity as $col_value) {

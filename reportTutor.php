@@ -87,6 +87,7 @@ th,td{
 }
 table {
   width: 100%;
+  border-spacing: 0;
 }
 table td, table th {
   color: #2b686e;
@@ -220,7 +221,7 @@ table tr:nth-child(2n+1) {
   </style>
 </head>
 <body>
-  <html>
+
     <?php
       echo displayIconLogout();
       echo displayMenu();
@@ -238,16 +239,17 @@ table tr:nth-child(2n+1) {
        
     <?php 
         $dbconnexion = connectionDB();
-
+        //On récuprère les informations concernant le tuteur connecté.
         $nametuteur=$_GET['name'];
         $surnametuteur=$_GET['surname'];
+        //On effectue une requête pour récupérer les noms et prénoms des étudiants sous le tutorat du professeur dans le but de faire des radio buttons pour faire un choix de l'élève dont on veut écrire le rapport
         $query = "SELECT nameu, surnameu, emailu FROM users INNER JOIN tutors ON users.idtut=tutors.idtut WHERE nametut='$nametuteur' AND surnametut='$surnametuteur'";
         $res = pg_query($query) or die('ERREUR SQL : '. $request .  pg_last_error());
         $result= '
         <div class="choiceStudent">
           <form action="reportTutor.php?name='.$nametuteur.'&surname='.$surnametuteur.'" method="post" enctype="multipart/form-data">
               <p><br/>Pour quel(le) élève voulez-vous écrire un compte-rendu ?</p>
-              <table cellspacing="0">
+              <table>
               ';
               while ($line = pg_fetch_array($res, null, PGSQL_ASSOC)) {
                 $result.='
@@ -264,6 +266,8 @@ table tr:nth-child(2n+1) {
                                 </tr>
                            ';
               }
+
+              //Ensuite on propose les deux formulaires suivant au tuteur. Celui-ci a donc la possibilité soit d'écrire sont compte rendu en quelques lignes dans une textarea soit il télécharge le fichier de compte rendu, il le remplit puis le re-dépose sur la plateforme
               $result.='
             </table>
             </div>
@@ -272,12 +276,12 @@ table tr:nth-child(2n+1) {
                 <p><b>Choix numéro 1 :</b> Téléchargez le docx ci-dessous, remplissez le puis re-déposez le dans le formulaire ci-contre</p>
                 <p><a href="pdf_files/fiche_compterendu.docx">Fiche de Compte-rendu</a></p>
                 <input type="file" name="tutfile" id="tutfile" onchange="loadFile(event)" />
-                <li><input type="submit" name="submit1" value="Envoyer" /></li>
+                <input type="submit" name="submit1" value="Envoyer" />
               </div>
               <div class="choiceTwo">
                 <p><b>Choix numéro 2 :</b> Faites votre compte-rendu en quelques lignes. </p>
                 <textarea name="report" id="report"></textarea>
-                <li><input type="submit" name="submit2" value="Envoyer" /></li>
+                <input type="submit" name="submit2" value="Envoyer" />
               </div>
           </form>
         </div>';
@@ -290,5 +294,5 @@ table tr:nth-child(2n+1) {
       
 
     ?>
-  </html>
 </body>
+</html>

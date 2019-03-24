@@ -20,10 +20,10 @@
       $array[5] = pg_fetch_array($req, null, PGSQL_ASSOC);
       $req = pg_query("SELECT adru FROM users WHERE idu='".$idu."'") or die('Échec de la requête : ' . pg_last_error());
       $array[6] = pg_fetch_array($req, null, PGSQL_ASSOC);
-      $req = pg_query("SELECT profilimgu FROM users WHERE idu='".$idu."'") or die('Échec de la requête : ' . pg_last_error());
-      $array[7] = pg_fetch_array($req, null, PGSQL_ASSOC);
       $req = pg_query("SELECT validationu FROM users WHERE idu='".$idu."'") or die('Échec de la requête : ' . pg_last_error());
-      $array[8] = pg_fetch_array($req, null, PGSQL_ASSOC);
+      $array[7] = pg_fetch_array($req, null, PGSQL_ASSOC);
+      $req = pg_query("SELECT profilimgu FROM users WHERE idu='".$idu."'") or die('Échec de la requête : ' . pg_last_error());
+      $array[8] = pg_fetch_result($req, 'profilimgu');
       $req = pg_query("SELECT validationtutu FROM users WHERE idu='".$idu."'") or die('Échec de la requête : ' . pg_last_error());
       $array[9] = pg_fetch_array($req, null, PGSQL_ASSOC);
       $req = pg_query("SELECT promotionu FROM users WHERE idu='".$idu."'") or die('Échec de la requête : ' . pg_last_error());
@@ -80,10 +80,11 @@
       $array[34] = pg_fetch_array($req, null, PGSQL_ASSOC);
       $req = pg_query("SELECT groupcl FROM classrooms WHERE idcl='".$array[33]['idcl']."'") or die('Échec de la requête : ' . pg_last_error());
       $array[35] = pg_fetch_array($req, null, PGSQL_ASSOC);
+      $req = pg_query("SELECT nametut FROM tutors INNER JOIN users ON users.idtut=tutors.idtut WHERE idu='".$idu."'") or die('Échec de la requête : ' . pg_last_error());
+      $array[36] = pg_fetch_array($req, null, PGSQL_ASSOC);
+      $req = pg_query("SELECT surnametut FROM tutors INNER JOIN users ON users.idtut=tutors.idtut WHERE idu='".$idu."'") or die('Échec de la requête : ' . pg_last_error());
+      $array[37] = pg_fetch_array($req, null, PGSQL_ASSOC);
 
-
-
-      if ($array[7]['profilimgu'] == "") $array[7]['profilimgu'] = "./pictures/profil_pic/default.png";
       pg_close($dbconn);
       return $array;
     }

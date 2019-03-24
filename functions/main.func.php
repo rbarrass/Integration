@@ -178,6 +178,28 @@ function moreInformations($idu){
 
   if(isset($_POST['editvalid'])){
 
+    if(isset($_FILES['profilimg']) && $_FILES['profilimg']!==''){
+
+      $img = $_FILES['profilimg']['name'];
+      $extensions = array('.png', '.gif', '.jpg', '.jpeg');
+      $extension = strrchr($_FILES['profilimg']['name'], '.');
+
+      if(!in_array($extension, $extensions)){
+        $error = 'Vous devez uploader un fichier de type png, gif, jpg ou jpeg...';
+      }
+      if(!isset($error)){
+
+          // Read a binary file
+          $data = file_get_contents($_FILES['profilimg']['tmp_name']);
+
+          // binary data escaped
+          $escaped = pg_escape_bytea($data);
+
+          pg_query("UPDATE users SET profilimgu='".$escaped."' WHERE idu='".$idu."' ") or die('Erreur dans la table users');
+
+      }
+    }
+
     if (isset($_POST['newname']) && $_POST['newname']!==''){
       //if the length of the new name is composed more than 30 characters do:
          if (strlen($_POST['newname']) > 30){
@@ -451,7 +473,7 @@ function send($idu){
 
   $req = pg_query("UPDATE users SET aleatu='".$rand."' WHERE idu='".$idu."'") or die('Échec de la requête : ' . pg_last_error());
 
-  $link="http://750753e8aec6466a9f63a2d1c3637885.yatu.ws/profil.php?rand=%22.$rand."; // à modifier
+  $link="http://750753e8aec6466a9f63a2d1c3637885.yatu.ws/profil.php?rand=".$rand; 
 
 
 
@@ -482,11 +504,13 @@ function send($idu){
 
 }
 
+
 function sendToSecretary($idu){
   include_once("connectDatabase.php");
 
   $dbconn =connectionDB();
 
+  // on récupere le nom et prénom de l'étudiant grâce à son id passé en parametre de la fonction
   $req = pg_query("SELECT nameu FROM users WHERE idu='".$idu."'") or die('Erreur dans la table users');
   $array[0] = pg_fetch_array($req, null, PGSQL_ASSOC);
 
@@ -502,15 +526,103 @@ function sendToSecretary($idu){
   $headers .= "MIME-Version: 1.0\n";
   $headers .= "Content-Type: text/html; boundary=\"$boundary\"";
 
-  $destinataire = "julom78@gmail.com";
+  $destinataire = "julien.castelain@outlook.fr";
 
   $subject = "Une inscription a été validée";
 
-  $message_txt  = "L'inscrption de ".$array[1]['surnameu']." ".$array[0]['nameu']." a bien été validée.\n\n";
+  // on écrit son nom et prénom ici
+  $message_txt  = "L'inscription de ".$array[1]['surnameu']." ".$array[0]['nameu']." a bien été validée.\n\n";
 
   $message_html  = "<html>\n";
   $message_html .= "<body>\n";
-  $message_html .= "<p>L'inscrption de ".$array[1]['surnameu']." ".$array[0]['nameu']." a bien été validée.</p><br><br>";
+  $message_html .= "<p>L'inscription de ".$array[1]['surnameu']." ".$array[0]['nameu']." a bien été validée.</p><br><br>";
+
+
+  $message = $message_html;
+  $message .= "\n\n";
+  $message .= "<p style='display:none;'>".$boundary."</p>\n";
+  $message .= "</body>\n";
+  $message .= "</html>\n";
+
+
+  mail($destinataire,$subject,$message,$headers);
+
+}
+
+function studentCreation($idu, $pwd){
+
+  //include_once("connectDatabase.php");
+
+  $dbconn =connectionDB();
+
+  // on récupere l'adresse de l'étudiant grâce à son id passé en parametre de la fonction
+  $req = pg_query("SELECT emailu FROM users WHERE idu='".$idu."'") or die('Erreur dans la table users');
+  $array[0] = pg_fetch_array($req, null, PGSQL_ASSOC);
+
+  closeDB($dbconn);
+
+  $boundary = "-----=" . md5( uniqid ( rand() ) );
+  $headers = "Reply-to: \"noReplyUCP\" <noReplyUCP@u-cergy.net>\n"; 
+  $headers .= "From: \"noReplyUCP\"<noReplyUCP@u-cergy.net>\n";
+
+  $headers .= "MIME-Version: 1.0\n";
+  $headers .= "Content-Type: text/html; boundary=\"$boundary\"";
+
+  $destinataire = $array[0]['emailu'];
+
+  $subject = "Création de votre compte plateforme UCP";
+
+  $link="http://750753e8aec6466a9f63a2d1c3637885.yatu.ws/connect.php?id=login"; 
+
+  $message_txt  = "Votre compte a été créé.\n Vos identifiants sont : \nEmail :".$destinataire."\nMot de passe :".$pwd."\nVeuillez cliquer sur ce lien pour vous connecter à votre compte :".$link."\n\n";
+
+  $message_html  = "<html>\n";
+  $message_html .= "<body>\n";
+  $message_html .= "<p>Votre compte a été créé.<br> Vos identifiants sont : <br>Email :".$destinataire."<br>Mot de passe :".$pwd."<br>Veuillez cliquer sur ce lien pour vous connecter à votre compte :".$link."</p><br><br>";
+
+
+  $message = $message_html;
+  $message .= "\n\n";
+  $message .= "<p style='display:none;'>".$boundary."</p>\n";
+  $message .= "</body>\n";
+  $message .= "</html>\n";
+
+
+  mail($destinataire,$subject,$message,$headers);
+
+}
+
+
+function validStudent($idu){
+
+  //include_once("connectDatabase.php");
+
+  $dbconn =connectionDB();
+
+  // on récupere l'adresse de l'étudiant grâce à son id passé en parametre de la fonction
+  $req = pg_query("SELECT emailu FROM users WHERE idu='".$idu."'") or die('Erreur dans la table users');
+  $array[0] = pg_fetch_array($req, null, PGSQL_ASSOC);
+
+  closeDB($dbconn);
+
+  $boundary = "-----=" . md5( uniqid ( rand() ) );
+  $headers = "Reply-to: \"noReplyUCP\" <noReplyUCP@u-cergy.net>\n"; 
+  $headers .= "From: \"noReplyUCP\"<noReplyUCP@u-cergy.net>\n";
+
+  $headers .= "MIME-Version: 1.0\n";
+  $headers .= "Content-Type: text/html; boundary=\"$boundary\"";
+
+  $destinataire = $array[0]['emailu'];
+
+  $subject = "Une inscription a été validée";
+
+  $link="http://750753e8aec6466a9f63a2d1c3637885.yatu.ws/connect.php?id=login"; 
+
+  $message_txt  = "Votre compte étudiant a bien été validé. Veuillez cliquer sur ce lien pour vous connecter à votre compte :".$link."\n\n";
+
+  $message_html  = "<html>\n";
+  $message_html .= "<body>\n";
+  $message_html .= "<p>Votre compte étudiant a bien été validé. Veuillez cliquer sur ce lien pour vous connecter à votre compte :".$link."</p><br><br>";
 
 
   $message = $message_html;
@@ -527,7 +639,7 @@ function sendToSecretary($idu){
 function validProfile($idu){
   include_once("connectDatabase.php");
   $dbconn = connectionDB();
-  pg_query("UPDATE users SET validationu='OK' WHERE idu='".$idu."'") or die('Erreur dans la table users');
+  pg_query("UPDATE users SET validationu='pending' WHERE idu='".$idu."'") or die('Erreur dans la table users');
   closeDB($dbconn);
 
   sendToSecretary($idu);

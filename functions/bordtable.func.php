@@ -22,14 +22,6 @@
 		         		</tr>';
 		if(!empty($_GET['psd'])){
 			$branch = $_GET['psd'];
-
-			/*
-			$currentdate = date('Y');
-			$requete = "SELECT DISTINCT promotionu FROM users";
-			$quer = pg_query($requete) or die('Echec de la requete : ' .pg_last_error());
-			$row = pg_fetch_array($quer, null, PGSQL_ASSOC);
-			$date = explode("-", $row);
-			if (((int)$date[0]<=$currentdate) && ($currentdate<=(int)$date[1])) {*/
 				if ($branch=="Alternants") {
 					$i=0;
 					$query2 = "SELECT student_idu, nameu, surnameu, emailu, validationu, nametut, namei, phoneu,adru,nationality,job,typejob FROM tutors INNER JOIN users ON tutors.idtut=users.idtut INNER JOIN institutions ON users.idi=institutions.idi WHERE typeu='student' AND validationu='allowed' ORDER BY nameu";
@@ -89,7 +81,7 @@
 			              </div>
 			            </div>
 			          </div> ';
-			//}
+			
 			}
 			if (!empty($_GET['promo'])) {
 					$promo = $_GET['promo'];
@@ -114,34 +106,5 @@
 		$dbclose = closeDB($dbconnexion);
 		return $result;
 	}
-
-	function statistics(){
-			$dbconnexion = connectionDB();
-			$result1 ='<div class="container">
-		      <ul class="responsive-table">
-		        <li class="table-header">
-		          <div class="col col-1">Nombre étudiants</div>
-		          <div class="col col-2">Nombre dalternance</div>
-		   
-		        </li>';
-				$query = "SELECT COUNT(*) AS count FROM users";
-				$res = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
-				while ($line = pg_fetch_array($res, null, PGSQL_ASSOC)){
-					$result1.='<li class="table-row">';
-		    		$result1.='<div class="col col-1" data-label="nbretu">'.$line["count"].'</div>';
-		    		$result1.='</li>';
-		    	}
-				$result1.='<li class="table-header">
-				          <div class="end">2018-2019</div>
-				        </li>
-				      </ul>
-				    </div>';
-
-		return $result1;
-	}
-
-
-
-
 
 ?>
