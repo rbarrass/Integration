@@ -429,7 +429,8 @@ function moreInformations($idu){
       if ( strlen($_POST['newmiss']) > 500 ){
          $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La description de la mission ne peut pas être supérieur à 500 caractères</p>";
       }else{
-        pg_query("UPDATE users SET typejob='".$_POST['newmiss']."' WHERE users.idu='".$idu."'") or die('Erreur dans la table users');
+        $newMiss = str_replace("'", "[/quote]", $_POST['newmiss']);
+        pg_query("UPDATE users SET typejob='".$newMiss."' WHERE users.idu='".$idu."'") or die('Erreur dans la table users');
       }
     }
 
@@ -438,7 +439,8 @@ function moreInformations($idu){
       if ( strlen($_POST['newtech']) > 500 ){
          $sizeError.="<p style='text-align: center; font-weight: bold; color: red;'>Erreur: La description des outils et technologies mises en oeuvre ne peut pas être supérieur à 500 caractères</p>";
       }else{
-        pg_query("UPDATE users SET technologies='".$_POST['newtech']."' WHERE users.idu='".$idu."'") or die('Erreur dans la table users');
+        $newTech = str_replace("'", "[/quote]", $_POST['newtech']);
+        pg_query("UPDATE users SET technologies='".$newTech."' WHERE users.idu='".$idu."'") or die('Erreur dans la table users');
       }
     }
 
