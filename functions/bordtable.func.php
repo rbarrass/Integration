@@ -24,16 +24,24 @@
 			$branch = $_GET['psd'];
 				if ($branch=="Alternants") {
 					$i=0;
-					$query2 = "SELECT student_idu, nameu, surnameu, emailu, validationu, nametut, namei, phoneu,adru,nationality,job,typejob FROM tutors INNER JOIN users ON tutors.idtut=users.idtut INNER JOIN institutions ON users.idi=institutions.idi WHERE typeu='student' AND validationu='allowed' ORDER BY nameu";
+					$query2 = "SELECT student_idu, nameu, surnameu, emailu, validationu, nametut, namei, phoneu,adru,nationality,job,typejob,profilimgu FROM tutors INNER JOIN users ON tutors.idtut=users.idtut INNER JOIN institutions ON users.idi=institutions.idi WHERE typeu='student' AND validationu='allowed' ORDER BY nameu";
 					$res2 = pg_query($query2) or die('Echec de la requête : ' .pg_last_error());
 					while ($line2 = pg_fetch_array($res2, null, PGSQL_ASSOC)) {
 							$i++;
-							if($i==4)
+							if($i==4){
 								$result.='<tr style="background-color:rgb(180,40,0,0.2);">';
-							else
+							}
+							else{
 								$result.='<tr>';
-				    		$result.='
-									             <td><img class="ppStudent" src="http://lorempixel.com/100/100/people/1" alt="" /></td>
+								// binary data unescaped
+			                    $img = pg_unescape_bytea($line2["profilimgu"]);
+
+			                    // create the piture's name
+			                    $fin = $line2["student_idu"].".png";
+			                    file_put_contents($fin, $img);
+
+				    			$result.='
+									             <td><img class="ppStudent" src="'.$fin.'" alt="" /></td>
 									             <td>'.$line2["student_idu"].'</td>
 									             <td>'.$line2["nameu"].'</td>
 									             <td>'.$line2["surnameu"].'</td>
@@ -46,6 +54,7 @@
 									             <td>'.$line2["job"].'</td>
 									             <td>'.$line2["typejob"].'</td>
 								      		</tr>';
+							}
 		
 				
 					}
@@ -55,11 +64,18 @@
 					$res1 = pg_query($query1) or die('Échec de la requête : ' . pg_last_error());
 					$line1 = pg_fetch_array($res1, null, PGSQL_ASSOC);
 					$id = $line1["idcl"];
-					$query = "SELECT student_idu, nameu, surnameu, emailu, validationu, nametut, namei FROM tutors INNER JOIN users ON tutors.idtut=users.idtut INNER JOIN institutions ON users.idi=institutions.idi WHERE idcl='$id' AND typeu='student' AND validationu='allowed' ORDER BY nameu";
+					$query = "SELECT student_idu, nameu, surnameu, emailu, validationu, nametut, namei, profilimgu FROM tutors INNER JOIN users ON tutors.idtut=users.idtut INNER JOIN institutions ON users.idi=institutions.idi WHERE idcl='$id' AND typeu='student' AND validationu='allowed' ORDER BY nameu";
 					$res = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
 					while ($line = pg_fetch_array($res, null, PGSQL_ASSOC)) {
+						// binary data unescaped
+			            $img = pg_unescape_bytea($line2["profilimgu"]);
+
+			            // create the piture's name
+			            $fin = $line2["student_idu"].".png";
+			            file_put_contents($fin, $img);
+
 						$result.='		<tr>
-									             <td><img class="ppStudent" src="http://lorempixel.com/100/100/people/1" alt="" /></td>
+									             <td><img class="ppStudent" src="'.$fin.'" alt="" /></td>
 									             <td>'.$line["student_idu"].'</td>
 									             <td>'.$line["nameu"].'</td>
 									             <td>'.$line["surnameu"].'</td>
