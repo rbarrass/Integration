@@ -93,7 +93,7 @@
                     $img = pg_unescape_bytea($array_profil[8]);
 
                     // create the piture's name
-                    $fin = $_SESSION['idu'].".png";
+                    $fin = "./pictures/profil_pic/".$_SESSION['idu'].".png";
                     file_put_contents($fin, $img);
 
                     // display the picture

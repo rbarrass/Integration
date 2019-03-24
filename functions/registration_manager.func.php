@@ -164,6 +164,7 @@ function approval(){
 		//Send an email to student
 		validStudent($_POST['myid']);
 		//We want to increment table.logs to save this action and keep an eye on registering requests
+		$dbconn = connectionDB();
 		if (pg_last_error() == NULL) {
 			//Request to search id of account just created 
 				

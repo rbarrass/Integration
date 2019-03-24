@@ -235,10 +235,10 @@ function register(){
       $userId = pg_fetch_result($resultUserId, 'idu');
 
       send($userId);
-
+      $dbconn = connectionDB();
       //Add a line in table.Logs with : action made/date/client ip/type of request(insert/delete/update)/and object concerned.
-      /*$request = "INSERT INTO logs VALUES(DEFAULT, 'manual supervisor registering', '".getTheDate()."', '".getIp()."', 'insert', null, '$userId', null, null, null, null, null, null)";
-      $resultat = pg_query($request) or die('ERREUR SQL : '. $request .   pg_last_error());*/
+      $request = "INSERT INTO logs VALUES(DEFAULT, 'student registering', '".getTheDate()."', '".getIp()."', 'insert', null, '$userId', null, null, null, null, null, null)";
+      $resultat = pg_query($request) or die('ERREUR SQL : '. $request .   pg_last_error());
     }
     $errorR = "null";
 
