@@ -36,7 +36,7 @@
 			                    $img = pg_unescape_bytea($line2["profilimgu"]);
 
 			                    // create the piture's name
-			                    $fin = $line2["student_idu"].".png";
+			                    $fin = "./pictures/profil_pic/".$line2["student_idu"].".png";
 			                    file_put_contents($fin, $img);
 
 				    			$result.='
@@ -66,10 +66,10 @@
 					$res = pg_query($query) or die('Échec de la requête : ' . pg_last_error());
 					while ($line = pg_fetch_array($res, null, PGSQL_ASSOC)) {
 						// binary data unescaped
-			            $img = pg_unescape_bytea($line2["profilimgu"]);
+			            $img = pg_unescape_bytea($line["profilimgu"]);
 
 			            // create the piture's name
-			            $fin = $line2["student_idu"].".png";
+			            $fin = "./pictures/profil_pic/".$line["student_idu"].".png";
 			            file_put_contents($fin, $img);
 
 						$result.='		<tr>
@@ -105,7 +105,7 @@
 			            $img = pg_unescape_bytea($line3["profilimgu"]);
 
 			            // create the piture's name
-			            $fin = $line2["student_idu"].".png";
+			            $fin = "./pictures/profil_pic/".$line3["student_idu"].".png";
 			            file_put_contents($fin, $img);
 
 							$result.='
