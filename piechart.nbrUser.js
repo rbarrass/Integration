@@ -1,5 +1,10 @@
    /*Barrasset Raphaël, Castelain Julien, Ducroux Guillaume, Saint-Amand Matthieu  L3i 2019
   raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
+
+  /* 
+   * This file allow to build a graphic which will be shows the distribution of 
+   * students registered on the website 
+   */
 var myObj= new Array();
 var keyword=new Array();
   // We retrieve here, with JSon a php object ( an array ), to communicate between server-side and client-side

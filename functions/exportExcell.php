@@ -17,7 +17,7 @@
 
   $flag = false;
   $dbconn=connectionDB();
-  $result = pg_query("SELECT student_idu,nameu,surnameu,genderu,emailu,phoneu,adru,typeu,validationu FROM users ORDER BY student_idu") or die('Query failed!');
+  $result = pg_query("SELECT student_idu, nameu, surnameu, emailu, phoneu, promotionu, nationality, institutions.namei, tutors.nametut, tutors.surnametut FROM users INNER JOIN tutors ON users.idtut=tutors.idtut INNER JOIN institutions ON users.idi=institutions.idi  ORDER BY student_idu") or die('Query failed!');
   while(false !== ($row = pg_fetch_assoc($result))) {
     if(!$flag) {
       // display field/column names as first row

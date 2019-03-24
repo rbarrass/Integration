@@ -1,5 +1,10 @@
    /*Barrasset Raphaël, Castelain Julien, Ducroux Guillaume, Saint-Amand Matthieu  L3i 2019
   raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
+
+  /* 
+   * This file allows to build a graphic which will show the distribution of students following 
+   * the kind of contract.
+   */
 var myObj= new Array();
 var keyword=new Array();
 window.onload = function(){
@@ -20,9 +25,9 @@ window.onload = function(){
                 borderColor: window.chartColors.red,
                 borderWidth: 1,
                 data: [
-                  4, //Master RS
-                  4, // Master SID
-                  keyword[0], // Master STRC
+                  keyword[0], //Master RS
+                  keyword[1], // Master SID
+                  keyword[2], // Master STRC
                   0 // for the origin
                 ]
               }, {
@@ -31,9 +36,9 @@ window.onload = function(){
                 borderColor: window.chartColors.blue,
                 borderWidth: 1,
                 data: [
-                  2,
-                  5,
-                  keyword[1],
+                  keyword[3],
+                  keyword[4],
+                  keyword[5],
                   0
                 ]
               },{
@@ -42,9 +47,9 @@ window.onload = function(){
                 borderColor: window.chartColors.green,
                 borderWidth: 1,
                 data: [
-                  2,
-                  7,
-                  keyword[2],
+                  keyword[6],
+                  keyword[7],
+                  keyword[8],
                   0
                 ]
               }]
