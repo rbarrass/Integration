@@ -154,23 +154,39 @@ function accountCreation(){
 
 		//Creation of a randompassword 10 char long
 		$pwd = bin2hex(openssl_random_pseudo_bytes(5));
-		//$pwd = 'qsdqsdqsd';
-		
+
 		//Crypting it
       	$password_hash = crypt($pwd, 'rl');
 		
 		//request to create line in table.users or table.tutors(simple or vip)
 		if ($_POST['targettype'] == "tutor"){
 			$request = "INSERT INTO tutors VALUES(DEFAULT, '".$_POST['targetname']."', '".$_POST['targetsurname']."', '".$_POST['targetemail']."', '$password_hash', 'false')";
+			$resultat = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
+
+			$req = pg_query("SELECT idtut FROM tutors WHERE emailtut='".$_POST['targetemail']."'") or die('Échec de la requête : ' . pg_last_error());
+	      	$idU = pg_fetch_result($req, 'idtut');
 
 		}elseif ($_POST['targettype'] == "tutorVip") {
 			$request = "INSERT INTO tutors VALUES(DEFAULT, '".$_POST['targetname']."', '".$_POST['targetsurname']."', '".$_POST['targetemail']."', '$password_hash', 'true')";
+			$resultat = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
+
+			$req = pg_query("SELECT idtut FROM tutors WHERE emailtut='".$_POST['targetemail']."'") or die('Échec de la requête : ' . pg_last_error());
+	      	$idU = pg_fetch_result($req, 'idtut');
 		
 		}else{
-		$request = "INSERT INTO users VALUES(DEFAULT, '', '".$_POST['targetname']."', '".$_POST['targetsurname']."', ' ', '".$_POST['targetemail']."', ' ', ' ', '$password_hash', ' ', '".$_POST['targettype']."', 'allowed')";
+			$request = "INSERT INTO users VALUES(DEFAULT, '', '".$_POST['targetname']."', '".$_POST['targetsurname']."', ' ', '".$_POST['targetemail']."', ' ', ' ', '$password_hash', '".$_POST['targettype']."', 'allowed', ' ', '2018-2020','1', '',DEFAULT,' ',DEFAULT,DEFAULT,' ',' ',' ','1', '1', '1', '', '')";
+			$resultat = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
+			//For mail
+			$req = pg_query("SELECT idu FROM users WHERE emailu='".$_POST['targetemail']."'") or die('Échec de la requête : ' . pg_last_error());
+	      	$idU = pg_fetch_result($req, 'idu');
 		}
-		$resultat = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
+		
 
+		closeDB($dbconn);
+		//Send pwd to user
+		studentCreation($idU, $pwd);
+
+		$dbconn = connectionDB();
 		//We want to increment table.logs to save this action and keep an eye on registering requests
 		if (pg_last_error() == NULL) {
 			//Request to search id of account just created 
@@ -193,6 +209,8 @@ function accountCreation(){
 		
 			$resultat = pg_query($request) or die('ERREUR SQL : '. $request . 	pg_last_error());
 		}
+		closeDB($dbconn);
+
 
 		$errorR="inser ok";
 		return $errorR;

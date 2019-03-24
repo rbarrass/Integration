@@ -75,17 +75,7 @@ session_start();
               <span class="navbar-toggler-icon"></span>
           </button>
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav ml-auto">
-                  <li class="nav-item">
-                      <a class="nav-link" href="connect.php?id=login" style="color: #00BFFF;">Connexion</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="connect.php?id=register" style="color: #00BFFF;">Enregistrement</a>
-                  </li>
-              </ul>
-
-          </div>
+        
       </div>
   </nav>
   <div class="container">
