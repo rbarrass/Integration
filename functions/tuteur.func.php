@@ -1,5 +1,6 @@
 <?php
-	
+	  /*Barrasset Raphaël, Castelain Julien, Ducroux Guillaume, Saint-Amand Matthieu  L3i 2019
+  raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
 	require('connectDatabase.php');
 	/*
 	The function dispBordtutor allows to display the two tables of the tutor.php page which makes it possible to show to the tutor the students of which he is the guardian and the other table allows him to see the students who still do not have a tutor, be able to look at the missions they will have in the company and make a request to tutor them. These tables are dynamic according to the name and surname of the tutor connected. At the connection we pass this information in the url using a $ _GET. Then we get the $ _GET to compose the SQL queries with.

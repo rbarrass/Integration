@@ -1,5 +1,6 @@
 <?php
-
+  /*Barrasset Raphaël, Castelain Julien, Ducroux Guillaume, Saint-Amand Matthieu  L3i 2019
+  raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
 function displayPage(){
 	ini_set("display_errors",0);error_reporting(0); //to hide the index error when the page run without attributs in url
 	if($_GET['id']=='login'){
