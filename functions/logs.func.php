@@ -1,6 +1,8 @@
 <?php
 /*Barrasset Raphaël, Castelain Julien, Ducroux Guillaume, Saint-Amand Matthieu	L3i 2019
 raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
+
+/*For the admin page, display a table of logs for the flux made on the website */
 require('connectDatabase.php');
 function displayLogs(){
 	$dbconn = connectionDB();

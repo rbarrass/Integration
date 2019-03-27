@@ -2,7 +2,7 @@
   /*Barrasset Raphaël, Castelain Julien, Ducroux Guillaume, Saint-Amand Matthieu  L3i 2019
   raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
 	require('connectDatabase.php');
-
+	/* Allow to display the table for the supervisor page */
 	function displayBordTable(){
 		$dbconnexion = connectionDB();
 		$result =' <div class="table-users">

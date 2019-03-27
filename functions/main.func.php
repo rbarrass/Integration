@@ -1,6 +1,8 @@
 <?php
   /*Barrasset Raphaël, Castelain Julien, Ducroux Guillaume, Saint-Amand Matthieu  L3i 2019
   raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
+
+/* all the functions grouped and used on the pages of the website */
 require('menu_icons.php');
 
 function autorizedChar($strchain, $index){

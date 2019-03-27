@@ -1,6 +1,8 @@
 <?php
   /*Barrasset Raphaël, Castelain Julien, Ducroux Guillaume, Saint-Amand Matthieu  L3i 2019
   raphael.barrasset@gmail.com, julom78@gmail.com, g.ducroux@outlook.fr, throwaraccoon@gmail.com*/
+
+  /*the suggestions in the search bar are managed dynamically, all information is displayed as the user enters a character.  */
 require('connectDatabase.php');
 if(isset($_POST['search'])){
 	searchStudent();
